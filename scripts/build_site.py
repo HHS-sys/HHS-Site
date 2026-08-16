@@ -256,33 +256,33 @@ SERVICES: dict[str, dict] = {
         "related": ["structural-layout", "water-damage", "commercial"],
     },
     "water-damage": {
-        "name": "Water Damage Repairs",
-        "card_name": "Water Damage",
-        "title": "Water Damage Repairs London ON | Hekman Home Services",
-        "description": "Repair and rebuilding after water damage in London, Ontario, including drywall, ceilings, flooring, trim and finish work.",
-        "hero": "salon-water-damage-1.jpg",
-        "hero_alt": "Water-damaged ceiling opened for commercial repair",
+        "name": "Restoration & Damage Repairs",
+        "card_name": "Restoration & Damage",
+        "title": "Water Damage & Restoration Repairs London ON | Hekman",
+        "description": "Restorative construction and water-damage repairs in London, Ontario, including damaged drywall, ceilings, flooring, trim, insulation and finish work.",
+        "hero": "salon-water-damage-2.jpg",
+        "hero_alt": "Damaged ceiling opened to reveal the area requiring restorative repair",
         "position": "50% 45%",
-        "lead": "Once the source of the water is corrected, rebuild damaged walls, ceilings, floors and finishes with one coordinated scope.",
-        "intro": "A leak can affect several materials beyond the point where water first appears. We focus on the repair and rebuilding work after the source has been identified and addressed.",
+        "lead": "When damage interrupts a home or business, rebuild the affected space with one clear plan—from opening the problem area to restoring the final finish.",
+        "intro": "Restoration work rarely begins as a planned renovation. It may start with a leak, a damaged ceiling, an opened wall or a repair that left the room unfinished. Once the source and any immediate safety concerns have been addressed, Hekman Home Services can coordinate the construction work that puts the affected space back together.",
         "scope": [
-            ("Remove damaged finishes", "Affected drywall, ceiling material, flooring or trim can be opened or removed as the repair requires."),
-            ("Rebuild surfaces", "Damaged materials are replaced and finished back toward a complete wall, ceiling or floor."),
-            ("Reconnect the room", "Trim, transitions and paint-ready surfaces help the repaired area fit back into the surrounding space."),
+            ("Understand what was affected", "Document the visible damage and identify which walls, ceilings, floors, insulation or finishes belong in the repair scope."),
+            ("Open, repair & rebuild", "Remove affected finishes where required, complete the agreed rebuilding work and coordinate the connected surfaces in the right order."),
+            ("Make the space feel whole again", "Drywall, trim, transitions, primer and paint bring the repair back into the surrounding home or business."),
         ],
-        "bullets": ["Drywall and ceiling rebuilding", "Flooring replacement", "Trim and baseboard repair", "Repairs after leak correction", "Multi-surface restoration", "Primer, paint and finish options"],
+        "bullets": ["Repairs after leaks and water damage", "Damaged drywall and ceiling rebuilding", "Insulation and wall-cavity restoration", "Flooring, trim and baseboard repair", "Residential and commercial restoration", "Primer, paint and final finish work"],
         "gallery": [
-            ("salon-water-damage-1.jpg", "Water-damaged ceiling opened to expose affected material", "Water damage documented"),
-            ("salon-water-damage-2.jpg", "Second view of opened commercial ceiling after a leak", "Repair area opened"),
-            ("salon-drywall-rebuild.jpg", "Commercial walls and ceiling after new drywall and compound", "Drywall rebuilding"),
-            ("salon-after-1.jpg", "Finished London salon interior after commercial repairs", "Completed commercial space"),
+            ("salon-water-damage-2.jpg", "Damaged ceiling opened to expose the affected construction", "Ceiling damage opened for repair"),
+            ("salon-drywall-rebuild.jpg", "Ceiling and wall surfaces being rebuilt with new drywall and compound", "Drywall restoration in progress"),
+            ("salon-after-1.jpg", "Bright working salon after water-damage restoration", "Commercial space restored"),
+            ("project-014.jpg", "Smooth completed ceiling after repair and finish work", "Completed ceiling finish"),
         ],
         "faq": [
             ("Do you stop the active leak?", "The source should be identified and corrected first. Our scope can focus on removal, repair and rebuilding afterward."),
             ("Can drywall and flooring be repaired together?", "Yes. One quote can include several affected finishes where appropriate."),
             ("Can you review an insurance repair scope?", "We can review the requested work and prepare our own quote based on the actual site conditions and repair scope."),
         ],
-        "related": ["drywall-ceiling-repair", "flooring", "bathrooms"],
+        "related": ["drywall-ceiling-repair", "commercial", "handyman-repairs"],
     },
     "commercial": {
         "name": "Commercial Maintenance & Repairs",
@@ -302,13 +302,9 @@ SERVICES: dict[str, dict] = {
         "bullets": ["Commercial drywall and water-damage repairs", "Pot lights and ceiling finish work", "Salon, retail, office-kitchen and fitness-space improvements", "Plumbing fixtures, doors, trim and painting", "Grouped maintenance lists", "Rental and managed-property repairs"],
         "gallery": [
             ("salon-after-2.jpg", "Completed London salon interior", "Salon commercial work"),
-            ("salon-after-1.jpg", "Long view of finished salon stations and lighting", "Finished salon interior"),
-            ("salon-water-damage-1.jpg", "Water-damaged commercial ceiling opened for repair", "Water-damage repair"),
-            ("salon-drywall-rebuild.jpg", "Commercial room during drywall rebuilding", "Drywall restoration"),
-            ("project-046.jpg", "Existing commercial fitness-space ceiling and lighting conditions", "Ceiling and lighting scope"),
-            ("project-049.jpg", "Commercial ceiling work in progress", "Ceiling work in progress"),
-            ("project-050.jpg", "Commercial fitness interior after maintenance work", "Completed fitness space"),
-            ("project-054.jpg", "Finished commercial interior", "Finished workspace"),
+            ("project-045.jpg", "Original box-style fluorescent fixtures in a London fitness facility", "Before: older light fixtures"),
+            ("project-049.jpg", "Hekman Home Services team replacing commercial lighting from scaffolding and ladders", "During: lighting replacement"),
+            ("project-048.jpg", "Fitness facility illuminated by the completed LED lighting upgrade", "After: LED lighting"),
             ("kitchenette-before-wide.jpg", "Dated office kitchen before the renovation", "Office kitchen before"),
             ("kitchenette-after-wide.jpg", "Completed office kitchen with new cabinets, counter and sink", "Office kitchen complete"),
         ],
@@ -452,15 +448,16 @@ SERVICE_CARD_VARIANTS: dict[str, list[tuple[str, str]]] = {
         ("project-103.jpg", "Completed elevated wood deck at a residential property"),
     ],
     "water-damage": [
-        ("salon-water-damage-1.jpg", "Commercial ceiling opened after water damage in a London salon"),
-        ("salon-water-damage-2.jpg", "Water-damaged salon ceiling prepared for repair"),
-        ("salon-drywall-rebuild.jpg", "Salon ceiling and drywall being rebuilt after leak damage"),
+        ("salon-water-damage-2.jpg", "Damaged ceiling opened for restorative repair"),
+        ("salon-drywall-rebuild.jpg", "Ceiling and wall surfaces being rebuilt with drywall and compound"),
+        ("salon-after-1.jpg", "Working salon returned to a clean finish after water damage"),
+        ("project-014.jpg", "Smooth completed ceiling after repair and finishing"),
     ],
     "commercial": [
-        ("project-054.jpg", "Completed commercial fitness space after ceiling and lighting work"),
+        ("project-048.jpg", "Commercial fitness space after an LED lighting upgrade"),
         ("kitchenette-after-wide.jpg", "Completed staff kitchen in a London commercial property"),
         ("salon-after-1.jpg", "Completed London salon stations and lighting"),
-        ("project-049.jpg", "Commercial fitness-space ceiling work in progress"),
+        ("project-049.jpg", "Commercial lighting replacement in progress from scaffolding and ladders"),
         ("salon-after-2.jpg", "Finished London salon interior"),
     ],
     "structural-layout": [
@@ -759,7 +756,7 @@ def service_card(slug: str, *, compact: bool = False, variant: int = 0) -> str:
 def homepage() -> str:
     featured = "".join(service_card(slug) for slug in SERVICE_DISPLAY_ORDER[:9])
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations & repairs · London, Ontario", "Thoughtful London renovations, built from the inside out.", "Bathrooms, kitchens and basements. Carpet, vinyl and hardwood. Drywall, painting, insulation, pot lights and plumbing. Decks, fences, structural changes, home repairs and commercial maintenance—planned as one complete scope.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "From bathrooms, kitchens and basements to flooring, drywall, lighting, plumbing, exterior work, restoration and commercial maintenance, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
@@ -811,10 +808,10 @@ def homepage() -> str:
           <div class="photo-stack reveal"><img src="/project-070.jpg" alt="Hekman Home Services team" loading="lazy"><div class="photo-note"><strong>Hands-on, local service</strong><span>Respect for your home and clear communication throughout the work.</span></div></div>
         </div>
       </section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a project in mind?</p><h2>Let’s talk about what needs to change.</h2><p>Send the location, a short description and the best way to reach you.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture what could work better?</p><h2>Start with the room—or repair—you keep thinking about.</h2><p>Send a few photos and tell us what is not working now. Rene and Steph will help turn that starting point into a practical next step.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>
     """
-    return page("Renovations & Repairs London ON | Hekman Home Services", "Hekman Home Services provides London, Ontario renovations and repairs, including kitchens, bathrooms, flooring, drywall, handyman work and commercial maintenance.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
+    return page("Renovations, Repairs & Restoration London ON | Hekman", "Hekman Home Services provides thoughtful renovations, restorative repairs, flooring, drywall, handyman work and commercial maintenance in London, Ontario.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
 
 
 def services_page() -> str:
@@ -897,39 +894,35 @@ def commercial_showcase() -> str:
     return f"""
     <section class="section section-paper commercial-showcase" id="commercial-salon">
       <div class="wrap">
-        {section_heading("Commercial project spotlight", "A London salon: repair, rebuild and finish.", "One commercial maintenance project brought together water-damage repair, drywall restoration, lighting upgrades and a fixture repair while respecting the needs of an active salon.")}
+        {section_heading("Commercial work in context", "Different businesses. Different problems. The same practical approach.", "A salon recovering from water damage, a fitness facility replacing outdated lighting and an office kitchen that needed to work better—each project was shaped around the business using the space.")}
         <article class="case-study reveal">
           <div class="case-study-copy">
-            <p class="eyebrow">Commercial salon · London</p>
-            <h3>Restoring a working salon after a water leak</h3>
-            <p>Damaged ceiling material was opened and removed so the affected area could be addressed. New drywall was installed, taped, finished and prepared for paint, with the surrounding commercial space brought back to a clean finish.</p>
+            <p class="eyebrow">Restoration · working salon</p>
+            <h3>Water damage does not care that a business needs to stay open.</h3>
+            <p>This London salon needed restorative work after a water leak. The goal was not to redesign its identity; it was to complete the necessary construction repairs and return the working space to the bright, polished setting its clients already knew.</p>
             <ul>
-              <li>Water-damaged ceiling and drywall removal</li>
-              <li>Drywall rebuilding, taping, compound and finishing</li>
-              <li>Lighting upgrades and related ceiling work</li>
-              <li>Toilet repair and compatible maintenance items</li>
+              <li>Commercial water-damage restoration</li>
+              <li>Repair work planned around an active business</li>
+              <li>Walls, ceilings and connected finish work</li>
+              <li>A clean, functional space ready for clients again</li>
             </ul>
-            <p class="case-note">The work moved through several affected areas of the salon—from opening damaged ceiling sections to rebuilding drywall and completing the surrounding finish.</p>
             <a class="text-link dark-link" href="/projects/commercial-salon-repair/">Read the full salon project story <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="case-study-media case-study-media-five">
-            <figure><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened inside a London salon" loading="lazy"><figcaption>Damage documented</figcaption></figure>
-            <figure><img src="/salon-water-damage-2.jpg" alt="Second affected ceiling area opened after the salon leak" loading="lazy"><figcaption>Affected material opened</figcaption></figure>
-            <figure><img src="/salon-drywall-rebuild.jpg" alt="New drywall and compound during the salon rebuild" loading="lazy"><figcaption>Drywall rebuild</figcaption></figure>
-            <figure><img src="/salon-after-1.jpg" alt="Completed London salon stations and lighting" loading="lazy"><figcaption>Completed salon</figcaption></figure>
-            <figure><img src="/salon-after-2.jpg" alt="Finished London salon interior with mirrors and workstations" loading="lazy"><figcaption>Finished commercial space</figcaption></figure>
+          <div class="case-study-media case-study-media-four">
+            <figure><img src="/salon-after-1.jpg" alt="Long view through the restored London salon interior" loading="lazy"><figcaption>Working space restored</figcaption></figure>
+            <figure><img src="/salon-after-2.jpg" alt="Completed salon with mirrors, stations and lighting" loading="lazy"><figcaption>Ready to welcome clients</figcaption></figure>
           </div>
         </article>
         <article class="case-study case-study-compact reveal">
           <div class="case-study-copy">
-            <p class="eyebrow">Commercial facility work</p>
-            <h3>Fitness-space ceiling and lighting improvements</h3>
-            <p>Commercial ceiling access, lighting-related work and finishing were coordinated through an occupied fitness facility, with progress and completed-space photography kept together as one documented project.</p>
+            <p class="eyebrow">Fitness facility · LED upgrade</p>
+            <h3>Better light for a space built around movement.</h3>
+            <p>Older box-style fluorescent fixtures were replaced with streamlined LED lighting. The before, installation and completed views below follow one facility and one clear improvement—better, more consistent light across the gym floor.</p>
           </div>
           <div class="case-study-media case-study-media-three">
-            <figure><img src="/project-045.jpg" alt="Commercial fitness-space ceiling and lighting detail" loading="lazy"><figcaption>Scope detail</figcaption></figure>
-            <figure><img src="/project-049.jpg" alt="Commercial fitness-space ceiling work in progress" loading="lazy"><figcaption>Work in progress</figcaption></figure>
-            <figure><img src="/project-054.jpg" alt="Completed fitness facility after ceiling and lighting work" loading="lazy"><figcaption>Completed facility</figcaption></figure>
+            <figure><img src="/project-045.jpg" alt="Older box-style fluorescent fixtures before the fitness-space lighting upgrade" loading="lazy"><figcaption>Before: older fixtures</figcaption></figure>
+            <figure><img src="/project-049.jpg" alt="Crew replacing fitness-space lighting from scaffolding and ladders" loading="lazy"><figcaption>During: fixture replacement</figcaption></figure>
+            <figure><img src="/project-048.jpg" alt="Fitness facility after the completed LED lighting upgrade" loading="lazy"><figcaption>After: LED lighting installed</figcaption></figure>
           </div>
         </article>
         <article class="case-study case-study-compact reveal">
@@ -961,16 +954,19 @@ def service_page(slug: str) -> str:
         for variant, related_slug in enumerate(item["related"], 2)
     )
     showcase = bathroom_showcase() if slug == "bathrooms" else commercial_showcase() if slug == "commercial" else ""
+    gallery_section = "" if slug == "commercial" else f"""
+      <section class="section section-stone"><div class="wrap">{section_heading("Details from real projects", "See what careful work looks like.", "Preparation, progress and finished spaces from Hekman Home Services work in London and nearby communities.")}<div class="gallery-grid">{gallery}</div><div class="section-actions reveal"><a class="button button-dark" href="/projects/">View More Projects</a></div></div></section>
+    """
     body = f"""
     {hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'], small=True, position=item['position'])}
     <main id="main">
       <section class="section section-paper"><div class="wrap service-intro"><div class="reveal"><p class="eyebrow">Thoughtful project planning</p><h2>Built around what the space needs.</h2><p>{item['intro']}</p><a class="text-link dark-link" href="/contact/#quote">Discuss your project <span aria-hidden="true">↗</span></a></div><ul class="scope-list reveal">{bullets}</ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What the work can include", "A complete scope, not disconnected pieces.", "The exact work depends on existing conditions, selected materials and the result you want.")}<div class="proof-grid">{scope}</div></div></section>
       {showcase}
-      <section class="section section-stone"><div class="wrap">{section_heading("Details from real projects", "See what careful work looks like.", "Preparation, progress and finished spaces from Hekman Home Services work in London and nearby communities.")}<div class="gallery-grid">{gallery}</div><div class="section-actions reveal"><a class="button button-dark" href="/projects/">View More Projects</a></div></div></section>
+      {gallery_section}
       <section class="section section-paper"><div class="wrap faq-layout"><div class="reveal"><p class="eyebrow">Common questions</p><h2>Helpful before the walkthrough.</h2><p>The final scope depends on your property, materials and existing conditions.</p></div><div class="faq-list">{faqs}</div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Related services", "The connected work matters too.", "Many renovations involve more than one surface or room. These services are often part of the same conversation.")}<div class="service-grid related-grid">{related}</div></div></section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Ready to talk it through?</p><h2>Show us the space.</h2><p>Send the location, a project description and the best way to reach you.</p></div><div><a class="button button-primary" href="/contact/#quote">Start Your Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Thinking about this project?</p><h2>Show us what you’re working with.</h2><p>You do not need a finished design or every decision made. A few photos and a clear description are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page(item["title"], item["description"], service_url(slug), item["hero"], "services", body, "service-page")
 
@@ -1043,20 +1039,17 @@ def westmount_project_page() -> str:
 
 def salon_project_page() -> str:
     body = f"""
-    {hero("salon-after-2.jpg", "Completed London salon after commercial repairs", "Commercial project · London, Ontario", "Restoring a working salon after a water leak.", "Water-damaged ceiling and drywall, lighting upgrades and compatible maintenance work were coordinated into one commercial repair scope.", small=True, position="50% 56%")}
+    {hero("salon-after-1.jpg", "Restored London salon after water-damage repairs", "Commercial restoration · London, Ontario", "A working salon, restored after water damage.", "When an unexpected leak interrupted the space, the goal was clear: complete the necessary restoration work and help the business feel ready for clients again.", small=True, position="50% 56%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Commercial repair &amp; restoration</p><h2>The damage crossed rooms. The repair had to connect them again.</h2><p>A water leak affected ceiling and drywall areas inside a working London salon. Damaged material was opened and removed, the areas were allowed to dry and prepared, then new drywall was installed, taped, compounded, sanded and painted.</p><p>The broader visit also included lighting upgrades, a toilet repair and related kitchenette work—grouping compatible maintenance so the salon could return to a clean, functional finish.</p></div><ul class="scope-list reveal"><li>Water-damaged ceiling and drywall removal</li><li>Drying and preparation of affected areas</li><li>New drywall, tape, compound and sanding</li><li>Primer, paint and finish restoration</li><li>Lighting upgrades</li><li>Fixture and kitchenette maintenance</li></ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Inside the salon repair", "Damage, rebuild and the finished business space.", "The leak affected more than one viewpoint, so the story follows the scope across the salon rather than forcing a single-angle comparison.")}<div class="story-mosaic story-mosaic-salon">
-        <figure class="story-feature"><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened inside a London salon" loading="lazy"><figcaption>Damage opened and documented</figcaption></figure>
-        <figure><img src="/salon-water-damage-2.jpg" alt="Second affected ceiling area inside the salon" loading="lazy"><figcaption>Another affected area</figcaption></figure>
-        <figure><img src="/salon-drywall-rebuild.jpg" alt="New drywall and compound during the salon rebuild" loading="lazy"><figcaption>Drywall rebuild underway</figcaption></figure>
-        <figure class="story-wide"><img src="/salon-after-1.jpg" alt="Completed London salon stations and lighting" loading="lazy"><figcaption>Salon stations and lighting restored</figcaption></figure>
-        <figure class="story-wide"><img src="/salon-after-2.jpg" alt="Finished London salon with mirrors and workstations" loading="lazy"><figcaption>The completed salon</figcaption></figure>
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Commercial repair &amp; restoration</p><h2>Restoration is not about making a space unrecognizable. It is about making it feel whole again.</h2><p>This salon already had its own look, purpose and daily rhythm. After water damage, the work was about repairing the affected construction and returning the interior to the clean, bright setting the business and its clients expected.</p><p>That is an important difference. A planned renovation begins with what someone wants to change. Restoration begins with something that should never have happened—and a responsibility to put the space back together thoughtfully.</p></div><ul class="scope-list reveal"><li>Commercial water-damage restoration</li><li>Repair planning for an active business</li><li>Damaged wall and ceiling construction</li><li>Drywall and connected surface restoration</li><li>Primer, paint and finish work</li><li>A clean return to normal operations</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("The completed space", "Bright, functional and ready for clients again.", "The restored interior feels like the salon clients already knew—clean, polished and ready to get back to business.")}<div class="story-mosaic story-mosaic-salon">
+        <figure class="story-feature"><img src="/salon-after-1.jpg" alt="Long view through the restored London salon interior" loading="lazy"><figcaption>The working salon restored</figcaption></figure>
+        <figure class="story-wide"><img src="/salon-after-2.jpg" alt="Completed salon with mirrors, stations and lighting" loading="lazy"><figcaption>Ready to welcome clients</figcaption></figure>
       </div></div></section>
-      <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/salon-after-1.jpg" alt="Long view through the completed salon interior" loading="lazy"><span>Commercial work with the business in mind</span></div><div class="editorial-copy reveal"><p class="eyebrow">Why the scope matters</p><h2>One repair visit can solve more than the visible damage.</h2><p>Commercial owners often have a primary problem and a list of connected maintenance needs. Grouping compatible drywall, ceiling, lighting, fixture and finish work creates a clearer path back to normal operations.</p><a class="text-link dark-link" href="/services/commercial/">Explore commercial maintenance <span aria-hidden="true">↗</span></a></div></div></section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">A repair affecting your business?</p><h2>Send us the scope and the space.</h2><p>Photos, access details and operating hours help us understand what the project requires.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/salon-after-1.jpg" alt="Restored salon stations and finished commercial interior" loading="lazy"><span>Restoration with the business in mind</span></div><div class="editorial-copy reveal"><p class="eyebrow">When damage disrupts business</p><h2>The repair has to respect more than the building.</h2><p>Access, working hours, staff, clients and the need to reopen all shape a commercial restoration. Clear planning helps the construction work move forward without losing sight of what the business needs from the space.</p><a class="text-link dark-link" href="/services/water-damage/">Explore restoration and damage repairs <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Damage interrupting your business?</p><h2>Show us what happened—and what needs to be working again.</h2><p>Send a few photos, the property location and any access or operating-hour details. We will help you understand the construction work that may come next.</p></div><div><a class="button button-primary" href="/contact/#quote">Start the Conversation</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("Commercial Salon Repair London ON | Hekman Home Services", "See Hekman Home Services repair water-damaged drywall and ceilings, upgrade lighting and complete related maintenance work inside a London, Ontario salon.", "/projects/commercial-salon-repair/", "salon-after-2.jpg", "projects", body, "project-story-page")
+    return page("Commercial Salon Water-Damage Restoration London ON | Hekman", "See a London salon returned to a bright working finish after water damage, with commercial restoration by Hekman Home Services.", "/projects/commercial-salon-repair/", "salon-after-1.jpg", "projects", body, "project-story-page")
 
 
 def kitchen_renewal_project_page() -> str:
@@ -1229,43 +1222,44 @@ PROJECTS = [
     ("project-139.jpg", "handyman bathrooms", "Bathroom toilet and flooring installation detail", "Bathroom fixture detail", "Handyman repair"),
     ("drywall-potlight-progress-poster.jpg", "handyman drywall structural", "Drywall finishing and pot lights during an interior renovation", "Drywall and pot lights", "Lighting / drywall"),
 
-    # Commercial projects: a London salon and a fitness facility.
-    ("salon-water-damage-1.jpg", "commercial drywall", "Water-damaged ceiling opened inside a London salon", "Salon water-damage repair", "Commercial"),
-    ("salon-water-damage-2.jpg", "commercial drywall", "Second affected ceiling area opened after the salon leak", "Affected ceiling opened", "Commercial"),
-    ("salon-drywall-rebuild.jpg", "commercial drywall", "New drywall and compound during the salon rebuild", "Salon drywall rebuild", "Commercial"),
-    ("salon-after-1.jpg", "commercial", "Completed London salon stations and lighting", "Finished salon interior", "Commercial"),
-    ("salon-after-2.jpg", "commercial", "Finished London salon with mirrors and workstations", "Completed salon", "Commercial"),
-    ("project-045.jpg", "commercial", "Commercial fitness-space ceiling and lighting detail", "Fitness-space scope", "Commercial"),
-    ("project-049.jpg", "commercial drywall", "Commercial fitness-space ceiling work in progress", "Fitness-space progress", "Commercial"),
-    ("project-046.jpg", "commercial", "Existing fitness-space ceiling and lighting conditions", "Fitness-space ceiling scope", "Commercial"),
-    ("project-050.jpg", "commercial", "Commercial fitness interior after maintenance work", "Commercial interior", "Commercial"),
-    ("project-054.jpg", "commercial", "Finished commercial fitness-space interior", "Finished commercial space", "Commercial"),
+    # Restoration examples are separate projects unless a continuity note above
+    # explicitly identifies a verified sequence.
+    ("salon-water-damage-2.jpg", "restoration drywall", "Damaged ceiling opened to expose the affected construction", "Ceiling damage opened for repair", "Restoration"),
+    ("salon-drywall-rebuild.jpg", "restoration drywall", "Ceiling and wall surfaces being rebuilt with drywall and compound", "Drywall restoration in progress", "Restoration"),
+    ("salon-after-1.jpg", "commercial restoration", "Working London salon returned to a bright finish after water damage", "Salon restored after water damage", "Commercial restoration"),
+    ("salon-after-2.jpg", "commercial restoration", "Completed salon interior with mirrors and workstations", "Restored working salon", "Commercial restoration"),
+
+    # One verified fitness-facility lighting sequence: old fixtures, installation
+    # from scaffolding and ladders, then the completed LED lighting.
+    ("project-045.jpg", "commercial", "Older box-style fluorescent fixtures before a fitness-space lighting upgrade", "Before: older light fixtures", "Commercial lighting"),
+    ("project-049.jpg", "commercial", "Crew replacing commercial lighting from scaffolding and ladders", "During: fixture replacement", "Commercial lighting"),
+    ("project-048.jpg", "commercial", "Fitness facility illuminated by the completed LED lighting upgrade", "After: LED lighting", "Commercial lighting"),
 ]
 
 
 def projects_page() -> str:
     cards = "".join(f'<figure class="project-card reveal" data-category="{categories}"><button class="project-image" type="button" data-lightbox aria-label="Enlarge {html.escape(label, quote=True)}"><img src="/{src}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"></button><figcaption><span>{label}</span><small>{tag}</small></figcaption></figure>' for src, categories, alt, label, tag in PROJECTS)
-    filters = [("all", "All Work"), ("kitchens", "Kitchens"), ("bathrooms", "Bathrooms"), ("basements", "Basements"), ("flooring", "Flooring"), ("drywall", "Drywall & Ceilings"), ("insulation", "Insulation"), ("exterior", "Decks & Fences"), ("structural", "Structural"), ("handyman", "Handyman & Repairs"), ("commercial", "Commercial")]
+    filters = [("all", "All Work"), ("restoration", "Restoration & Damage"), ("kitchens", "Kitchens"), ("bathrooms", "Bathrooms"), ("basements", "Basements"), ("flooring", "Flooring"), ("drywall", "Drywall & Ceilings"), ("insulation", "Insulation"), ("exterior", "Decks & Fences"), ("structural", "Structural"), ("handyman", "Handyman & Repairs"), ("commercial", "Commercial")]
     buttons = "".join(f'<button type="button" class="filter-button{" active" if key == "all" else ""}" data-filter="{key}" aria-pressed="{"true" if key == "all" else "false"}">{label}</button>' for key, label in filters)
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Six transformations. Six very different challenges.", "Step inside Hilltop, a 1970s Westmount home, a genuine tub-to-shower conversion, a commercial salon repair, a compact office kitchen and a London popcorn-ceiling transformation.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Some projects begin with a vision. Others begin with a problem.", "See how a whole home, a dated layout, a leaking commercial space, an oversized tub, a compact office kitchen and a textured ceiling each called for a very different plan.")}
         <div class="story-card-grid">
           <a class="story-card story-card-large reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathroom, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small><strong>Jetted tub to glass shower</strong><b>Demolition, open-wall work, tile and enclosure <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living room" loading="lazy"><span><small>1970s Westmount Beauty</small><strong>A new sense of flow</strong><b>Wall opening, flooring, trim, doors and closets <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-2.jpg" alt="Completed London salon interior" loading="lazy"><span><small>Commercial repair</small><strong>London salon restoration</strong><b>Water damage, drywall, lighting and maintenance <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-1.jpg" alt="Restored London salon interior" loading="lazy"><span><small>Commercial restoration</small><strong>A working salon, restored after water damage</strong><b>Construction repairs planned around the needs of the business <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card story-card-wide reveal" href="/projects/popcorn-ceiling-transformation/"><img src="/popcorn-ceiling-sander.jpg" alt="Ceiling sander used during popcorn ceiling removal" loading="lazy"><span><small>Before · during · finish stage</small><strong>Popcorn ceiling transformation</strong><b>Sand, skim, check and prime <i aria-hidden="true">↗</i></b></span></a>
         </div>
       </div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Three short project videos.", "Each video is compressed, never autoplays and waits until you press play—giving you a closer look without slowing the first page load.")}<div class="video-grid video-grid-three"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>The verified bathroom sequence from demolition through completion.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen</strong><span>A closer view of the cabinets, hardware, sink and counter.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>Walls, ceiling repairs and new lighting during the finish stage.</span></figcaption></figure></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Explore the work", "Find the room, surface or scope that matches your project.", "Filter through residential renovations, finish work, exterior construction and commercial repairs completed by Hekman Home Services.")}<div class="filter-bar" aria-label="Filter project photographs">{buttons}</div><div class="projects-grid" id="projects-grid" aria-live="polite">{cards}</div><p class="filter-status" data-filter-status>Showing all {len(PROJECTS)} photographs.</p></div></section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Start with a few details.</h2><p>Tell us what you want to change and where the property is located.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "See the work—not only the reveal.", "These short videos show demolition, installation and finish details. They never autoplay and wait to load until you choose to watch.")}<div class="video-grid video-grid-three"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>Follow one bathroom from demolition and open-wall work to the finished glass shower.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed office kitchen</strong><span>A closer look at the cabinetry, hardware, sink, counter and finished working surface.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>The in-between stage: new lighting, wall repairs and ceiling finishing underway.</span></figcaption></figure></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Explore the work", "Find the kind of project that feels familiar.", "Planning a room renovation, repairing damage, updating a commercial space or finally tackling a long repair list? Choose a category to see related work.")}<div class="filter-bar" aria-label="Filter project photographs">{buttons}</div><div class="projects-grid" id="projects-grid" aria-live="polite">{cards}</div><p class="filter-status" data-filter-status>Showing all {len(PROJECTS)} photographs.</p></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Show us what’s not working. Tell us what better looks like.</h2><p>Whether you are imagining a complete transformation, dealing with damage or finally tackling the repairs that have piled up, you do not need every answer before reaching out. A few photos and an honest conversation are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
     </main>"""
-    return page("Renovation Projects London ON | Hekman Home Services", "Explore genuine whole-home, kitchen, bathroom, basement, flooring, drywall, insulation, deck, fence, structural and commercial projects by Hekman Home Services.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
+    return page("Renovation & Restoration Projects London ON | Hekman", "Explore genuine whole-home, kitchen, bathroom, flooring, drywall, restoration, exterior and commercial projects by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
 
 
 def about_page() -> str:

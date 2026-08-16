@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 101,
+    "projectGalleryPhotographs": 98,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
@@ -174,61 +174,60 @@
       "route": "/projects/commercial-salon-repair/",
       "subjects": [
         "commercial water damage",
-        "drywall rebuilding",
-        "ceiling repair",
-        "lighting",
+        "restoration",
+        "active business",
         "completed salon"
+      ],
+      "assets": [
+        "salon-after-1.jpg",
+        "salon-after-2.jpg"
+      ],
+      "continuityNote": "Completed views of the salon restoration; no unrelated ceiling images are presented as this project's earlier stages."
+    },
+    {
+      "id": "restoration-repair-examples",
+      "route": "/services/water-damage/",
+      "subjects": [
+        "damaged ceiling",
+        "drywall rebuilding",
+        "restorative construction",
+        "finish restoration"
       ],
       "assets": [
         "salon-water-damage-1.jpg",
         "salon-water-damage-2.jpg",
         "salon-drywall-rebuild.jpg",
-        "salon-after-1.jpg",
-        "salon-after-2.jpg"
-      ]
+        "project-014.jpg"
+      ],
+      "continuityNote": "Individual restoration examples. They are not represented as one before/during/after sequence."
     },
     {
       "id": "commercial-fitness-space",
       "route": "/services/commercial/",
       "subjects": [
-        "commercial ceiling repair",
-        "lighting",
+        "LED lighting upgrade",
         "occupied fitness facility",
-        "finish restoration"
+        "commercial improvement"
       ],
       "assets": [
         "project-045.jpg",
-        "project-046.jpg",
         "project-049.jpg",
-        "project-050.jpg",
-        "project-054.jpg"
+        "project-048.jpg"
       ],
       "sequences": [
         {
-          "name": "existing conditions",
+          "name": "verified lighting upgrade",
           "stages": [
             "project-045.jpg",
-            "project-046.jpg"
-          ]
-        },
-        {
-          "name": "work in progress",
-          "stages": [
-            "project-049.jpg"
-          ]
-        },
-        {
-          "name": "completed space",
-          "stages": [
-            "project-050.jpg",
-            "project-054.jpg"
+            "project-049.jpg",
+            "project-048.jpg"
           ]
         }
       ],
       "continuityAnchors": [
         "exposed round duct",
         "open gym floor",
-        "ceiling lines and suspended fixtures",
+        "ceiling lines",
         "rack and equipment positions"
       ]
     },
@@ -349,10 +348,17 @@
       "manual post-hole digging",
       "powered auger work"
     ],
-      "commercial": [
-        "salon repairs",
-        "fitness facility work",
-        "office kitchen renewal",
+    "restorationAndDamage": [
+      "commercial water-damage restoration",
+      "damaged ceiling repair",
+      "drywall rebuilding",
+      "insulation and connected finishes",
+      "primer, paint and finish restoration"
+    ],
+    "commercial": [
+      "salon restoration",
+      "fitness-facility LED lighting",
+      "office kitchen renewal",
       "drywall and ceilings",
       "lighting",
       "maintenance lists"
@@ -369,7 +375,7 @@
   },
   "videoDelivery": {
     "autoplay": false,
-    "preload": "none on multi-video pages; metadata on the single-video kitchen story",
+    "preload": "none; videos wait for user interaction before downloading media",
     "playsInline": true,
     "optimizedFiles": [
       "kitchenette-finish-tour.mp4",
