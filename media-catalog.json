@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 92,
+    "projectGalleryPhotographs": 95,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "verifiedCollections": [
@@ -112,6 +112,28 @@
         "project-015.jpg",
         "popcorn-ceiling-primer.jpg"
       ]
+    },
+    {
+      "id": "glass-block-bathroom-conversion",
+      "route": "/projects/glass-block-bathroom-conversion/",
+      "subjects": [
+        "jetted-tub removal",
+        "wall and floor access",
+        "insulation",
+        "shower preparation",
+        "tile",
+        "sliding glass enclosure"
+      ],
+      "sequence": [
+        "bathroom-glass-block-before.jpg",
+        "bathroom-glass-block-demolition.jpg",
+        "bathroom-glass-block-open-wall.jpg",
+        "bathroom-walnut-vanity-after.jpg"
+      ],
+      "videos": [
+        "bathroom-glass-block-transformation.mp4",
+        "bathroom-finish-details.mp4"
+      ]
     }
   ],
   "serviceCoverage": {
@@ -129,7 +151,8 @@
       "vanities",
       "tile",
       "waterproofing",
-      "fixtures"
+      "fixtures",
+      "jetted-tub to shower conversions"
     ],
     "drywallAndInsulation": [
       "open walls and ceilings",
@@ -167,11 +190,13 @@
   },
   "videoDelivery": {
     "autoplay": false,
-    "preload": "metadata",
+    "preload": "none on multi-video pages; metadata on the single-video kitchen story",
     "playsInline": true,
     "optimizedFiles": [
       "kitchenette-finish-tour.mp4",
-      "drywall-potlight-progress.mp4"
+      "drywall-potlight-progress.mp4",
+      "bathroom-glass-block-transformation.mp4",
+      "bathroom-finish-details.mp4"
     ]
   }
 }

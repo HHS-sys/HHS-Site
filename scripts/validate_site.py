@@ -184,6 +184,9 @@ def check() -> list[str]:
             video = collection.get("video")
             if video and not (ROOT / video).is_file():
                 errors.append(f"media-catalog.json: missing collection video {video}")
+            for video in collection.get("videos", []):
+                if not (ROOT / video).is_file():
+                    errors.append(f"media-catalog.json: missing collection video {video}")
     except (OSError, json.JSONDecodeError) as exc:
         errors.append(f"invalid media-catalog.json: {exc}")
 
@@ -239,7 +242,12 @@ def check() -> list[str]:
         if f"<loc>{BASE_URL}{route}</loc>" not in sitemap:
             errors.append(f"sitemap.xml: missing primary route {route}")
 
-    for video in ("kitchenette-finish-tour.mp4", "drywall-potlight-progress.mp4"):
+    for video in (
+        "kitchenette-finish-tour.mp4",
+        "drywall-potlight-progress.mp4",
+        "bathroom-glass-block-transformation.mp4",
+        "bathroom-finish-details.mp4",
+    ):
         path = ROOT / video
         if not path.is_file():
             errors.append(f"missing optimized video {video}")

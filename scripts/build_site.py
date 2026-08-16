@@ -40,9 +40,9 @@ SERVICES: dict[str, dict] = {
         "card_name": "Bathrooms",
         "title": "Bathroom Renovations London ON | Hekman Home Services",
         "description": "Bathroom renovations in London, Ontario, including tile, waterproofing, vanities, fixtures, heated floors and tub-to-shower updates.",
-        "hero": "project-148.jpg",
-        "hero_alt": "Completed glass shower and bathroom renovation",
-        "position": "50% 58%",
+        "hero": "bathroom-walnut-vanity-after.jpg",
+        "hero_alt": "Completed tub-to-shower bathroom conversion with a walnut vanity and glass-block window",
+        "position": "50% 52%",
         "lead": "Create a bathroom that works better every day—with careful preparation behind every visible finish.",
         "intro": "A successful bathroom renovation balances layout, water management, storage and finish details. We review the existing room, talk through priorities and build a clear scope around the condition of the space.",
         "scope": [
@@ -52,10 +52,10 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Full bathroom renovations", "Tub-to-shower conversions", "Shower and tub surrounds", "Tile and grout work", "Vanities, fixtures and storage", "Flooring, trim and finishing"],
         "gallery": [
-            ("project-148.jpg", "Completed bathroom with glass shower enclosure", "Glass shower renovation"),
-            ("project-157.jpg", "Completed bathroom vanity and mirror", "Vanity and finish work"),
-            ("project-161.jpg", "Completed bathroom with wood vanity", "Finished bathroom"),
-            ("bathroom-walnut-vanity-after.jpg", "Completed bathroom with walnut vanity, gray floor tile and glass shower", "Walnut vanity and glass shower"),
+            ("bathroom-glass-block-before.jpg", "Bathroom with a jetted tub and glass-block window before the tub-to-shower conversion", "Before: jetted-tub layout"),
+            ("bathroom-glass-block-open-wall.jpg", "Jetted tub removed with the insulated wall and floor framing exposed", "During: opened wall and floor"),
+            ("bathroom-walnut-vanity-after.jpg", "Completed tub-to-shower conversion with gray tile, a walnut vanity and sliding glass door", "After: glass shower conversion"),
+            ("project-148.jpg", "Completed bathroom with glass shower enclosure", "Another glass shower renovation"),
             ("project-160.jpg", "Bathroom waterproofing system during construction", "Waterproofing in progress"),
         ],
         "faq": [
@@ -675,7 +675,7 @@ def homepage() -> str:
       </section>
       <section class="section section-charcoal">
         <div class="wrap editorial-grid">
-          <div class="editorial-media reveal"><img src="/project-148.jpg" alt="Completed tiled bathroom with glass shower" loading="lazy" decoding="async"><span>Genuine completed work</span></div>
+          <div class="editorial-media reveal"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion with glass enclosure" loading="lazy" decoding="async"><span>Genuine completed work</span></div>
           <div class="editorial-copy reveal"><p class="eyebrow">Craftsmanship you can see</p><h2>Good work starts behind the finish.</h2><p>What you see at the end depends on what happens first: understanding existing conditions, protecting the home, preparing surfaces and communicating when a project reveals something unexpected.</p><ul class="line-list"><li><strong>Plan the complete scope</strong><span>Look beyond one surface to the connected work around it.</span></li><li><strong>Prepare with care</strong><span>Protection, dust control and cleanup are part of the job.</span></li><li><strong>Finish the details</strong><span>Transitions, trim and touch-ups help the work feel intentional.</span></li></ul><a class="text-link" href="/about/">Meet Hekman Home Services <span aria-hidden="true">↗</span></a></div>
         </div>
       </section>
@@ -685,7 +685,7 @@ def homepage() -> str:
           <div class="project-preview">
             <a class="project-tile project-tall reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen renovation" loading="lazy"><span><small>Whole-home transformation</small>Hilltop, designed as one complete home</span></a>
             <a class="project-tile reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living area after a layout change" loading="lazy"><span><small>1970s Westmount home</small>A new sense of flow</span></a>
-            <a class="project-tile reveal" href="/services/bathrooms/"><img src="/project-161.jpg" alt="Completed bathroom with wood vanity" loading="lazy"><span><small>Bathrooms</small>Preparation behind every finish</span></a>
+            <a class="project-tile reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small>Jetted tub to glass shower</span></a>
             <a class="project-tile project-wide reveal" href="/projects/pixie-paige-salon-repairs/"><img src="/salon-after-2.jpg" alt="Completed Pixie and Paige salon interior" loading="lazy"><span><small>Commercial · Pixie &amp; Paige</small>Repairing the damage without losing the character</span></a>
           </div>
           <div class="section-actions reveal"><a class="button button-dark" href="/projects/">Explore Our Work</a></div>
@@ -723,6 +723,36 @@ def services_page() -> str:
       <section class="section section-charcoal"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/project-011.jpg" alt="Drywall preparation and finishing in progress" loading="lazy"><span>The work behind the finish</span></div><div class="editorial-copy reveal"><p class="eyebrow">Not sure where it fits?</p><h2>Describe the complete project.</h2><p>Photos, approximate measurements and a short explanation help us understand how the pieces connect. You do not need to sort the work into trades before contacting us.</p><a class="button button-primary" href="/contact/#quote">Tell Us About It</a></div></div></section>
     </main>"""
     return page("Renovation & Handyman Services London ON | Hekman", "Explore renovations, flooring, drywall, painting, pot lights, plumbing fixtures, handyman repairs, decks, fences and commercial maintenance in London, Ontario.", "/services/", "project-129.jpg", "services", body)
+
+
+def bathroom_showcase() -> str:
+    return f"""
+    <section class="section section-paper bathroom-showcase">
+      <div class="wrap">
+        {section_heading("Bathroom project spotlight", "A jetted-tub platform became a bright glass shower.", "This is one continuous project sequence: the original room, demolition, the opened wall and floor, and the completed conversion.")}
+        <article class="case-study reveal">
+          <div class="case-study-copy">
+            <p class="eyebrow">Tub-to-shower conversion</p>
+            <h3>The glass-block window stayed. The room around it changed.</h3>
+            <p>The original jetted tub and tiled platform were removed to open the footprint for a shower. With the wall and floor exposed, the underlying conditions could be addressed before the enclosure, tile and finish details went in.</p>
+            <ul>
+              <li>Jetted tub and platform removal</li>
+              <li>Wall, insulation and floor access</li>
+              <li>Shower preparation and tile</li>
+              <li>Sliding glass enclosure and finish work</li>
+            </ul>
+            <a class="text-link dark-link" href="/projects/glass-block-bathroom-conversion/">See the full bathroom sequence and videos <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="case-study-media case-study-media-four">
+            <figure><img src="/bathroom-glass-block-before.jpg" alt="Jetted-tub bathroom before conversion" loading="lazy"><figcaption>Before</figcaption></figure>
+            <figure><img src="/bathroom-glass-block-demolition.jpg" alt="Tub platform partly removed during demolition" loading="lazy"><figcaption>Demolition</figcaption></figure>
+            <figure><img src="/bathroom-glass-block-open-wall.jpg" alt="Bathroom wall, insulation and floor framing exposed after tub removal" loading="lazy"><figcaption>Opened wall and floor</figcaption></figure>
+            <figure><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed glass shower conversion with walnut vanity" loading="lazy"><figcaption>Completed conversion</figcaption></figure>
+          </div>
+        </article>
+      </div>
+    </section>
+    """
 
 
 def commercial_showcase() -> str:
@@ -789,7 +819,7 @@ def service_page(slug: str) -> str:
     gallery = "".join(f'<figure class="reveal"><img src="/{src}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"><figcaption>{caption}</figcaption></figure>' for src, alt, caption in item["gallery"])
     faqs = "".join(f'<details class="reveal"><summary>{question}</summary><p>{answer}</p></details>' for question, answer in item["faq"])
     related = "".join(service_card(related_slug, compact=True) for related_slug in item["related"])
-    showcase = commercial_showcase() if slug == "commercial" else ""
+    showcase = bathroom_showcase() if slug == "bathrooms" else commercial_showcase() if slug == "commercial" else ""
     body = f"""
     {hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'], small=True, position=item['position'])}
     <main id="main">
@@ -902,6 +932,28 @@ def popcorn_project_page() -> str:
     return page("Popcorn Ceiling Transformation London ON | Hekman Home Services", "See a Hekman Home Services popcorn ceiling project in London, Ontario, from the original textured ceiling through sanding, skim coating and primer.", "/projects/popcorn-ceiling-transformation/", "project-016.jpg", "projects", body, "project-story-page")
 
 
+def glass_block_bathroom_project_page() -> str:
+    body = f"""
+    {hero("bathroom-walnut-vanity-after.jpg", "Completed glass shower conversion beside the original glass-block window", "Bathroom transformation", "From jetted tub to glass shower.", "One genuine bathroom sequence—from the original tub platform through demolition and open-wall work to the completed tiled shower.", small=True, position="50% 52%")}
+    <main id="main">
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Before · during · after</p><h2>A focused conversion that changed how the room works.</h2><p>The original jetted tub and deep tiled platform filled the window end of the bathroom. The renovation removed that assembly, opened the surrounding wall and floor where access was required, and rebuilt the area as a tiled shower with a sliding glass enclosure.</p><p>The glass-block window, walnut vanity and gray floor give the sequence clear visual anchors. They make it possible to follow the same room through every stage without borrowing photographs from another job.</p></div><ul class="scope-list reveal"><li>Jetted tub and tiled-platform removal</li><li>Wall, insulation and floor access</li><li>Shower preparation and waterproofing stages</li><li>Wall tile and shower base</li><li>Sliding glass enclosure</li><li>Trim, plumbing fixtures and final details</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("The conversion sequence", "The same window. A completely different wet area.", "Four views follow the room from the existing jetted tub to the finished shower.")}<div class="story-mosaic story-mosaic-bathroom">
+        <figure class="story-feature"><img src="/bathroom-glass-block-before.jpg" alt="Bathroom with jetted tub, tiled platform and glass-block window before conversion" loading="lazy"><figcaption>Before: jetted-tub layout</figcaption></figure>
+        <figure><img src="/bathroom-glass-block-demolition.jpg" alt="Tiled tub platform and wall finishes partly removed during demolition" loading="lazy"><figcaption>Demolition underway</figcaption></figure>
+        <figure><img src="/bathroom-glass-block-open-wall.jpg" alt="Tub removed with wall insulation and floor framing exposed" loading="lazy"><figcaption>Wall and floor opened</figcaption></figure>
+        <figure class="story-wide"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed bathroom with gray tiled shower, sliding glass door and walnut vanity" loading="lazy"><figcaption>After: completed glass shower</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "See the project move from demolition to finish.", "These videos are compressed, never autoplay and wait to download until you choose to play them.")}<div class="video-grid">
+        <figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video showing the bathroom transformation from tub demolition through the completed shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Transformation sequence</strong><span>Demolition, open-wall work, shower preparation and the completed room.</span></figcaption></figure>
+        <figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video showing shower enclosure installation and completed bathroom fixtures"><source src="/bathroom-finish-details.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Installation &amp; finish details</strong><span>Glass-enclosure work followed by the finished vanity and fixture details.</span></figcaption></figure>
+      </div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("How the work connects", "A conversion is more than swapping one fixture.", "Demolition, access, water management and final fitting have to be planned as one sequence.")}<div class="proof-grid story-step-grid"><article class="proof-card reveal"><span>01</span><h3>Document the room</h3><p>Confirm what remains, what comes out and how the new shower fits the existing footprint.</p></article><article class="proof-card reveal"><span>02</span><h3>Open carefully</h3><p>Remove the tub platform and expose the wall and floor only where the new work requires access.</p></article><article class="proof-card reveal"><span>03</span><h3>Build the wet area</h3><p>Prepare the shower assembly, waterproofing, tile and plumbing connections in the correct order.</p></article><article class="proof-card reveal"><span>04</span><h3>Complete the room</h3><p>Fit the glass enclosure and reconnect trim, fixtures and surrounding finishes cleanly.</p></article></div></div></section>
+      <section class="section section-paper"><div class="wrap">{section_heading("Related services", "Bathroom work often crosses several scopes.", "Flooring, drywall and fixture work can be reviewed as part of the same renovation.")}<div class="service-grid related-grid">{service_card("bathrooms", compact=True)}{service_card("flooring", compact=True)}{service_card("drywall-ceiling-repair", compact=True)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Considering a tub-to-shower conversion?</p><h2>Show us the whole bathroom.</h2><p>Wide photos, the existing fixtures and what you want to change are enough to start the conversation.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Tub-to-Shower Bathroom Transformation | Hekman", "See a real jetted-tub-to-shower bathroom renovation by Hekman Home Services, documented from demolition and open-wall work through the finished glass shower.", "/projects/glass-block-bathroom-conversion/", "bathroom-walnut-vanity-after.jpg", "projects", body, "project-story-page")
+
+
 PROJECTS = [
     # Kitchens: completed views and clearly identifiable installation details.
     ("hilltop-kitchen-wide.jpg", "kitchens", "Wide view of the completed Hilltop kitchen and island", "Hilltop kitchen", "Kitchen"),
@@ -919,14 +971,17 @@ PROJECTS = [
     ("project-113.jpg", "kitchens", "Kitchen cabinet installation in progress", "Cabinet installation", "Kitchen process"),
     ("project-107.jpg", "kitchens", "Kitchen renovation work in progress", "Kitchen build stage", "Kitchen process"),
 
-    # Bathrooms: several separate projects, shown individually rather than paired.
+    # Bathrooms: one verified tub-to-shower sequence plus separate projects shown individually.
     ("hilltop-bathroom-shower.jpg", "bathrooms", "Completed Hilltop bathroom with glass shower", "Hilltop glass shower", "Bathroom"),
     ("hilltop-bathroom-vanity.jpg", "bathrooms", "Completed Hilltop bathroom vanity and mirror", "Hilltop vanity", "Bathroom"),
-    ("bathroom-walnut-vanity-after.jpg", "bathrooms flooring handyman", "Completed bathroom with walnut vanity, gray tile and glass shower", "Walnut vanity bathroom", "Bathroom"),
+    ("bathroom-glass-block-before.jpg", "bathrooms", "Bathroom with a jetted tub and glass-block window before conversion", "Before: jetted-tub layout", "Bathroom sequence"),
+    ("bathroom-glass-block-demolition.jpg", "bathrooms", "Tiled jetted-tub platform partly removed during demolition", "Tub-platform demolition", "Bathroom sequence"),
+    ("bathroom-glass-block-open-wall.jpg", "bathrooms insulation", "Tub removed with wall insulation and floor framing exposed", "Open wall and floor", "Bathroom sequence"),
+    ("bathroom-walnut-vanity-after.jpg", "bathrooms flooring handyman", "Completed tub-to-shower conversion with a walnut vanity, gray tile and sliding glass door", "After: glass shower conversion", "Bathroom sequence"),
     ("project-144.jpg", "bathrooms", "Completed tiled bathroom shower", "Tiled shower", "Bathroom"),
     ("project-148.jpg", "bathrooms", "Completed bathroom with glass shower enclosure", "Glass shower renovation", "Bathroom"),
     ("project-150.jpg", "bathrooms", "Completed bathroom renovation with modern finishes", "Completed bathroom", "Bathroom"),
-    ("project-155.jpg", "bathrooms flooring", "Completed bathroom with patterned floor tile", "Patterned tile floor", "Bathroom"),
+    ("project-155.jpg", "bathrooms flooring", "Existing tiled bathroom documented before renovation", "Existing bathroom before work", "Bathroom assessment"),
     ("project-157.jpg", "bathrooms", "Completed bathroom vanity and mirror", "Vanity and mirror", "Bathroom"),
     ("project-161.jpg", "bathrooms", "Completed bathroom with warm wood vanity", "Warm vanity finish", "Bathroom"),
     ("project-164.jpg", "bathrooms", "Completed bathroom with tiled wet area", "Bathroom finish", "Bathroom"),
@@ -1022,16 +1077,17 @@ def projects_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Five properties. Five very different challenges.", "See how design, structure, cabinetry, repair work and finish details came together at Hilltop, a 1970s Westmount home, Pixie & Paige salon, a compact kitchen and a London popcorn-ceiling transformation.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Six transformations. Six very different challenges.", "Step inside Hilltop, a 1970s Westmount home, a genuine tub-to-shower conversion, Pixie & Paige salon, a compact office kitchen and a London popcorn-ceiling transformation.")}
         <div class="story-card-grid">
           <a class="story-card story-card-large reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathroom, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small><strong>Jetted tub to glass shower</strong><b>Demolition, open-wall work, tile and enclosure <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living room" loading="lazy"><span><small>1970s Westmount Beauty</small><strong>A new sense of flow</strong><b>Wall opening, flooring, trim, doors and closets <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/pixie-paige-salon-repairs/"><img src="/salon-after-2.jpg" alt="Completed Pixie and Paige salon" loading="lazy"><span><small>Commercial repair</small><strong>Pixie &amp; Paige</strong><b>Water damage, drywall, lighting and maintenance <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card story-card-wide reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card story-card-wide reveal" href="/projects/popcorn-ceiling-transformation/"><img src="/popcorn-ceiling-sander.jpg" alt="Ceiling sander used during popcorn ceiling removal" loading="lazy"><span><small>Before · during · finish stage</small><strong>Popcorn ceiling transformation</strong><b>Sand, skim, check and prime <i aria-hidden="true">↗</i></b></span></a>
         </div>
       </div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Two short project walkthroughs.", "The videos are compressed and wait until you press play, keeping the page fast while showing details that still photographs cannot.")}<div class="video-grid"><figure class="work-video reveal"><video controls playsinline preload="metadata" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen</strong><span>A closer view of the cabinets, hardware, sink and counter.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="metadata" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>Walls, ceiling repairs and new lighting during the finish stage.</span></figcaption></figure></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Three short project videos.", "Each video is compressed, never autoplays and waits until you press play—giving you a closer look without slowing the first page load.")}<div class="video-grid video-grid-three"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>The verified bathroom sequence from demolition through completion.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen</strong><span>A closer view of the cabinets, hardware, sink and counter.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>Walls, ceiling repairs and new lighting during the finish stage.</span></figcaption></figure></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Explore the work", "Find the room, surface or scope that matches your project.", "Filter through residential renovations, finish work, exterior construction and commercial repairs completed by Hekman Home Services.")}<div class="filter-bar" aria-label="Filter project photographs">{buttons}</div><div class="projects-grid" id="projects-grid" aria-live="polite">{cards}</div><p class="filter-status" data-filter-status>Showing all {len(PROJECTS)} photographs.</p></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Start with a few details.</h2><p>Tell us what you want to change and where the property is located.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
@@ -1091,6 +1147,7 @@ def build() -> None:
     write("projects/pixie-paige-salon-repairs/index.html", salon_project_page())
     write("projects/kitchen-renewal/index.html", kitchen_renewal_project_page())
     write("projects/popcorn-ceiling-transformation/index.html", popcorn_project_page())
+    write("projects/glass-block-bathroom-conversion/index.html", glass_block_bathroom_project_page())
     write("about/index.html", about_page())
     write("contact/index.html", contact_page())
     write("404.html", not_found_page())
@@ -1121,6 +1178,7 @@ def build() -> None:
         "/projects/pixie-paige-salon-repairs/",
         "/projects/kitchen-renewal/",
         "/projects/popcorn-ceiling-transformation/",
+        "/projects/glass-block-bathroom-conversion/",
     ]
     urls = ["/", "/services/", *[service_url(slug) for slug in SERVICES], "/projects/", *project_urls, "/about/", "/contact/"]
     sitemap_urls = "\n".join(f"  <url><loc>{BASE_URL}{url}</loc></url>" for url in urls)
@@ -1147,6 +1205,7 @@ def build() -> None:
     - Pixie & Paige salon commercial repairs: {BASE_URL}/projects/pixie-paige-salon-repairs/
     - Office kitchen renewal, before through completion: {BASE_URL}/projects/kitchen-renewal/
     - Popcorn ceiling transformation: {BASE_URL}/projects/popcorn-ceiling-transformation/
+    - Jetted-tub to glass-shower bathroom conversion: {BASE_URL}/projects/glass-block-bathroom-conversion/
 
     ## Business identity
     Hekman Home Services Inc. is led by Rene and Steph Hekman. The company provides residential renovation and repair work plus commercial maintenance and repairs. It is fully insured and bondable and provides a 2-year workmanship guarantee.
