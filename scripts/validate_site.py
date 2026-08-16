@@ -158,7 +158,7 @@ def check() -> list[str]:
         if count > 1:
             errors.append(f"duplicate meta description used {count} times: {value}")
 
-    for asset in ("styles.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json"):
+    for asset in ("styles.css", "mobile-fixes.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json"):
         if not (ROOT / asset).is_file():
             errors.append(f"missing required asset {asset}")
 
@@ -258,6 +258,47 @@ def check() -> list[str]:
             errors.append(f"missing optimized video {video}")
         elif path.stat().st_size > 2_000_000:
             errors.append(f"optimized video exceeds 2 MB: {video}")
+
+    medway_page = (ROOT / "projects/medway-flooring-storage/index.html").read_text(encoding="utf-8")
+    porch_page = (ROOT / "projects/westmount-porch-entry/index.html").read_text(encoding="utf-8")
+    westmount_page = (ROOT / "projects/westmount-1970s-transformation/index.html").read_text(encoding="utf-8")
+    homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+
+    for required in (
+        "Carpet was removed from three rooms",
+        "new double closet",
+        "medway-floor-door-transition.jpg",
+        "Anonymous Medway homeowner",
+    ):
+        if required not in medway_page:
+            errors.append(f"Medway project page is missing required detail: {required}")
+    if "winding" in medway_page.lower():
+        errors.append("Medway project page exposes the former street-based project label")
+
+    for required in (
+        "repeat Westmount customer",
+        "westmount-porch-work-in-progress.jpg",
+        "westmount-porch-after-day.jpg",
+        "westmount-porch-after-night.jpg",
+    ):
+        if required.lower() not in porch_page.lower():
+            errors.append(f"Westmount porch page is missing required detail: {required}")
+
+    for required in (
+        "Project in progress",
+        "one powder-room renovation",
+        "white 2-inch by 10-inch subway tile",
+        "herringbone pattern",
+        "not the final after",
+    ):
+        if required.lower() not in westmount_page.lower():
+            errors.append(f"Phased Westmount page is missing required detail: {required}")
+    if "multiple bathroom" in westmount_page.lower() or "two bathroom" in westmount_page.lower():
+        errors.append("Phased Westmount page overstates the confirmed one-powder-room scope")
+
+    positioning = "Based in Westmount. Working throughout West London and nearby communities."
+    if positioning not in homepage:
+        errors.append("Homepage is missing the required West London positioning statement")
 
     return errors
 

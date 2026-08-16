@@ -28,11 +28,42 @@ AREAS = [
     "Byron",
     "Oakridge",
     "Riverbend",
+    "Medway",
+    "Hyde Park",
     "Masonville",
     "Old South",
-    "Hyde Park",
     "St. Thomas",
 ]
+
+PROJECT_DETAILS: dict[str, dict] = {
+    "/projects/medway-flooring-storage/": {
+        "name": "Medway: More Storage, Better Flow and a Seamless Upper Level",
+        "description": "An anonymous Medway flooring and storage project with carpet removal in three rooms, relocated and new closets, plank flooring, doors, casing and baseboards.",
+        "image": "medway-floor-door-transition.jpg",
+        "image_alt": "Completed Medway doorway with cool gray-brown plank flooring and a clean transition",
+        "neighbourhood": "Medway, London, Ontario",
+        "status": "Completed",
+        "services": ["Flooring installation", "Closet and storage changes", "Doors, casing and baseboards"],
+    },
+    "/projects/westmount-porch-entry/": {
+        "name": "A Westmount Porch and Entry, Modernized by Neighbours",
+        "description": "A repeat Westmount customer’s porch and entry revitalization, shown through careful progress work, a daytime completion view and the finished exterior lighting at night.",
+        "image": "westmount-porch-after-night.jpg",
+        "image_alt": "Finished Westmount porch and entry illuminated at night",
+        "neighbourhood": "Westmount, London, Ontario",
+        "status": "Completed",
+        "services": ["Exterior repairs", "Porch and entry finishing", "Handyman work"],
+    },
+    "/projects/westmount-1970s-transformation/": {
+        "name": "Westmount: A Home Transformation Built in Thoughtful Phases",
+        "description": "An ongoing Westmount transformation completed in phases around the clients’ timing and budget, including layout, flooring, lighting, kitchen work and one powder room.",
+        "image": "westmount-transformation-blue-wall-flooring.jpg",
+        "image_alt": "Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall",
+        "neighbourhood": "Westmount, London, Ontario",
+        "status": "Project in progress",
+        "services": ["Layout changes", "Kitchen work", "One powder-room renovation", "Flooring, lighting and finishing"],
+    },
+}
 
 SERVICES: dict[str, dict] = {
     "bathrooms": {
@@ -146,8 +177,8 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Carpet installation and removal", "Vinyl plank and laminate", "Hardwood and engineered wood", "Tile flooring", "Subfloor preparation", "Transitions, stairs and finish trim"],
         "gallery": [
-            ("project-072.jpg", "New plank flooring in a finished room", "Plank flooring installation"),
-            ("project-038.jpg", "Engineered wood flooring being installed", "Hardwood installation in progress"),
+            ("medway-floor-door-transition.jpg", "Completed Medway door, cool gray-brown plank flooring and clean transition", "Medway completed transition"),
+            ("medway-floor-installation.jpg", "Plank flooring being installed in the Medway upper level", "Medway installation in progress"),
             ("project-055.jpg", "Existing carpet documented before flooring work", "Carpet and room preparation"),
             ("project-042.jpg", "New flooring installed through a kitchen", "Kitchen flooring"),
             ("project-063.jpg", "Tile flooring at a bright patio entry", "Tile and transition work"),
@@ -332,8 +363,8 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Interior door and hardware repairs", "Baseboards, casing and trim", "Drywall and ceiling patching", "Painting and touch-ups", "Bathroom and kitchen plumbing fixtures", "Grouped handyman and maintenance lists"],
         "gallery": [
-            ("project-027.jpg", "Doorway and trim work during a residential repair", "Door and trim work"),
-            ("project-026.jpg", "Finished double closet doors and interior trim", "Finished doors"),
+            ("westmount-porch-after-day.jpg", "Finished anonymous Westmount porch and entry in daylight", "Westmount porch and entry"),
+            ("medway-floor-door-transition.jpg", "Completed Medway door, flooring and transition detail", "Door and flooring finish"),
             ("project-032.jpg", "Drywall patching and compound on an interior wall", "Drywall patching"),
             ("project-140.jpg", "Painting and finishing work in a bathroom", "Painting and finish work"),
             ("project-139.jpg", "Bathroom toilet and flooring installation detail", "Bathroom fixture work"),
@@ -351,8 +382,8 @@ SERVICES: dict[str, dict] = {
         "card_name": "Structural & Layout",
         "title": "Structural & Layout Changes London ON | Hekman Home Services",
         "description": "Framing, wall openings, closet builds and layout changes for renovation projects in London, Ontario.",
-        "hero": "westmount-wall-opening-1.jpg",
-        "hero_alt": "Westmount interior wall opening supported during a layout renovation",
+        "hero": "westmount-transformation-demolition.jpg",
+        "hero_alt": "Westmount main-floor demolition and layout changes in progress",
         "position": "50% 50%",
         "lead": "Change how rooms connect, improve storage and make an existing layout work better for everyday life.",
         "intro": "Layout work often affects framing, drywall, flooring and adjacent finishes. We assess what is existing and work with engineers and designers where the project requires structural direction, drawings, permits or a coordinated design plan.",
@@ -363,10 +394,10 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Wall openings and revisions", "Interior framing", "Engineer and designer coordination", "Closet, storage and doorway changes", "Drywall and finish restoration", "Permit and specialty-trade coordination"],
         "gallery": [
-            ("westmount-wall-opening-1.jpg", "Westmount wall opening supported during structural work", "Westmount wall opening"),
-            ("westmount-wall-opening-2.jpg", "Second view of the supported Westmount wall opening", "Structural stage"),
-            ("westmount-living-finish.jpg", "Finished Westmount living area after the layout change", "Completed living space"),
-            ("westmount-closet-finish.jpg", "Finished Westmount closets, doors and plank flooring", "Closets and finish work"),
+            ("westmount-transformation-demolition.jpg", "Westmount main-floor demolition and layout changes in progress", "Westmount layout phase"),
+            ("medway-closet-before.jpg", "Medway room with carpet and the new closet opening visible", "Medway closet layout"),
+            ("medway-closet-relocation-progress.jpg", "Former Medway closet opening closed and prepared as a seamless wall", "Closet opening relocated"),
+            ("medway-floor-door-transition.jpg", "Completed Medway doorway, flooring and clean transition", "Connected doors, trim and flooring"),
         ],
         "faq": [
             ("Can you remove a wall?", "Potential wall changes must be assessed first. Structural walls require appropriate engineering, permits and supporting work."),
@@ -461,10 +492,10 @@ SERVICE_CARD_VARIANTS: dict[str, list[tuple[str, str]]] = {
         ("salon-after-2.jpg", "Finished London salon interior"),
     ],
     "structural-layout": [
-        ("westmount-wall-opening-2.jpg", "Structural support during the Westmount layout transformation"),
-        ("project-025.jpg", "Interior framing and layout work in progress"),
+        ("westmount-transformation-demolition.jpg", "Westmount demolition and layout changes in progress"),
+        ("medway-closet-relocation-progress.jpg", "Former Medway closet opening closed for the new layout"),
         ("project-138.jpg", "Framed wall opening during an interior renovation"),
-        ("westmount-wall-opening-1.jpg", "Supported wall opening during the Westmount renovation"),
+        ("medway-closet-before.jpg", "Medway room with the new closet opening visible"),
     ],
     "popcorn-ceiling-removal": [
         ("popcorn-ceiling-sander.jpg", "Drywall sander used during popcorn ceiling removal"),
@@ -491,7 +522,7 @@ def schema(path: str, image: str) -> str:
         "url": BASE_URL,
         "logo": f"{BASE_URL}/hekman-logo.jpg",
         "image": f"{BASE_URL}/{image}",
-        "description": "Family-run renovation, repair and property improvement company serving London, Ontario and surrounding communities.",
+        "description": "Family-run renovation, repair and property improvement company based in Westmount and serving West London and nearby communities.",
         "telephone": PHONE_LINK,
         "email": EMAIL,
         "sameAs": [FACEBOOK, INSTAGRAM],
@@ -556,6 +587,26 @@ def schema(path: str, image: str) -> str:
         page["mainEntity"] = {"@id": service["@id"]}
         graph.append(service)
 
+    project_detail = PROJECT_DETAILS.get(path)
+    if project_detail:
+        project_story = {
+            "@type": "Article",
+            "@id": f"{BASE_URL}{path}#project-story",
+            "headline": project_detail["name"],
+            "description": project_detail["description"],
+            "image": f"{BASE_URL}/{project_detail['image']}",
+            "mainEntityOfPage": {"@id": page["@id"]},
+            "author": {"@id": f"{BASE_URL}/#business"},
+            "publisher": {"@id": f"{BASE_URL}/#business"},
+            "about": [{"@type": "Thing", "name": name} for name in project_detail["services"]],
+            "contentLocation": {
+                "@type": "Place",
+                "name": project_detail["neighbourhood"],
+            },
+        }
+        page["mainEntity"] = {"@id": project_story["@id"]}
+        graph.append(project_story)
+
     if path != "/":
         crumbs = [
             {
@@ -583,11 +634,18 @@ def schema(path: str, image: str) -> str:
                     "item": f"{BASE_URL}/projects/",
                 }
             )
+        breadcrumb_name = (
+            SERVICES[service_slug]["name"]
+            if service_slug
+            else project_detail["name"]
+            if project_detail
+            else path.strip("/").split("/")[-1].replace("-", " ").title()
+        )
         crumbs.append(
             {
                 "@type": "ListItem",
                 "position": len(crumbs) + 1,
-                "name": SERVICES[service_slug]["name"] if service_slug else path.strip("/").split("/")[-1].replace("-", " ").title(),
+                "name": breadcrumb_name,
                 "item": f"{BASE_URL}{path}",
             }
         )
@@ -606,6 +664,7 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
     canonical = f"{BASE_URL}{path}"
     robots = "index,follow,max-image-preview:large" if indexable else "noindex,follow"
     structured_data = f'<script type="application/ld+json">{schema(path, image)}</script>' if indexable else ""
+    social_image_alt = PROJECT_DETAILS.get(path, {}).get("image_alt", "Completed work by Hekman Home Services Inc.")
     return f"""
     <head>
       <meta charset="utf-8">
@@ -625,12 +684,13 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <meta property="og:description" content="{html.escape(description, quote=True)}">
       <meta property="og:url" content="{canonical}">
       <meta property="og:image" content="{BASE_URL}/{image}">
-      <meta property="og:image:alt" content="Completed work by Hekman Home Services Inc.">
+      <meta property="og:image:alt" content="{html.escape(social_image_alt, quote=True)}">
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:title" content="{title}">
       <meta name="twitter:description" content="{html.escape(description, quote=True)}">
       <meta name="twitter:image" content="{BASE_URL}/{image}">
       <link rel="stylesheet" href="/styles.css">
+      <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css">
       {structured_data}
     </head>
     """
@@ -645,7 +705,7 @@ def header(current: str) -> str:
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="utility-bar">
       <div class="utility-inner">
-        <span>Renovations &amp; repairs in London, Ontario</span>
+        <span>Based in Westmount · Serving West London</span>
         <span><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><i aria-hidden="true"></i><a href="mailto:{EMAIL}">{EMAIL}</a></span>
       </div>
     </div>
@@ -679,13 +739,13 @@ def footer() -> str:
             <img class="brand-logo" src="/hekman-logo.jpg" alt="" width="64" height="64" loading="lazy" decoding="async">
             <span><strong>Hekman Home Services Inc.</strong><small>London, Ontario</small></span>
           </a>
-          <p>Thoughtful renovation, repair and property improvement work across London and nearby communities.</p>
+          <p>Based in Westmount. Working throughout West London and nearby communities.</p>
           <p><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
           <p class="social-links"><a href="{INSTAGRAM}" rel="me noopener" target="_blank">Instagram</a><a href="{FACEBOOK}" rel="me noopener" target="_blank">Facebook</a></p>
         </div>
         <div><h2>Explore</h2><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Our Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
         <div><h2>Popular services</h2><ul><li><a href="/services/bathrooms/">Bathrooms</a></li><li><a href="/services/kitchens/">Kitchens</a></li><li><a href="/services/basements/">Basements</a></li><li><a href="/services/decks-exterior/">Decks &amp; Exterior</a></li><li><a href="/services/handyman-repairs/">Handyman &amp; Repairs</a></li><li><a href="/services/commercial/">Commercial Work</a></li></ul></div>
-        <div><h2>Service area</h2><p>London, Westmount, Byron, Oakridge, Riverbend, Masonville, Old South, Hyde Park, St. Thomas and nearby communities.</p></div>
+        <div><h2>Service area</h2><p>Westmount, Byron, Oakridge, Riverbend, Medway, Hyde Park and nearby London communities.</p></div>
       </div>
       <div class="wrap footer-fine"><span>© <span data-year></span> Hekman Home Services Inc. All rights reserved.</span><a href="/contact/">Start a project</a></div>
     </footer>
@@ -735,6 +795,74 @@ def section_heading(eyebrow: str, title: str, text: str) -> str:
     """
 
 
+def breadcrumbs(current_label: str) -> str:
+    return f"""
+    <nav class="breadcrumbs wrap" aria-label="Breadcrumb">
+      <ol><li><a href="/">Home</a></li><li><a href="/projects/">Our Work</a></li><li aria-current="page">{html.escape(current_label)}</li></ol>
+    </nav>
+    """
+
+
+def project_spotlight(slug: str) -> str:
+    spotlights = {
+        "flooring": (
+            "Medway project proof",
+            "Flooring that connects with better storage",
+            "Carpet came out of three rooms before cool gray-brown plank flooring, new doors, casing and baseboards connected the upper level. The project also added and enlarged closets for better everyday use.",
+            "medway-floor-door-transition.jpg",
+            "Completed Medway doorway, plank flooring and transition detail",
+            "/projects/medway-flooring-storage/",
+            "See the Medway flooring and storage story",
+        ),
+        "structural-layout": (
+            "Medway storage project",
+            "A closet opening moved so the storage could work harder",
+            "The former opening was closed and prepared as a seamless wall while a larger closet was created on the opposite side. A new double closet added useful storage in the primary bedroom.",
+            "medway-closet-relocation-progress.jpg",
+            "Former Medway closet opening closed and prepared for a seamless primed wall",
+            "/projects/medway-flooring-storage/",
+            "See the Medway layout changes",
+        ),
+        "handyman-repairs": (
+            "Repeat Westmount customer",
+            "One porch project within a longer local relationship",
+            "This exterior refresh was completed for a Westmount neighbour who has also trusted Hekman Home Services with several handyman projects over time.",
+            "westmount-porch-after-day.jpg",
+            "Finished Westmount porch and entry in daylight",
+            "/projects/westmount-porch-entry/",
+            "See the Westmount porch and entry",
+        ),
+        "decks-exterior": (
+            "Westmount exterior proof",
+            "A cleaner porch, a brighter entry and a more modern welcome",
+            "Careful progress work, refreshed exterior lines and lighting changed how this repeat customer’s home feels from the street—during the day and after dark.",
+            "westmount-porch-after-night.jpg",
+            "Finished Westmount porch and entry illuminated at night",
+            "/projects/westmount-porch-entry/",
+            "See the porch revitalization",
+        ),
+        "kitchens": (
+            "Westmount project in progress",
+            "Kitchen work that fits a thoughtful phased plan",
+            "The kitchen is one part of an ongoing transformation completed around the clients’ timing and budget. Cabinetry is installed; the planned white herringbone backsplash and final styling are still ahead.",
+            "westmount-transformation-kitchen-current.jpg",
+            "Current Westmount kitchen progress with cabinetry installed before the planned backsplash",
+            "/projects/westmount-1970s-transformation/",
+            "See the phased Westmount transformation",
+        ),
+    }
+    details = spotlights.get(slug)
+    if not details:
+        return ""
+    eyebrow, title, text, image, alt, link, link_label = details
+    return f"""
+      <section class="section section-stone project-spotlight"><div class="wrap editorial-grid">
+        <div class="editorial-media reveal"><img src="/{image}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"><span>Genuine local project</span></div>
+        <div class="editorial-copy reveal"><p class="eyebrow">{eyebrow}</p><h2>{title}</h2><p>{text}</p><a class="text-link dark-link" href="{link}">{link_label} <span aria-hidden="true">↗</span></a></div>
+      </div></section>
+    """
+
+
 def service_url(slug: str) -> str:
     return f"/services/{slug}/"
 
@@ -755,8 +883,25 @@ def service_card(slug: str, *, compact: bool = False, variant: int = 0) -> str:
 
 def homepage() -> str:
     featured = "".join(service_card(slug) for slug in SERVICE_DISPLAY_ORDER[:9])
+    local_proof = f"""
+      <section class="section section-stone local-proof-section">
+        <div class="wrap">
+          {section_heading("West London project proof", "Real work, close to home.", "Three different local projects show the range: smarter storage and flooring in Medway, a neighbour’s porch in Westmount, and an ongoing home transformation completed in careful phases.")}
+          <div class="story-card-grid local-proof-grid">
+            <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Layout, kitchen, one powder room, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
+            <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, cool gray-brown plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, new closets, doors, casing, baseboards and seamless floor transitions <i aria-hidden="true">↗</i></b></span></a>
+            <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · repeat customer</small><strong>A brighter welcome, built by neighbours</strong><b>Porch, entry, exterior lines and lighting revitalized <i aria-hidden="true">↗</i></b></span></a>
+          </div>
+          <div class="testimonial-grid" aria-label="Anonymous homeowner testimonials">
+            <blockquote class="testimonial-card reveal"><p>“This team is amazing—so meticulous and detail-oriented. Love their work.”</p><footer>Anonymous Medway homeowner</footer></blockquote>
+            <blockquote class="testimonial-card reveal"><p>“Efficient, professional and fantastic work. Rene modernized the front of our home, and I would recommend him for home repair and remodelling.”</p><footer>Anonymous repeat Westmount customer</footer></blockquote>
+          </div>
+          <div class="section-actions reveal"><a class="button button-dark" href="/projects/">Explore More Real Projects</a></div>
+        </div>
+      </section>
+    """
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "From bathrooms, kitchens and basements to flooring, drywall, lighting, plumbing, exterior work, restoration and commercial maintenance, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "Based in Westmount. Working throughout West London and nearby communities. From full renovations to the repair list that keeps growing, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
@@ -766,6 +911,7 @@ def homepage() -> str:
           <div><span>04</span><strong>Clear project scope</strong><small>Understand the work before it begins</small></div>
         </div>
       </section>
+      {local_proof}
       <section class="section section-paper">
         <div class="wrap">
           {section_heading("What we do", "One team for the work that makes a house feel complete.", "From full-room renovations to complex repair lists, we bring the connected parts of a project together with clear communication and careful finishing.")}
@@ -777,18 +923,6 @@ def homepage() -> str:
         <div class="wrap editorial-grid">
           <div class="editorial-media reveal"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion with glass enclosure" loading="lazy" decoding="async"><span>Genuine completed work</span></div>
           <div class="editorial-copy reveal"><p class="eyebrow">Craftsmanship you can see</p><h2>Good work starts behind the finish.</h2><p>What you see at the end depends on what happens first: understanding existing conditions, protecting the home, preparing surfaces and communicating when a project reveals something unexpected.</p><ul class="line-list"><li><strong>Plan the complete scope</strong><span>Look beyond one surface to the connected work around it.</span></li><li><strong>Prepare with care</strong><span>Protection, dust control and cleanup are part of the job.</span></li><li><strong>Finish the details</strong><span>Transitions, trim and touch-ups help the work feel intentional.</span></li></ul><a class="text-link" href="/about/">Meet Hekman Home Services <span aria-hidden="true">↗</span></a></div>
-        </div>
-      </section>
-      <section class="section section-stone">
-        <div class="wrap">
-          {section_heading("Signature work", "Every property has its own story.", "Step inside a whole-home Hilltop transformation, a 1970s Westmount reinvention, detailed bathroom work and the restoration of a working London salon.")}
-          <div class="project-preview">
-            <a class="project-tile project-tall reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen renovation" loading="lazy"><span><small>Whole-home transformation</small>Hilltop, designed as one complete home</span></a>
-            <a class="project-tile reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living area after a layout change" loading="lazy"><span><small>1970s Westmount home</small>A new sense of flow</span></a>
-            <a class="project-tile reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small>Jetted tub to glass shower</span></a>
-            <a class="project-tile project-wide reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-2.jpg" alt="Completed London salon interior" loading="lazy"><span><small>Commercial salon repair</small>Repairing the damage without losing the character</span></a>
-          </div>
-          <div class="section-actions reveal"><a class="button button-dark" href="/projects/">Explore Our Work</a></div>
         </div>
       </section>
       <section class="section section-charcoal">
@@ -804,14 +938,14 @@ def homepage() -> str:
       </section>
       <section class="section section-paper">
         <div class="wrap area-layout">
-          <div class="reveal"><p class="eyebrow">Service area</p><h2>Local work, close to home.</h2><p>Hekman Home Services works across London and surrounding communities, including Westmount, Byron, Oakridge, Riverbend, Masonville, Old South, Hyde Park and St. Thomas.</p><div class="area-pills">{"".join(f'<span>{area}</span>' for area in AREAS)}</div></div>
+          <div class="reveal"><p class="eyebrow">Service area</p><h2>Based in Westmount. Close to the work.</h2><p><strong>Based in Westmount. Working throughout West London and nearby communities.</strong> That includes homes in Byron, Oakridge, Riverbend, Medway, Hyde Park and other London neighbourhoods.</p><div class="area-pills">{"".join(f'<span>{area}</span>' for area in AREAS)}</div></div>
           <div class="photo-stack reveal"><img src="/project-070.jpg" alt="Hekman Home Services team" loading="lazy"><div class="photo-note"><strong>Hands-on, local service</strong><span>Respect for your home and clear communication throughout the work.</span></div></div>
         </div>
       </section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture what could work better?</p><h2>Start with the room—or repair—you keep thinking about.</h2><p>Send a few photos and tell us what is not working now. Rene and Steph will help turn that starting point into a practical next step.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>
     """
-    return page("Renovations, Repairs & Restoration London ON | Hekman", "Hekman Home Services provides thoughtful renovations, restorative repairs, flooring, drywall, handyman work and commercial maintenance in London, Ontario.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
+    return page("Renovations & Repairs West London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout West London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
 
 
 def services_page() -> str:
@@ -953,6 +1087,7 @@ def service_page(slug: str) -> str:
         service_card(related_slug, compact=True, variant=variant)
         for variant, related_slug in enumerate(item["related"], 2)
     )
+    spotlight = project_spotlight(slug)
     showcase = bathroom_showcase() if slug == "bathrooms" else commercial_showcase() if slug == "commercial" else ""
     if slug == "commercial":
         gallery_section = ""
@@ -971,6 +1106,7 @@ def service_page(slug: str) -> str:
       <section class="section section-charcoal"><div class="wrap">{section_heading("What the work can include", "A complete scope, not disconnected pieces.", "The exact work depends on existing conditions, selected materials and the result you want.")}<div class="proof-grid">{scope}</div></div></section>
       {showcase}
       {gallery_section}
+      {spotlight}
       <section class="section section-paper"><div class="wrap faq-layout"><div class="reveal"><p class="eyebrow">Common questions</p><h2>Helpful before the walkthrough.</h2><p>The final scope depends on your property, materials and existing conditions.</p></div><div class="faq-list">{faqs}</div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Related services", "The connected work matters too.", "Many renovations involve more than one surface or room. These services are often part of the same conversation.")}<div class="service-grid related-grid">{related}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Thinking about this project?</p><h2>Show us what you’re working with.</h2><p>You do not need a finished design or every decision made. A few photos and a clear description are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
@@ -1026,22 +1162,66 @@ def hilltop_project_page() -> str:
     return page("Hilltop Home Transformation | Hekman Home Services", "Explore Hekman Home Services’ Hilltop renovation in London, including the kitchen, two bathroom transformations, lower level, stairs and finish work.", "/projects/hilltop-home-transformation/", "hilltop-kitchen-wide.jpg", "projects", body, "project-story-page")
 
 
-def westmount_project_page() -> str:
+def medway_project_page() -> str:
+    project_name = "Medway: More Storage, Better Flow and a Seamless Upper Level"
     body = f"""
-    {hero("westmount-living-finish.jpg", "Finished Westmount living room after the layout transformation", "1970s Westmount Beauty · London, Ontario", "A 1970s home, opened up and brought forward.", "The Westmount transformation reshaped how the home connects, then carried the new direction through flooring, trim, doors, stairs, closets, kitchen and bathroom work.", small=True, position="50% 52%")}
+    {hero("medway-floor-door-transition.jpg", "Completed Medway doorway with cool gray-brown plank flooring and a clean transition", "Medway project story · London, Ontario", "More storage. Better flow. One seamless upper level.", "What began as a flooring update grew into a practical transformation of three rooms, with relocated and new closets, coordinated trim and clean transitions throughout.", small=True, position="50% 64%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Westmount Glow-Up</p><h2>Changing the flow meant starting with the structure.</h2><p>The old kitchen wall came down to change the relationship between the main living spaces. Temporary support and structural work came first; only then could the walls be closed and the new finish plan move forward.</p><p>Steph Hekman shaped the design direction for the project, connecting the layout change with new flooring, trim, doors, stairs, closets and room finishes throughout the home.</p></div><ul class="scope-list reveal"><li>Kitchen wall opening and layout change</li><li>Structural support during construction</li><li>Drywall closure and finish restoration</li><li>Flooring and stair updates</li><li>Trim, doors and closets</li><li>Kitchen and bathroom improvements</li></ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("From structure to finish", "The transformation happened in layers.", "These photographs follow the wall opening and the completed living and storage details that helped the 1970s home feel current again.")}<div class="story-mosaic story-mosaic-westmount">
-        <figure class="story-feature"><img src="/westmount-wall-opening-1.jpg" alt="Temporary support at the Westmount wall opening" loading="lazy"><figcaption>Wall opening and temporary support</figcaption></figure>
-        <figure><img src="/westmount-wall-opening-2.jpg" alt="Second view of structural support during the Westmount renovation" loading="lazy"><figcaption>Structural stage</figcaption></figure>
-        <figure class="story-wide"><img src="/westmount-living-finish.jpg" alt="Completed Westmount living room with fireplace and new lighting" loading="lazy"><figcaption>Completed living space</figcaption></figure>
-        <figure><img src="/westmount-closet-finish.jpg" alt="Finished Westmount closets, doors and plank flooring" loading="lazy"><figcaption>Closets, doors and flooring</figcaption></figure>
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Anonymous Medway project · completed</p><h2>A flooring project that solved much more than the floor.</h2><p>Carpet was removed from three rooms and replaced with cool gray-brown plank flooring carried through the upper level to coordinate with the previously completed main floor.</p><p>At the same time, an existing closet opening was closed and relocated to create a larger closet on the other side of the wall. The primary bedroom also received a new double closet. New doors, casing and baseboards connected the rooms, and the altered wall surfaces were left seamless and primed for the homeowner’s final paint.</p></div><ul class="scope-list reveal"><li>Carpet removal in three rooms</li><li>Plank flooring and clean transitions</li><li>Relocated and enlarged closet</li><li>New double closet in the primary bedroom</li><li>New doors, casing and baseboards</li><li>Seamless primed surfaces, ready for final paint</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Before, during and finished detail", "The real work is visible in the transitions.", "Four carefully selected photographs show the original carpeted room, the relocated closet opening, flooring installation and the exact completed plank colour at the doorway.")}<div class="story-mosaic story-mosaic-medway">
+        <figure class="story-feature"><img src="/medway-closet-before.jpg" alt="Medway room before the flooring and closet changes, with carpet and the new closet opening visible" loading="lazy"><figcaption>Before: carpet and existing room layout</figcaption></figure>
+        <figure><img src="/medway-closet-relocation-progress.jpg" alt="Former Medway closet opening closed and prepared to become a seamless wall" loading="lazy"><figcaption>During: former closet opening closed</figcaption></figure>
+        <figure><img src="/medway-floor-installation.jpg" alt="Plank flooring being installed in the Medway upper level" loading="lazy"><figcaption>During: plank flooring installation</figcaption></figure>
+        <figure class="story-wide"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway door, cool gray-brown plank flooring and clean threshold transition" loading="lazy"><figcaption>Completed detail: door, floor and transition</figcaption></figure>
       </div></div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("The work behind the reveal", "Open. Support. Close. Finish.", "A convincing layout transformation depends on the less glamorous stages being handled in the right order.")}<div class="proof-grid story-step-grid"><article class="proof-card reveal"><span>01</span><h3>Open the old layout</h3><p>Remove finishes and expose the conditions that determine the structural plan.</p></article><article class="proof-card reveal"><span>02</span><h3>Support the change</h3><p>Protect the structure while the new opening and required support are completed.</p></article><article class="proof-card reveal"><span>03</span><h3>Close the walls</h3><p>Restore drywall and connected surfaces around the new layout.</p></article><article class="proof-card reveal"><span>04</span><h3>Carry the finish through</h3><p>Connect flooring, trim, doors, closets, lighting and room details across the home.</p></article></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Related expertise", "Layout work touches more than one trade.", "Structural planning, kitchen work and finished surfaces all have to meet cleanly.")}<div class="service-grid related-grid">{service_card("structural-layout", compact=True, variant=2)}{service_card("kitchens", compact=True, variant=4)}{service_card("flooring", compact=True, variant=3)}</div></div></section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Living with an outdated layout?</p><h2>Let’s look at what could open up.</h2><p>Send photos of the rooms and tell us how you want the home to work differently.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/medway-floor-door-transition.jpg" alt="Close view of the completed Medway flooring at a doorway transition" loading="lazy"><span>Exact installed flooring</span></div><div class="editorial-copy reveal"><p class="eyebrow">Budget-conscious collaboration</p><h2>More function, with the spending focused where it mattered.</h2><p>The homeowner supplied the flooring. Hekman Home Services provided the trim and doors at cost, helping the larger storage and finish scope stay within the homeowner’s budget.</p><p>The result improves daily storage, creates a more connected upper level and adds a cleaner finish that supports future resale appeal.</p><a class="text-link dark-link" href="/services/flooring/">Explore flooring installation <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-paper"><div class="wrap testimonial-feature reveal"><p class="eyebrow">Homeowner feedback</p><blockquote>“This team is amazing—so meticulous and detail-oriented. Love their work.”</blockquote><p>The homeowner has already said they want Hekman Home Services back for future work.</p><cite>Anonymous Medway homeowner</cite></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Flooring, storage and finish carpentry in one plan.", "The room works because the floor, closets, doors and trim were considered together.")}<div class="service-grid related-grid">{service_card("flooring", compact=True, variant=1)}{service_card("structural-layout", compact=True, variant=1)}{service_card("handyman-repairs", compact=True, variant=1)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Could your rooms work harder?</p><h2>Start with the floor—or the storage problem around it.</h2><p>Send a few photos and tell us what is not working now. We will look at the connected details with you.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("1970s Westmount Home Transformation | Hekman Home Services", "See how Hekman Home Services transformed a 1970s Westmount home with a structural wall opening, new flow, flooring, trim, doors, closets and interior finishes.", "/projects/westmount-1970s-transformation/", "westmount-living-finish.jpg", "projects", body, "project-story-page")
+    return page("Medway Flooring & Storage Transformation | Hekman", PROJECT_DETAILS["/projects/medway-flooring-storage/"]["description"], "/projects/medway-flooring-storage/", "medway-floor-door-transition.jpg", "projects", body, "project-story-page")
+
+
+def westmount_porch_project_page() -> str:
+    project_name = "A Westmount Porch and Entry, Modernized by Neighbours"
+    body = f"""
+    {hero("westmount-porch-after-night.jpg", "Finished Westmount porch and entry illuminated at night", "Westmount project story · London, Ontario", "A more modern welcome, built by neighbours.", "A separate porch and entry revitalization for a repeat Westmount customer and neighbour who has also trusted Hekman Home Services with several handyman projects.", small=True, position="50% 58%")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Repeat customer · completed exterior</p><h2>A front entry that feels cleaner by day and brighter after dark.</h2><p>This porch and entry project focused on the details that shape the first impression of a home: repairing and refreshing the exterior, cleaning up the visual lines and bringing the lighting into the finished result.</p><p>The customer is also a Westmount neighbour. Hekman Home Services has returned for several handyman projects over time, building the kind of local working relationship where one completed repair can lead naturally to the next priority.</p></div><ul class="scope-list reveal"><li>Porch and entry revitalization</li><li>Careful exterior progress work</li><li>Cleaner exterior lines and finish details</li><li>Entry lighting in the completed design</li><li>Additional handyman work completed over time</li><li>Local neighbour service in Westmount</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Progress to finished welcome", "Two daylight views. One strong night finish.", "The real project photographs are intentionally limited to the strongest progress image, the finished daytime view and the completed exterior lighting at night.")}<div class="story-mosaic story-mosaic-porch">
+        <figure class="story-feature"><img src="/westmount-porch-work-in-progress.jpg" alt="Exterior work in progress at an anonymous Westmount porch and entry" loading="lazy"><figcaption>During: careful porch and entry work</figcaption></figure>
+        <figure class="story-wide"><img src="/westmount-porch-after-day.jpg" alt="Finished anonymous Westmount porch and entry in daylight" loading="lazy"><figcaption>After: finished daytime view</figcaption></figure>
+      </div><p class="story-photo-note reveal"><strong>Finished night view:</strong> the project hero above shows the strongest completed photograph after dark, with the new lighting bringing the refreshed entry to life.</p></div></section>
+      <section class="section section-stone"><div class="wrap testimonial-feature reveal"><p class="eyebrow">Homeowner feedback</p><blockquote>“Efficient, professional and fantastic work. Rene modernized the front of our home, and I would recommend him for home repair and remodelling.”</blockquote><cite>Anonymous repeat Westmount customer</cite></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Exterior improvements and the repair list beside them.", "A focused porch project can sit alongside doors, trim, repairs and other handyman priorities around the home.")}<div class="service-grid related-grid">{service_card("decks-exterior", compact=True, variant=3)}{service_card("handyman-repairs", compact=True, variant=2)}{service_card("drywall-ceiling-repair", compact=True, variant=2)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Need help with the front of your home?</p><h2>Show us the porch—and the repair list that comes with it.</h2><p>Whether it is one exterior priority or several compatible handyman items, a few photos are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Westmount Porch & Entry Revitalization | Hekman", PROJECT_DETAILS["/projects/westmount-porch-entry/"]["description"], "/projects/westmount-porch-entry/", "westmount-porch-after-night.jpg", "projects", body, "project-story-page")
+
+
+def westmount_project_page() -> str:
+    project_name = "Westmount: A Home Transformation Built in Thoughtful Phases"
+    body = f"""
+    {hero("westmount-transformation-blue-wall-flooring.jpg", "Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall", "Ongoing Westmount transformation · London, Ontario", "A home transformation built in thoughtful phases.", "This is an ongoing project, planned and completed in stages around the clients’ life, timing and budget. Every finished phase is designed to connect with what came before—and what is still ahead.", small=True, position="50% 52%")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="status-badge"><span aria-hidden="true"></span> Project in progress</p><p class="eyebrow">Phased Westmount home transformation</p><h2>A long-term plan, built at the right pace for the homeowners.</h2><p>This project has been intentionally completed in thoughtful phases rather than treated as one rushed renovation. Layout changes, demolition, drywall, painting, flooring, lighting and storage work established the direction of the home before the kitchen and later finishing phases moved forward.</p><p>The confirmed bathroom scope is <strong>one powder-room renovation</strong>. The project also includes kitchen work, cabinetry, doors, trim and related finishing. Some phases are complete; the overall transformation and kitchen are not.</p></div><ul class="scope-list reveal"><li>Layout changes and demolition</li><li>Drywall, surface preparation and painting</li><li>Plank flooring and pot lights</li><li>Kitchen cabinetry and ongoing kitchen work</li><li>One powder-room renovation</li><li>Storage, doors, trim and finishing</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Work completed in connected phases", "From demolition to a kitchen still in progress.", "Six selected real photographs show the sequence accurately. Completed room phases are identified as complete; the kitchen remains a current progress view, not a final after photograph.")}<div class="story-mosaic story-mosaic-westmount-phased">
+        <figure class="story-feature"><img src="/westmount-transformation-demolition.jpg" alt="Westmount main-floor demolition and layout changes in progress" loading="lazy"><figcaption>Phase: demolition and layout changes</figcaption></figure>
+        <figure><img src="/westmount-transformation-protection-painting.jpg" alt="Westmount room protected with coverings while painting is underway" loading="lazy"><figcaption>Phase: protection and painting</figcaption></figure>
+        <figure><img src="/westmount-transformation-pot-lights.jpg" alt="New pot lights installed across the Westmount main-floor ceiling" loading="lazy"><figcaption>Phase: new pot lights</figcaption></figure>
+        <figure class="story-wide"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><figcaption>Completed phase: flooring, lighting and feature wall</figcaption></figure>
+        <figure><img src="/westmount-transformation-cabinet-install.jpg" alt="Hekman Home Services crew installing kitchen cabinetry in the phased Westmount project" loading="lazy"><figcaption>Phase: cabinetry installation</figcaption></figure>
+        <figure><img src="/westmount-transformation-kitchen-current.jpg" alt="Current Westmount kitchen progress before the planned backsplash and final styling" loading="lazy"><figcaption>Current kitchen progress — not the final after</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid"><div class="editorial-media reveal"><img src="/westmount-transformation-kitchen-current.jpg" alt="Current Westmount kitchen with cabinetry installed before the backsplash and final styling" loading="lazy"><span>Real current progress</span></div><div class="editorial-copy reveal"><p class="eyebrow">What is still planned</p><h2>The kitchen is not being presented as finished.</h2><p>Cabinetry and major surfaces are in place, but the backsplash and final styling remain ahead. The planned backsplash is <strong>white 2-inch by 10-inch subway tile installed in a herringbone pattern and carried to the ceiling.</strong></p><p>There is no finished-kitchen rendering on this page. When the real final work is complete, the project story can be updated with an accurate after photograph.</p><a class="text-link dark-link" href="/services/kitchens/">Explore kitchen renovations <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-paper"><div class="wrap">{section_heading("Why the phased approach works", "Each stage protects the bigger plan.", "Completing a home in phases can make the budget and disruption more manageable, as long as every decision supports the later work.")}<div class="proof-grid story-step-grid"><article class="proof-card reveal"><span>01</span><h3>Start with function</h3><p>Address layout, lighting, storage and the surfaces that influence the whole main floor.</p></article><article class="proof-card reveal"><span>02</span><h3>Protect finished work</h3><p>Prepare and cover completed areas while the next phase is underway.</p></article><article class="proof-card reveal"><span>03</span><h3>Connect each choice</h3><p>Coordinate flooring, paint, cabinetry, doors and trim with what is already complete.</p></article><article class="proof-card reveal"><span>04</span><h3>Finish without pretending</h3><p>Show completed phases proudly while staying clear about what still remains.</p></article></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Related expertise", "One transformation, several connected scopes.", "Kitchen work, layout changes and finished surfaces all need to meet cleanly across the phases.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True, variant=4)}{service_card("structural-layout", compact=True, variant=2)}{service_card("flooring", compact=True, variant=3)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Planning a renovation in phases?</p><h2>Start with the whole plan, even if you build it one stage at a time.</h2><p>Show us the rooms, priorities and timing. We will help identify how the pieces should connect.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Phased Westmount Home Transformation | Hekman", PROJECT_DETAILS["/projects/westmount-1970s-transformation/"]["description"], "/projects/westmount-1970s-transformation/", "westmount-transformation-blue-wall-flooring.jpg", "projects", body, "project-story-page")
 
 
 def salon_project_page() -> str:
@@ -1213,10 +1393,10 @@ PROJECTS = [
     ("post-hole-auger.jpg", "exterior", "Powered auger digging a post hole", "Powered auger work", "Fence / post work"),
 
     # Interior framing and layout work.
-    ("westmount-wall-opening-1.jpg", "structural", "Temporary structural support at the Westmount wall opening", "Westmount wall opening", "Structural / layout"),
-    ("westmount-wall-opening-2.jpg", "structural", "Second view of support during the Westmount layout change", "Westmount structural stage", "Structural / layout"),
-    ("westmount-living-finish.jpg", "structural flooring", "Finished Westmount living room after the layout change", "Westmount living finish", "Structural / finish"),
-    ("westmount-closet-finish.jpg", "structural flooring", "Finished Westmount closets, doors and plank flooring", "Westmount closets", "Layout / storage"),
+    ("westmount-transformation-demolition.jpg", "structural drywall", "Westmount main-floor demolition and layout changes in progress", "Westmount layout changes", "Ongoing transformation"),
+    ("westmount-transformation-blue-wall-flooring.jpg", "flooring structural", "Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall", "Westmount completed phase", "Flooring / lighting"),
+    ("westmount-transformation-cabinet-install.jpg", "kitchens handyman", "Hekman Home Services crew installing kitchen cabinetry in the phased Westmount project", "Westmount cabinet installation", "Kitchen in progress"),
+    ("westmount-transformation-kitchen-current.jpg", "kitchens", "Current Westmount kitchen progress before the planned backsplash and final styling", "Westmount kitchen progress", "Not the final after"),
     ("project-025.jpg", "structural", "Interior framing exposed during a layout renovation", "Layout opening", "Structural / layout"),
     ("project-031.jpg", "structural", "Doorway framing during an interior renovation", "New opening and framing", "Structural / layout"),
     ("project-138.jpg", "structural kitchens", "New wall framing beside a kitchen renovation", "Interior framing", "Structural / layout"),
@@ -1251,14 +1431,15 @@ def projects_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Some projects begin with a vision. Others begin with a problem.", "See how a whole home, a dated layout, a leaking commercial space, an oversized tub, a compact office kitchen and a textured ceiling each called for a very different plan.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Real homes. Real stages. Clear project facts.", "Begin with three West London stories, then explore other verified transformations, repairs and commercial work. In-progress projects are labelled clearly, and every homeowner remains anonymous.")}
         <div class="story-card-grid">
-          <a class="story-card story-card-large reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathroom, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Kitchen, one powder room, layout, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, relocated closets, flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · repeat customer</small><strong>A porch modernized by neighbours</strong><b>Exterior progress, daytime completion and finished lighting <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathrooms, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small><strong>Jetted tub to glass shower</strong><b>Demolition, open-wall work, tile and enclosure <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living room" loading="lazy"><span><small>1970s Westmount Beauty</small><strong>A new sense of flow</strong><b>Wall opening, flooring, trim, doors and closets <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-1.jpg" alt="Restored London salon interior" loading="lazy"><span><small>Commercial restoration</small><strong>A working salon, restored after water damage</strong><b>Construction repairs planned around the needs of the business <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card story-card-wide reveal" href="/projects/popcorn-ceiling-transformation/"><img src="/popcorn-ceiling-sander.jpg" alt="Ceiling sander used during popcorn ceiling removal" loading="lazy"><span><small>Before · during · finish stage</small><strong>Popcorn ceiling transformation</strong><b>Sand, skim, check and prime <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card story-card-wide reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
         </div>
       </div></section>
       <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "See the work—not only the reveal.", "These short videos show demolition, installation and finish details. They never autoplay and wait to load until you choose to watch.")}<div class="video-grid video-grid-three"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>Follow one bathroom from demolition and open-wall work to the finished glass shower.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed office kitchen</strong><span>A closer look at the cabinetry, hardware, sink, counter and finished working surface.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>The in-between stage: new lighting, wall repairs and ceiling finishing underway.</span></figcaption></figure></div></div></section>
@@ -1266,7 +1447,7 @@ def projects_page() -> str:
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Show us what’s not working. Tell us what better looks like.</h2><p>Whether you are imagining a complete transformation, dealing with damage or finally tackling the repairs that have piled up, you do not need every answer before reaching out. A few photos and an honest conversation are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
     </main>"""
-    return page("Renovation & Restoration Projects London ON | Hekman", "Explore genuine whole-home, kitchen, bathroom, flooring, drywall, restoration, exterior and commercial projects by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
+    return page("Renovation Projects West London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
 
 
 def about_page() -> str:
@@ -1276,7 +1457,7 @@ def about_page() -> str:
       <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you speak with are part of the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Together they combine more than 20 years of hands-on renovation and repair experience with the planning, sales and design perspective that helps a project feel considered from the first walkthrough to the final details.</p><p>That closeness matters. Existing conditions are discussed, choices are connected to the whole property and the client is never handed off to an anonymous process. The work stays grounded in a simple idea: fix it properly, communicate clearly and leave the space feeling complete.</p><p class="signature-line">Fix it. Sell it. Celebrate it.</p></div><div class="editorial-media reveal"><img src="/project-079.jpg" alt="Hekman Home Services team reviewing plans" loading="lazy"><span>Planning the work together</span></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What guides the work", "Professional does not have to feel impersonal.", "The strongest projects come from good preparation, honest conversations and care for the property throughout the work.")}<div class="values-grid"><article class="reveal"><span>01</span><h3>Listen first</h3><p>Understand the problem, priorities and intended result before defining the work.</p></article><article class="reveal"><span>02</span><h3>Protect the property</h3><p>Preparation, dust control and cleanup are treated as part of the project.</p></article><article class="reveal"><span>03</span><h3>Communicate clearly</h3><p>When existing conditions affect the plan, explain what changed and why.</p></article><article class="reveal"><span>04</span><h3>Finish thoughtfully</h3><p>Trim, transitions and final details matter because they are what make the work feel complete.</p></article></div></div></section>
       <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene leads construction in the field—from opening walls and solving repair conditions to the practical preparation and finish work that make a renovation hold together. His role stays hands-on throughout the project.</p></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph guides client communication, project planning and design decisions. Her eye for how rooms connect shaped transformations such as the 1970s Westmount project, where layout, flooring, trim, doors and finishes had to read as one home.</p></div></article></div></section>
-      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Working throughout London and nearby communities.</h2><p>Based in London, Hekman Home Services works in neighbourhoods including Westmount, Byron, Oakridge, Riverbend, Masonville, Old South and Hyde Park, as well as St. Thomas and nearby areas.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
+      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Close to the work.</h2><p><strong>Based in Westmount. Working throughout West London and nearby communities.</strong> Hekman Home Services regularly works in neighbourhoods including Byron, Oakridge, Riverbend, Medway and Hyde Park, as well as other London areas.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Let’s discuss your property.</p><h2>Start with the space and the goal.</h2><p>We will help make sense of the connected work from there.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "project-070.jpg", "about", body, "about-page")
@@ -1290,7 +1471,7 @@ def contact_page() -> str:
     body = f"""
     {hero("project-129.jpg", "Completed kitchen renovation", "Contact Hekman Home Services", "Tell us what you want to change.", "A short description, the project location and a few photos are enough to begin the conversation.", small=True, position="50% 58%")}
     <main id="main">
-      <section class="section section-paper" id="quote"><div class="wrap contact-layout"><div class="contact-intro reveal"><p class="eyebrow">Request a quote</p><h2>Start with what you know.</h2><p>You do not need every finish or measurement decided. Tell us what is not working, what you would like the space to become and where the property is located.</p><div class="contact-direct"><h3>Prefer direct contact?</h3><a href="tel:{PHONE_LINK}"><small>Call or text</small><strong>{PHONE_DISPLAY}</strong></a><a href="mailto:{EMAIL}"><small>Email</small><strong>{EMAIL}</strong></a><div><small>Service area</small><strong>London, St. Thomas &amp; nearby communities</strong></div></div></div>
+      <section class="section section-paper" id="quote"><div class="wrap contact-layout"><div class="contact-intro reveal"><p class="eyebrow">Request a quote</p><h2>Start with what you know.</h2><p>You do not need every finish or measurement decided. Tell us what is not working, what you would like the space to become and where the property is located.</p><div class="contact-direct"><h3>Prefer direct contact?</h3><a href="tel:{PHONE_LINK}"><small>Call or text</small><strong>{PHONE_DISPLAY}</strong></a><a href="mailto:{EMAIL}"><small>Email</small><strong>{EMAIL}</strong></a><div><small>Service area</small><strong>West London &amp; nearby communities</strong></div></div></div>
       <form class="quote-form reveal" id="quote-form" novalidate><div class="form-heading"><span>Project enquiry</span><small>Fields marked * are required</small></div><div class="form-grid"><label>Name *<input name="name" autocomplete="name" required></label><label>Project location *<input name="location" autocomplete="address-level2" placeholder="London, Byron, St. Thomas…" required></label></div><fieldset><legend>How should we reach you? *</legend><p id="contact-help">Enter a phone number, an email address, or both.</p><div class="form-grid"><label>Phone<input name="phone" type="tel" autocomplete="tel"></label><label>Email<input name="email" type="email" autocomplete="email"></label></div></fieldset><div class="form-grid"><label>Project type<select name="service"><option value="">Choose one</option>{options}<option value="Multiple services / other">Multiple services / other</option></select></label><label>Preferred timing<input name="timing" placeholder="Flexible, this fall, as soon as possible…"></label></div><label>Project details *<textarea name="message" placeholder="What would you like repaired, renovated or changed?" required></textarea></label><p class="form-error" data-form-error role="alert"></p><button class="button button-dark" type="submit">Prepare Quote Email <span aria-hidden="true">↗</span></button><p class="form-note">This opens your email app with the details filled in so you can review and send them directly. You can attach project photos before sending.</p></form></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What happens next", "A useful first conversation starts with context.", "Sharing a few details helps us understand the likely scope before arranging the next step.")}<ol class="process-grid compact-process"><li class="reveal"><span>01</span><h3>Describe the project</h3><p>Include the location, room and result you have in mind.</p></li><li class="reveal"><span>02</span><h3>Add photos</h3><p>Attach wide views and closer images of the affected areas.</p></li><li class="reveal"><span>03</span><h3>Connect</h3><p>We review the information and discuss the appropriate next step.</p></li></ol></div></section>
     </main>"""
@@ -1320,6 +1501,8 @@ def build() -> None:
         write(f"services/{slug}/index.html", service_page(slug))
     write("projects/index.html", projects_page())
     write("projects/hilltop-home-transformation/index.html", hilltop_project_page())
+    write("projects/medway-flooring-storage/index.html", medway_project_page())
+    write("projects/westmount-porch-entry/index.html", westmount_porch_project_page())
     write("projects/westmount-1970s-transformation/index.html", westmount_project_page())
     write("projects/commercial-salon-repair/index.html", salon_project_page())
     write("projects/kitchen-renewal/index.html", kitchen_renewal_project_page())
@@ -1351,6 +1534,8 @@ def build() -> None:
 
     project_urls = [
         "/projects/hilltop-home-transformation/",
+        "/projects/medway-flooring-storage/",
+        "/projects/westmount-porch-entry/",
         "/projects/westmount-1970s-transformation/",
         "/projects/commercial-salon-repair/",
         "/projects/kitchen-renewal/",
@@ -1364,7 +1549,7 @@ def build() -> None:
     write("llms.txt", f"""
     # Hekman Home Services Inc.
 
-    > Husband-and-wife-led renovation, repair and property improvement company serving London, Ontario and surrounding communities.
+    > Husband-and-wife-led renovation, repair and property improvement company based in Westmount and serving West London and nearby communities.
 
     Canonical website: {BASE_URL}/
     Phone: {PHONE_DISPLAY}
@@ -1374,11 +1559,16 @@ def build() -> None:
     {chr(10).join(f'- {item["name"]}: {BASE_URL}{service_url(slug)}' for slug, item in SERVICES.items())}
 
     ## Service area
-    London, Ontario, including Westmount, Byron, Oakridge, Riverbend, Masonville, Old South and Hyde Park; St. Thomas and nearby communities where appropriate.
+    Based in Westmount. Working throughout West London and nearby communities, including Byron, Oakridge, Riverbend, Medway, Hyde Park and other London neighbourhoods.
 
     ## Selected project stories
+    - Medway flooring and storage transformation: {BASE_URL}/projects/medway-flooring-storage/
+      Carpet was removed in three rooms. New plank flooring, relocated and new closets, doors, casing and baseboards improved storage and flow. Surfaces were left seamlessly primed for the homeowner's final paint.
+    - Westmount porch and entry revitalization: {BASE_URL}/projects/westmount-porch-entry/
+      A completed exterior project for an anonymous repeat Westmount customer and neighbour, including porch and entry work, refreshed exterior lines and lighting.
+    - Phased Westmount home transformation, ongoing: {BASE_URL}/projects/westmount-1970s-transformation/
+      An ongoing project completed around the clients' timing and budget. The confirmed scope includes layout changes, kitchen work, one powder-room renovation, flooring, pot lights, storage, doors, trim and finishing. The kitchen is not complete; a white 2-inch by 10-inch herringbone backsplash to the ceiling is planned.
     - Hilltop whole-home transformation: {BASE_URL}/projects/hilltop-home-transformation/
-    - 1970s Westmount home transformation: {BASE_URL}/projects/westmount-1970s-transformation/
     - Commercial salon water-damage repair: {BASE_URL}/projects/commercial-salon-repair/
     - Office kitchen renewal, before through completion: {BASE_URL}/projects/kitchen-renewal/
     - Popcorn ceiling transformation: {BASE_URL}/projects/popcorn-ceiling-transformation/

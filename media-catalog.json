@@ -17,11 +17,11 @@
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
-    "rootJpgFiles": 524,
-    "exactUniqueBinaries": 498,
+    "rootJpgFiles": 538,
+    "exactUniqueBinaries": 512,
     "numberedProjectSeries": 169,
     "namedSourcePhotoFiles": 308,
-    "descriptiveAndBrandFiles": 47,
+    "descriptiveAndBrandFiles": 61,
     "continuityMethod": [
       "window geometry and glass pattern",
       "ceiling slope, grid and permanent lines",
@@ -152,22 +152,71 @@
       ]
     },
     {
-      "id": "westmount-1970s-transformation",
-      "route": "/projects/westmount-1970s-transformation/",
+      "id": "medway-flooring-storage",
+      "route": "/projects/medway-flooring-storage/",
       "subjects": [
-        "wall opening",
-        "layout",
-        "living space",
+        "carpet removal in three rooms",
+        "plank flooring",
+        "relocated and enlarged closet",
+        "new double closet",
         "doors",
-        "closets",
-        "flooring"
+        "casing",
+        "baseboards",
+        "primed surfaces ready for homeowner paint"
       ],
       "assets": [
-        "westmount-wall-opening-1.jpg",
-        "westmount-wall-opening-2.jpg",
-        "westmount-living-finish.jpg",
-        "westmount-closet-finish.jpg"
-      ]
+        "medway-closet-before.jpg",
+        "medway-closet-relocation-progress.jpg",
+        "medway-underlayment-prep.jpg",
+        "medway-floor-installation.jpg",
+        "medway-floor-door-transition.jpg"
+      ],
+      "continuityNote": "Anonymous Medway project. The real doorway, flooring and transition photograph is the exact installed flooring reference. No reconstructed room image is used on the public project page."
+    },
+    {
+      "id": "westmount-porch-entry",
+      "route": "/projects/westmount-porch-entry/",
+      "subjects": [
+        "porch and entry revitalization",
+        "exterior repair and finish work",
+        "lighting",
+        "repeat customer",
+        "handyman relationship"
+      ],
+      "assets": [
+        "westmount-porch-work-in-progress.jpg",
+        "westmount-porch-after-day.jpg",
+        "westmount-porch-after-night.jpg"
+      ],
+      "continuityNote": "Separate anonymous Westmount neighbour project. The website-ready images obscure the address and no client name is published."
+    },
+    {
+      "id": "westmount-1970s-transformation",
+      "route": "/projects/westmount-1970s-transformation/",
+      "status": "ongoing phased project",
+      "subjects": [
+        "layout changes",
+        "demolition",
+        "drywall",
+        "painting",
+        "plank flooring",
+        "pot lights",
+        "kitchen work in progress",
+        "one powder-room renovation",
+        "cabinetry",
+        "storage",
+        "doors",
+        "trim and finishing"
+      ],
+      "assets": [
+        "westmount-transformation-demolition.jpg",
+        "westmount-transformation-protection-painting.jpg",
+        "westmount-transformation-pot-lights.jpg",
+        "westmount-transformation-blue-wall-flooring.jpg",
+        "westmount-transformation-cabinet-install.jpg",
+        "westmount-transformation-kitchen-current.jpg"
+      ],
+      "continuityNote": "Ongoing transformation completed in thoughtful phases around the clients' timing and budget. The confirmed bathroom scope is one powder room. The current kitchen view is progress, not a final after image."
     },
     {
       "id": "commercial-salon-repair",

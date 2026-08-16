@@ -46,6 +46,24 @@
       ]
     },
     {
+      "source": "/medway-:asset.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/westmount-porch-:asset.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/westmount-transformation-:asset.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
       "source": "/kitchenette-finish-tour.mp4",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
