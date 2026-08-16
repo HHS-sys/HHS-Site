@@ -1,0 +1,36 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/services.html", "destination": "/services/", "permanent": true },
+    { "source": "/projects.html", "destination": "/projects/", "permanent": true },
+    { "source": "/about.html", "destination": "/about/", "permanent": true },
+    { "source": "/contact.html", "destination": "/contact/", "permanent": true },
+    { "source": "/bathrooms.html", "destination": "/services/bathrooms/", "permanent": true },
+    { "source": "/kitchens.html", "destination": "/services/kitchens/", "permanent": true },
+    { "source": "/basements.html", "destination": "/services/basements/", "permanent": true },
+    { "source": "/flooring.html", "destination": "/services/flooring/", "permanent": true },
+    { "source": "/drywall-popcorn.html", "destination": "/services/drywall-ceiling-repair/", "permanent": true },
+    { "source": "/decks.html", "destination": "/services/decks-exterior/", "permanent": true },
+    { "source": "/water-damage.html", "destination": "/services/water-damage/", "permanent": true },
+    { "source": "/commercial.html", "destination": "/services/commercial/", "permanent": true },
+    { "source": "/structural-layout.html", "destination": "/services/structural-layout/", "permanent": true },
+    { "source": "/reviews/", "destination": "/projects/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/project-:id.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}
