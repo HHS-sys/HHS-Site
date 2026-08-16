@@ -289,6 +289,9 @@ button.button { cursor: pointer; }
 
 .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .service-grid-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 621px) {
+  .service-grid-compact > .service-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 .service-card {
   position: relative;
   display: block;

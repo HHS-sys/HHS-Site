@@ -16,6 +16,91 @@
     "projectGalleryPhotographs": 101,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
+  "inventoryAudit": {
+    "rootJpgFiles": 524,
+    "exactUniqueBinaries": 498,
+    "numberedProjectSeries": 169,
+    "namedSourcePhotoFiles": 308,
+    "descriptiveAndBrandFiles": 47,
+    "continuityMethod": [
+      "window geometry and glass pattern",
+      "ceiling slope, grid and permanent lines",
+      "door and wall openings",
+      "fixture and plumbing-wall position",
+      "permanent trim",
+      "room proportions"
+    ],
+    "highLevelClusters": [
+      {
+        "range": "project-001.jpg to project-017.jpg",
+        "subjects": [
+          "tools",
+          "stairs",
+          "carpet and hard-surface flooring",
+          "drywall",
+          "popcorn ceiling",
+          "pot-light work"
+        ]
+      },
+      {
+        "range": "project-025.jpg to project-035.jpg",
+        "subjects": [
+          "Westmount structure and layout",
+          "doors and trim",
+          "drywall",
+          "flooring"
+        ]
+      },
+      {
+        "range": "project-036.jpg and project-045.jpg to project-054.jpg",
+        "subjects": [
+          "commercial fitness-space ceiling",
+          "lighting",
+          "facility work"
+        ]
+      },
+      {
+        "range": "project-037.jpg to project-044.jpg and project-055.jpg to project-073.jpg",
+        "subjects": [
+          "carpet",
+          "vinyl",
+          "hardwood",
+          "basement and lower-level flooring"
+        ]
+      },
+      {
+        "range": "project-089.jpg to project-104.jpg",
+        "subjects": [
+          "deck and exterior work",
+          "post holes",
+          "framing",
+          "completed deck"
+        ]
+      },
+      {
+        "range": "project-105.jpg to project-138.jpg",
+        "subjects": [
+          "kitchens",
+          "cabinetry",
+          "drywall",
+          "structural openings",
+          "backsplash",
+          "Hilltop kitchen"
+        ]
+      },
+      {
+        "range": "project-139.jpg to project-164.jpg",
+        "subjects": [
+          "multiple distinct bathroom projects",
+          "heated flooring",
+          "shower preparation",
+          "insulation and drywall",
+          "Hilltop bathrooms",
+          "frosted-window wall repair"
+        ]
+      }
+    ]
+  },
   "verifiedCollections": [
     {
       "id": "hilltop-home-transformation",
@@ -100,6 +185,51 @@
         "salon-drywall-rebuild.jpg",
         "salon-after-1.jpg",
         "salon-after-2.jpg"
+      ]
+    },
+    {
+      "id": "commercial-fitness-space",
+      "route": "/services/commercial/",
+      "subjects": [
+        "commercial ceiling repair",
+        "lighting",
+        "occupied fitness facility",
+        "finish restoration"
+      ],
+      "assets": [
+        "project-045.jpg",
+        "project-046.jpg",
+        "project-049.jpg",
+        "project-050.jpg",
+        "project-054.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "existing conditions",
+          "stages": [
+            "project-045.jpg",
+            "project-046.jpg"
+          ]
+        },
+        {
+          "name": "work in progress",
+          "stages": [
+            "project-049.jpg"
+          ]
+        },
+        {
+          "name": "completed space",
+          "stages": [
+            "project-050.jpg",
+            "project-054.jpg"
+          ]
+        }
+      ],
+      "continuityAnchors": [
+        "exposed round duct",
+        "open gym floor",
+        "ceiling lines and suspended fixtures",
+        "rack and equipment positions"
       ]
     },
     {

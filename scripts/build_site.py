@@ -305,7 +305,7 @@ SERVICES: dict[str, dict] = {
             ("salon-after-1.jpg", "Long view of finished salon stations and lighting", "Finished salon interior"),
             ("salon-water-damage-1.jpg", "Water-damaged commercial ceiling opened for repair", "Water-damage repair"),
             ("salon-drywall-rebuild.jpg", "Commercial room during drywall rebuilding", "Drywall restoration"),
-            ("project-046.jpg", "Commercial fitness space with upgraded lighting", "Commercial lighting finish"),
+            ("project-046.jpg", "Existing commercial fitness-space ceiling and lighting conditions", "Ceiling and lighting scope"),
             ("project-049.jpg", "Commercial ceiling work in progress", "Ceiling work in progress"),
             ("project-050.jpg", "Commercial fitness interior after maintenance work", "Completed fitness space"),
             ("project-054.jpg", "Finished commercial interior", "Finished workspace"),
@@ -379,6 +379,103 @@ SERVICES: dict[str, dict] = {
         ],
         "related": ["kitchens", "basements", "drywall-ceiling-repair"],
     },
+}
+
+
+# Keep the customer-facing hierarchy intentional. The first five services are
+# the core order approved for the homepage and service index.
+SERVICE_DISPLAY_ORDER = [
+    "bathrooms",
+    "drywall-ceiling-repair",
+    "kitchens",
+    "flooring",
+    "basements",
+    "handyman-repairs",
+    "decks-exterior",
+    "water-damage",
+    "commercial",
+    "structural-layout",
+    "popcorn-ceiling-removal",
+]
+
+
+# Cards use verified alternatives so the site does not repeat one hero image on
+# the homepage, service index and every related-service section. These are not
+# inferred before/after pairings; each image is used only as individual proof of
+# the service shown.
+SERVICE_CARD_VARIANTS: dict[str, list[tuple[str, str]]] = {
+    "bathrooms": [
+        ("hilltop-green-tile-after.jpg", "Completed Hilltop bathroom with a marble-look tub surround"),
+        ("hilltop-basement-bathroom-wide.jpg", "Completed Hilltop basement bathroom with a glass shower"),
+        ("project-148.jpg", "Completed bathroom with a glass shower enclosure"),
+        ("project-161.jpg", "Completed bathroom with a warm wood vanity and black fixtures"),
+        ("bathroom-walnut-vanity-after.jpg", "Completed tub-to-shower conversion with a walnut vanity"),
+    ],
+    "drywall-ceiling-repair": [
+        ("project-011.jpg", "Drywall and ceiling finishing in progress"),
+        ("project-007.jpg", "Drywall preparation during an interior renovation"),
+        ("insulation-drywall-stage.jpg", "Drywall being installed over insulated wall cavities"),
+        ("project-152.jpg", "Wall-board rebuilding around a frosted bathroom window"),
+        ("project-014.jpg", "Completed smooth ceiling after repair and finishing"),
+    ],
+    "kitchens": [
+        ("hilltop-kitchen-range.jpg", "Completed Hilltop kitchen cabinetry and range wall"),
+        ("project-132.jpg", "Completed white kitchen with island seating"),
+        ("kitchenette-after-wide.jpg", "Completed office kitchen with new cabinetry and counter"),
+        ("project-114.jpg", "Completed kitchen renovation with bright cabinetry"),
+        ("hilltop-kitchen-sink.jpg", "Completed Hilltop kitchen sink and backsplash detail"),
+    ],
+    "flooring": [
+        ("project-043.jpg", "Dark wood flooring in a completed room"),
+        ("project-042.jpg", "New plank flooring carried through a kitchen"),
+        ("project-038.jpg", "Engineered wood flooring installation in progress"),
+        ("project-072.jpg", "Completed plank flooring in a renovated room"),
+        ("hardwood-installation-detail.jpg", "Hardwood flooring installation detail"),
+    ],
+    "basements": [
+        ("project-067.jpg", "Finished basement living space with warm wood flooring"),
+        ("project-072.jpg", "Completed plank flooring in a finished lower-level room"),
+        ("hilltop-lower-level.jpg", "Completed Hilltop lower level with fireplace and warm flooring"),
+        ("project-044.jpg", "Finished basement with new resilient plank flooring"),
+    ],
+    "handyman-repairs": [
+        ("project-140.jpg", "Interior closet and storage work in progress"),
+        ("project-027.jpg", "Interior doorway and trim work during renovation"),
+        ("project-035.jpg", "Completed room repairs, flooring and finish work"),
+        ("project-108.jpg", "Cabinet installation and interior finish work"),
+    ],
+    "decks-exterior": [
+        ("fence-after-1.jpg", "Completed long-run wood privacy fence"),
+        ("project-101.jpg", "Deck framing and exterior support structure"),
+        ("post-hole-auger.jpg", "Powered auger digging a residential post hole"),
+        ("project-104.jpg", "Completed long residential deck structure"),
+        ("project-103.jpg", "Completed elevated wood deck at a residential property"),
+    ],
+    "water-damage": [
+        ("salon-water-damage-1.jpg", "Commercial ceiling opened after water damage at Pixie and Paige"),
+        ("salon-water-damage-2.jpg", "Water-damaged salon ceiling prepared for repair"),
+        ("salon-drywall-rebuild.jpg", "Salon ceiling and drywall being rebuilt after leak damage"),
+    ],
+    "commercial": [
+        ("project-054.jpg", "Completed commercial fitness space after ceiling and lighting work"),
+        ("kitchenette-after-wide.jpg", "Completed staff kitchen in a London commercial property"),
+        ("salon-after-1.jpg", "Completed Pixie and Paige salon stations and lighting"),
+        ("project-049.jpg", "Commercial fitness-space ceiling work in progress"),
+        ("salon-after-2.jpg", "Finished Pixie and Paige salon interior"),
+    ],
+    "structural-layout": [
+        ("westmount-wall-opening-2.jpg", "Structural support during the Westmount layout transformation"),
+        ("project-025.jpg", "Interior framing and layout work in progress"),
+        ("project-138.jpg", "Framed wall opening during an interior renovation"),
+        ("westmount-wall-opening-1.jpg", "Supported wall opening during the Westmount renovation"),
+    ],
+    "popcorn-ceiling-removal": [
+        ("popcorn-ceiling-sander.jpg", "Drywall sander used during popcorn ceiling removal"),
+        ("popcorn-ceiling-primer.jpg", "Primer being applied to a newly smoothed ceiling"),
+        ("project-017.jpg", "Ceiling skim coating underway in a protected room"),
+        ("project-016.jpg", "Textured ceiling before smooth-ceiling finishing"),
+        ("project-015.jpg", "Ceiling surface correction and compound work"),
+    ],
 }
 
 
@@ -645,12 +742,14 @@ def service_url(slug: str) -> str:
     return f"/services/{slug}/"
 
 
-def service_card(slug: str, *, compact: bool = False) -> str:
+def service_card(slug: str, *, compact: bool = False, variant: int = 0) -> str:
     item = SERVICES[slug]
+    choices = SERVICE_CARD_VARIANTS.get(slug, [(item["hero"], item["hero_alt"])])
+    image, image_alt = choices[variant % len(choices)]
     class_name = "service-card compact" if compact else "service-card"
     return f"""
     <a class="{class_name} reveal" href="{service_url(slug)}">
-      <img src="/{item['hero']}" alt="{html.escape(item['hero_alt'], quote=True)}" loading="lazy" decoding="async">
+      <img src="/{image}" alt="{html.escape(image_alt, quote=True)}" loading="lazy" decoding="async">
       <span class="service-card-shade"></span>
       <span class="service-card-body"><small>London, Ontario</small><strong>{item['card_name']}</strong><span>{item['lead']}</span><b>Explore service <i aria-hidden="true">↗</i></b></span>
     </a>
@@ -658,14 +757,14 @@ def service_card(slug: str, *, compact: bool = False) -> str:
 
 
 def homepage() -> str:
-    featured = "".join(service_card(slug) for slug in ["bathrooms", "kitchens", "basements", "flooring", "drywall-ceiling-repair", "decks-exterior", "handyman-repairs", "structural-layout", "commercial"])
+    featured = "".join(service_card(slug) for slug in SERVICE_DISPLAY_ORDER[:9])
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations & repairs · London, Ontario", "Thoughtful London renovations, built from the inside out.", "Bathrooms, kitchens and basements. Carpet, vinyl and hardwood. Drywall, painting, insulation, pot lights and plumbing. Decks, fences, structural changes, home repairs and commercial maintenance—planned as one complete scope.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
           <div><span>01</span><strong>Fully insured &amp; bondable</strong><small>Professional protection for your project</small></div>
-          <div><span>02</span><strong>2-year workmanship guarantee</strong><small>We stand behind our workmanship</small></div>
+          <div><span>02</span><strong>20+ years of hands-on experience</strong><small>Renovation and repair knowledge in the field</small></div>
           <div><span>03</span><strong>Family-run &amp; local</strong><small>Led by Rene and Steph Hekman</small></div>
           <div><span>04</span><strong>Clear project scope</strong><small>Understand the work before it begins</small></div>
         </div>
@@ -719,7 +818,7 @@ def homepage() -> str:
 
 
 def services_page() -> str:
-    cards = "".join(service_card(slug, compact=True) for slug in SERVICES)
+    cards = "".join(service_card(slug, compact=True, variant=1) for slug in SERVICE_DISPLAY_ORDER)
     body = f"""
     {hero("project-129.jpg", "Completed kitchen renovation", "Renovation & repair services", "Careful work for every part of the property.", "From bathrooms and kitchens to flooring, drywall, painting, pot lights, plumbing fixtures, doors, trim, insulation, fences, decks, handyman lists and commercial repairs—the connected work is planned as one complete scope.", small=True, secondary=("/projects/", "See Completed Work"), position="50% 58%")}
     <main id="main">
@@ -830,7 +929,7 @@ def commercial_showcase() -> str:
           <div class="case-study-media case-study-media-three">
             <figure><img src="/project-045.jpg" alt="Commercial fitness-space ceiling and lighting detail" loading="lazy"><figcaption>Scope detail</figcaption></figure>
             <figure><img src="/project-049.jpg" alt="Commercial fitness-space ceiling work in progress" loading="lazy"><figcaption>Work in progress</figcaption></figure>
-            <figure><img src="/project-046.jpg" alt="Completed fitness facility with upgraded lighting" loading="lazy"><figcaption>Completed facility</figcaption></figure>
+            <figure><img src="/project-054.jpg" alt="Completed fitness facility after ceiling and lighting work" loading="lazy"><figcaption>Completed facility</figcaption></figure>
           </div>
         </article>
         <article class="case-study case-study-compact reveal">
@@ -857,7 +956,10 @@ def service_page(slug: str) -> str:
     bullets = "".join(f"<li>{bullet}</li>" for bullet in item["bullets"])
     gallery = "".join(f'<figure class="reveal"><img src="/{src}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"><figcaption>{caption}</figcaption></figure>' for src, alt, caption in item["gallery"])
     faqs = "".join(f'<details class="reveal"><summary>{question}</summary><p>{answer}</p></details>' for question, answer in item["faq"])
-    related = "".join(service_card(related_slug, compact=True) for related_slug in item["related"])
+    related = "".join(
+        service_card(related_slug, compact=True, variant=variant)
+        for variant, related_slug in enumerate(item["related"], 2)
+    )
     showcase = bathroom_showcase() if slug == "bathrooms" else commercial_showcase() if slug == "commercial" else ""
     body = f"""
     {hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'], small=True, position=item['position'])}
@@ -915,7 +1017,7 @@ def hilltop_project_page() -> str:
         </div>
       </div></section>
       <section class="section section-stone"><div class="wrap editorial-grid"><div class="editorial-media reveal"><img src="/hilltop-kitchen-wide.jpg" alt="Wide view across the Hilltop kitchen and dining space" loading="lazy"><span>A cohesive whole-home finish</span></div><div class="editorial-copy reveal"><p class="eyebrow">The design idea</p><h2>Consistency without making every room identical.</h2><p>Hilltop uses repeated cues—light cabinetry, warm flooring, dark railings and hardware, clean sightlines—to give the home a recognizable character. Each room still solves its own practical needs, but the transitions no longer feel accidental.</p><a class="text-link dark-link" href="/contact/#quote">Discuss a whole-home renovation <span aria-hidden="true">↗</span></a></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "The rooms are only part of the scope.", "Whole-home work brings layout, surfaces, storage and finishing into the same plan.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True)}{service_card("bathrooms", compact=True)}{service_card("basements", compact=True)}</div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "The rooms are only part of the scope.", "Whole-home work brings layout, surfaces, storage and finishing into the same plan.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True, variant=3)}{service_card("bathrooms", compact=True, variant=3)}{service_card("basements", compact=True, variant=3)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Planning a bigger transformation?</p><h2>Start with the whole home.</h2><p>Show us the rooms, the frustrations and what you want the property to become.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("Hilltop Home Transformation | Hekman Home Services", "Explore Hekman Home Services’ Hilltop renovation in London, including the kitchen, two bathroom transformations, lower level, stairs and finish work.", "/projects/hilltop-home-transformation/", "hilltop-kitchen-wide.jpg", "projects", body, "project-story-page")
@@ -933,7 +1035,7 @@ def westmount_project_page() -> str:
         <figure><img src="/westmount-closet-finish.jpg" alt="Finished Westmount closets, doors and plank flooring" loading="lazy"><figcaption>Closets, doors and flooring</figcaption></figure>
       </div></div></section>
       <section class="section section-stone"><div class="wrap">{section_heading("The work behind the reveal", "Open. Support. Close. Finish.", "A convincing layout transformation depends on the less glamorous stages being handled in the right order.")}<div class="proof-grid story-step-grid"><article class="proof-card reveal"><span>01</span><h3>Open the old layout</h3><p>Remove finishes and expose the conditions that determine the structural plan.</p></article><article class="proof-card reveal"><span>02</span><h3>Support the change</h3><p>Protect the structure while the new opening and required support are completed.</p></article><article class="proof-card reveal"><span>03</span><h3>Close the walls</h3><p>Restore drywall and connected surfaces around the new layout.</p></article><article class="proof-card reveal"><span>04</span><h3>Carry the finish through</h3><p>Connect flooring, trim, doors, closets, lighting and room details across the home.</p></article></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Related expertise", "Layout work touches more than one trade.", "Structural planning, kitchen work and finished surfaces all have to meet cleanly.")}<div class="service-grid related-grid">{service_card("structural-layout", compact=True)}{service_card("kitchens", compact=True)}{service_card("flooring", compact=True)}</div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Related expertise", "Layout work touches more than one trade.", "Structural planning, kitchen work and finished surfaces all have to meet cleanly.")}<div class="service-grid related-grid">{service_card("structural-layout", compact=True, variant=2)}{service_card("kitchens", compact=True, variant=4)}{service_card("flooring", compact=True, variant=3)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Living with an outdated layout?</p><h2>Let’s look at what could open up.</h2><p>Send photos of the rooms and tell us how you want the home to work differently.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("1970s Westmount Home Transformation | Hekman Home Services", "See how Hekman Home Services transformed a 1970s Westmount home with a structural wall opening, new flow, flooring, trim, doors, closets and interior finishes.", "/projects/westmount-1970s-transformation/", "westmount-living-finish.jpg", "projects", body, "project-story-page")
@@ -970,8 +1072,8 @@ def kitchen_renewal_project_page() -> str:
         <figure class="story-wide"><img src="/kitchenette-after-detail.jpg" alt="Completed kitchen cabinetry, counter, sink and hardware" loading="lazy"><figcaption>After: cabinetry and counter complete</figcaption></figure>
         <figure class="story-wide"><img src="/kitchenette-after-wide.jpg" alt="Wide view of the completed compact kitchen" loading="lazy"><figcaption>The finished kitchen</figcaption></figure>
       </div></div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("A closer look", "Walk through the completed cabinetry and counter.", "This short, compressed video waits until you press play, so it adds detail without slowing the first page load.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="metadata" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of completed kitchen cabinetry, sink and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen walkthrough</strong><span>Cabinet fronts, hardware, sink, counter and finished wall details.</span></figcaption></figure></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Cabinets are only one part of a kitchen.", "Plumbing access, drywall, paint, trim and repair work all affect the finished result.")}<div class="service-grid related-grid">{service_card("commercial", compact=True)}{service_card("kitchens", compact=True)}{service_card("drywall-ceiling-repair", compact=True)}</div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("A closer look", "Walk through the completed cabinetry and counter.", "This short, compressed video waits until you press play, so it adds detail without slowing the first page load.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of completed kitchen cabinetry, sink and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen walkthrough</strong><span>Cabinet fronts, hardware, sink, counter and finished wall details.</span></figcaption></figure></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Cabinets are only one part of a kitchen.", "Plumbing access, drywall, paint, trim and repair work all affect the finished result.")}<div class="service-grid related-grid">{service_card("commercial", compact=True, variant=2)}{service_card("kitchens", compact=True, variant=3)}{service_card("drywall-ceiling-repair", compact=True, variant=2)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a kitchen that needs to work harder?</p><h2>Show us the room and the existing conditions.</h2><p>Wide photos and a short list of what you want to keep or change are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("Office Kitchen Renewal Before & After | Hekman", "See a genuine London office kitchen before, during and after renovation by Hekman Home Services, including cabinetry, plumbing access, drywall, counter and sink.", "/projects/kitchen-renewal/", "kitchenette-after-wide.jpg", "projects", body, "project-story-page")
@@ -990,7 +1092,7 @@ def popcorn_project_page() -> str:
         <figure class="story-wide"><img src="/popcorn-ceiling-primer.jpg" alt="Primer being rolled over the smoothed ceiling" loading="lazy"><figcaption>Primer and finish stage</figcaption></figure>
       </div></div></section>
       <section class="section section-stone"><div class="wrap">{section_heading("Why preparation leads the project", "Ceiling work touches the whole room.", "Protection, dust control and repeat surface checks matter just as much as the final coat.")}<div class="proof-grid"><article class="proof-card reveal"><span>01</span><h3>Protect the room</h3><p>Cover floors, isolate openings and plan access before overhead work begins.</p></article><article class="proof-card reveal"><span>02</span><h3>Build a flat surface</h3><p>Sand, coat, dry and repeat until the texture and repair lines no longer control the ceiling.</p></article><article class="proof-card reveal"><span>03</span><h3>Prime and inspect</h3><p>Primer helps reveal remaining imperfections before the ceiling receives its final finish.</p></article></div></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Related services", "A ceiling issue may connect to other work.", "Drywall repairs, water damage and broader room renovations can be coordinated in the same conversation.")}<div class="service-grid related-grid">{service_card("popcorn-ceiling-removal", compact=True)}{service_card("drywall-ceiling-repair", compact=True)}{service_card("water-damage", compact=True)}</div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Related services", "A ceiling issue may connect to other work.", "Drywall repairs, water damage and broader room renovations can be coordinated in the same conversation.")}<div class="service-grid related-grid">{service_card("popcorn-ceiling-removal", compact=True, variant=2)}{service_card("drywall-ceiling-repair", compact=True, variant=3)}{service_card("water-damage", compact=True, variant=2)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Ready to lose the texture?</p><h2>Show us the ceiling and the rooms below it.</h2><p>Wide photos, close-ups and approximate room sizes are a useful place to start.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("Popcorn Ceiling Transformation London ON | Hekman Home Services", "See a Hekman Home Services popcorn ceiling project in London, Ontario, from the original textured ceiling through sanding, skim coating and primer.", "/projects/popcorn-ceiling-transformation/", "project-016.jpg", "projects", body, "project-story-page")
@@ -1012,7 +1114,7 @@ def glass_block_bathroom_project_page() -> str:
         <figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video showing shower enclosure installation and completed bathroom fixtures"><source src="/bathroom-finish-details.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Installation &amp; finish details</strong><span>Glass-enclosure work followed by the finished vanity and fixture details.</span></figcaption></figure>
       </div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("How the work connects", "A conversion is more than swapping one fixture.", "Demolition, access, water management and final fitting have to be planned as one sequence.")}<div class="proof-grid story-step-grid"><article class="proof-card reveal"><span>01</span><h3>Document the room</h3><p>Confirm what remains, what comes out and how the new shower fits the existing footprint.</p></article><article class="proof-card reveal"><span>02</span><h3>Open carefully</h3><p>Remove the tub platform and expose the wall and floor only where the new work requires access.</p></article><article class="proof-card reveal"><span>03</span><h3>Build the wet area</h3><p>Prepare the shower assembly, waterproofing, tile and plumbing connections in the correct order.</p></article><article class="proof-card reveal"><span>04</span><h3>Complete the room</h3><p>Fit the glass enclosure and reconnect trim, fixtures and surrounding finishes cleanly.</p></article></div></div></section>
-      <section class="section section-paper"><div class="wrap">{section_heading("Related services", "Bathroom work often crosses several scopes.", "Flooring, drywall and fixture work can be reviewed as part of the same renovation.")}<div class="service-grid related-grid">{service_card("bathrooms", compact=True)}{service_card("flooring", compact=True)}{service_card("drywall-ceiling-repair", compact=True)}</div></div></section>
+      <section class="section section-paper"><div class="wrap">{section_heading("Related services", "Bathroom work often crosses several scopes.", "Flooring, drywall and fixture work can be reviewed as part of the same renovation.")}<div class="service-grid related-grid">{service_card("bathrooms", compact=True, variant=3)}{service_card("flooring", compact=True, variant=2)}{service_card("drywall-ceiling-repair", compact=True, variant=3)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Considering a tub-to-shower conversion?</p><h2>Show us the whole bathroom.</h2><p>Wide photos, the existing fixtures and what you want to change are enough to start the conversation.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("Tub-to-Shower Bathroom Transformation | Hekman", "See a real jetted-tub-to-shower bathroom renovation by Hekman Home Services, documented from demolition and open-wall work through the finished glass shower.", "/projects/glass-block-bathroom-conversion/", "bathroom-walnut-vanity-after.jpg", "projects", body, "project-story-page")
@@ -1123,7 +1225,7 @@ PROJECTS = [
     # Handyman, repair, painting and lighting work.
     ("project-027.jpg", "handyman structural", "Doorway and trim work during a residential repair", "Door and trim work", "Handyman repair"),
     ("project-032.jpg", "handyman drywall", "Drywall patching and compound on an interior wall", "Drywall patch", "Handyman repair"),
-    ("project-140.jpg", "handyman bathrooms", "Painting and finish work in a bathroom", "Painting and finish work", "Handyman repair"),
+    ("project-140.jpg", "handyman", "Closet shelf and hanging system being installed", "Closet storage installation", "Handyman / storage"),
     ("project-139.jpg", "handyman bathrooms", "Bathroom toilet and flooring installation detail", "Bathroom fixture detail", "Handyman repair"),
     ("drywall-potlight-progress-poster.jpg", "handyman drywall structural", "Drywall finishing and pot lights during an interior renovation", "Drywall and pot lights", "Lighting / drywall"),
 
@@ -1135,7 +1237,7 @@ PROJECTS = [
     ("salon-after-2.jpg", "commercial", "Finished Pixie and Paige salon with mirrors and workstations", "Pixie & Paige salon", "Commercial"),
     ("project-045.jpg", "commercial", "Commercial fitness-space ceiling and lighting detail", "Fitness-space scope", "Commercial"),
     ("project-049.jpg", "commercial drywall", "Commercial fitness-space ceiling work in progress", "Fitness-space progress", "Commercial"),
-    ("project-046.jpg", "commercial", "Completed fitness facility with upgraded lighting", "Completed fitness facility", "Commercial"),
+    ("project-046.jpg", "commercial", "Existing fitness-space ceiling and lighting conditions", "Fitness-space ceiling scope", "Commercial"),
     ("project-050.jpg", "commercial", "Commercial fitness interior after maintenance work", "Commercial interior", "Commercial"),
     ("project-054.jpg", "commercial", "Finished commercial fitness-space interior", "Finished commercial space", "Commercial"),
 ]
@@ -1173,14 +1275,17 @@ def about_page() -> str:
       <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you speak with are part of the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Together they combine more than 20 years of hands-on renovation and repair experience with the planning, sales and design perspective that helps a project feel considered from the first walkthrough to the final details.</p><p>That closeness matters. Existing conditions are discussed, choices are connected to the whole property and the client is never handed off to an anonymous process. The work stays grounded in a simple idea: fix it properly, communicate clearly and leave the space feeling complete.</p><p class="signature-line">Fix it. Sell it. Celebrate it.</p></div><div class="editorial-media reveal"><img src="/project-079.jpg" alt="Hekman Home Services team reviewing plans" loading="lazy"><span>Planning the work together</span></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What guides the work", "Professional does not have to feel impersonal.", "The strongest projects come from good preparation, honest conversations and care for the property throughout the work.")}<div class="values-grid"><article class="reveal"><span>01</span><h3>Listen first</h3><p>Understand the problem, priorities and intended result before defining the work.</p></article><article class="reveal"><span>02</span><h3>Protect the property</h3><p>Preparation, dust control and cleanup are treated as part of the project.</p></article><article class="reveal"><span>03</span><h3>Communicate clearly</h3><p>When existing conditions affect the plan, explain what changed and why.</p></article><article class="reveal"><span>04</span><h3>Finish thoughtfully</h3><p>Trim, transitions and final details matter because they are what make the work feel complete.</p></article></div></div></section>
       <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene leads construction in the field—from opening walls and solving repair conditions to the practical preparation and finish work that make a renovation hold together. His role stays hands-on throughout the project.</p></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph guides client communication, project planning and design decisions. Her eye for how rooms connect shaped transformations such as the 1970s Westmount project, where layout, flooring, trim, doors and finishes had to read as one home.</p></div></article></div></section>
-      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Working throughout London and nearby communities.</h2><p>Based in London, Hekman Home Services works in neighbourhoods including Westmount, Byron, Oakridge, Riverbend, Masonville, Old South and Hyde Park, as well as St. Thomas and nearby areas.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>2-year workmanship guarantee</strong><span>Workmanship is backed after the final walkthrough.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
+      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Working throughout London and nearby communities.</h2><p>Based in London, Hekman Home Services works in neighbourhoods including Westmount, Byron, Oakridge, Riverbend, Masonville, Old South and Hyde Park, as well as St. Thomas and nearby areas.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Let’s discuss your property.</p><h2>Start with the space and the goal.</h2><p>We will help make sense of the connected work from there.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "project-070.jpg", "about", body, "about-page")
 
 
 def contact_page() -> str:
-    options = "".join(f'<option value="{item["name"]}">{item["name"]}</option>' for item in SERVICES.values())
+    options = "".join(
+        f'<option value="{SERVICES[slug]["name"]}">{SERVICES[slug]["name"]}</option>'
+        for slug in SERVICE_DISPLAY_ORDER
+    )
     body = f"""
     {hero("project-129.jpg", "Completed kitchen renovation", "Contact Hekman Home Services", "Tell us what you want to change.", "A short description, the project location and a few photos are enough to begin the conversation.", small=True, position="50% 58%")}
     <main id="main">
@@ -1279,7 +1384,7 @@ def build() -> None:
     - Jetted-tub to glass-shower bathroom conversion: {BASE_URL}/projects/glass-block-bathroom-conversion/
 
     ## Business identity
-    Hekman Home Services Inc. is led by Rene and Steph Hekman. The company provides residential renovation and repair work plus commercial maintenance and repairs. It is fully insured and bondable and provides a 2-year workmanship guarantee.
+    Hekman Home Services Inc. is led by Rene and Steph Hekman. The company provides residential renovation and repair work plus commercial maintenance and repairs. It is fully insured and bondable and brings more than 20 years of hands-on experience to its work.
 
     Official social profiles:
     - Instagram: {INSTAGRAM}
