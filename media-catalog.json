@@ -1,0 +1,177 @@
+{
+  "catalogVersion": "2026-08-16",
+  "purpose": "A maintainable map of verified Hekman Home Services project media used by the rebuilt website.",
+  "preservation": {
+    "numberedProjectSeries": {
+      "pattern": "project-001.jpg through project-169.jpg",
+      "fileCount": 169
+    },
+    "namedSourcePhotoFiles": {
+      "pattern": "NNN-original-name.jpg",
+      "fileCount": 308
+    },
+    "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
+  },
+  "displayStrategy": {
+    "projectGalleryPhotographs": 92,
+    "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
+  },
+  "verifiedCollections": [
+    {
+      "id": "hilltop-home-transformation",
+      "route": "/projects/hilltop-home-transformation/",
+      "subjects": [
+        "kitchen",
+        "lower level",
+        "staircase",
+        "entry",
+        "bathrooms"
+      ],
+      "assets": [
+        "hilltop-kitchen-wide.jpg",
+        "hilltop-kitchen-angle.jpg",
+        "hilltop-kitchen-range.jpg",
+        "hilltop-kitchen-sink.jpg",
+        "hilltop-kitchen-island.jpg",
+        "hilltop-lower-level.jpg",
+        "hilltop-staircase.jpg",
+        "hilltop-entry.jpg",
+        "hilltop-bathroom-shower.jpg",
+        "hilltop-bathroom-vanity.jpg"
+      ]
+    },
+    {
+      "id": "westmount-1970s-transformation",
+      "route": "/projects/westmount-1970s-transformation/",
+      "subjects": [
+        "wall opening",
+        "layout",
+        "living space",
+        "doors",
+        "closets",
+        "flooring"
+      ],
+      "assets": [
+        "westmount-wall-opening-1.jpg",
+        "westmount-wall-opening-2.jpg",
+        "westmount-living-finish.jpg",
+        "westmount-closet-finish.jpg"
+      ]
+    },
+    {
+      "id": "pixie-paige-salon-repairs",
+      "route": "/projects/pixie-paige-salon-repairs/",
+      "subjects": [
+        "commercial water damage",
+        "drywall rebuilding",
+        "ceiling repair",
+        "lighting",
+        "completed salon"
+      ],
+      "assets": [
+        "salon-water-damage-1.jpg",
+        "salon-water-damage-2.jpg",
+        "salon-drywall-rebuild.jpg",
+        "salon-after-1.jpg",
+        "salon-after-2.jpg"
+      ]
+    },
+    {
+      "id": "office-kitchen-renewal",
+      "route": "/projects/kitchen-renewal/",
+      "subjects": [
+        "existing office kitchen",
+        "wall and plumbing access",
+        "cabinet installation",
+        "finished kitchen"
+      ],
+      "sequence": [
+        "kitchenette-before-wide.jpg",
+        "kitchenette-before-detail.jpg",
+        "kitchenette-wall-plumbing-stage.jpg",
+        "kitchenette-cabinet-installation.jpg",
+        "kitchenette-after-detail.jpg",
+        "kitchenette-after-wide.jpg"
+      ],
+      "video": "kitchenette-finish-tour.mp4"
+    },
+    {
+      "id": "popcorn-ceiling-transformation",
+      "route": "/projects/popcorn-ceiling-transformation/",
+      "subjects": [
+        "existing texture",
+        "drywall sander",
+        "skim coating",
+        "surface correction",
+        "primer"
+      ],
+      "assets": [
+        "project-016.jpg",
+        "popcorn-ceiling-sander.jpg",
+        "project-017.jpg",
+        "project-015.jpg",
+        "popcorn-ceiling-primer.jpg"
+      ]
+    }
+  ],
+  "serviceCoverage": {
+    "flooring": [
+      "carpet",
+      "vinyl plank",
+      "laminate",
+      "hardwood",
+      "tile",
+      "stairs and transitions"
+    ],
+    "bathrooms": [
+      "completed bathrooms",
+      "glass showers",
+      "vanities",
+      "tile",
+      "waterproofing",
+      "fixtures"
+    ],
+    "drywallAndInsulation": [
+      "open walls and ceilings",
+      "insulation",
+      "drywall installation",
+      "patching",
+      "compound",
+      "sanding",
+      "painting"
+    ],
+    "exterior": [
+      "decks",
+      "fences",
+      "posts",
+      "manual post-hole digging",
+      "powered auger work"
+    ],
+      "commercial": [
+        "salon repairs",
+        "fitness facility work",
+        "office kitchen renewal",
+      "drywall and ceilings",
+      "lighting",
+      "maintenance lists"
+    ],
+    "handymanAndRepairs": [
+      "doors",
+      "trim",
+      "drywall patching",
+      "painting",
+      "bathroom fixtures",
+      "plumbing-related repairs",
+      "pot-light and ceiling work"
+    ]
+  },
+  "videoDelivery": {
+    "autoplay": false,
+    "preload": "metadata",
+    "playsInline": true,
+    "optimizedFiles": [
+      "kitchenette-finish-tour.mp4",
+      "drywall-potlight-progress.mp4"
+    ]
+  }
+}

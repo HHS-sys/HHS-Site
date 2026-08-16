@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hhs-site-v1.vercel.app/sitemap.xml
+Sitemap: https://www.hekmanhomeservices.ca/sitemap.xml

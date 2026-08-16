@@ -72,8 +72,9 @@ filterButtons.forEach((button) => {
     });
 
     projectCards.forEach((card) => {
+      const categories = (card.dataset.category || "").split(/\s+/);
       const visible =
-        selected === "all" || card.dataset.category === selected;
+        selected === "all" || categories.includes(selected);
       card.classList.toggle("is-hidden", !visible);
       if (visible) visibleCount += 1;
     });
@@ -82,8 +83,8 @@ filterButtons.forEach((button) => {
       const label = button.textContent.trim().toLowerCase();
       filterStatus.textContent =
         selected === "all"
-          ? `Showing all ${visibleCount} projects.`
-          : `Showing ${visibleCount} ${label} projects.`;
+          ? `Showing all ${visibleCount} photographs.`
+          : `Showing ${visibleCount} ${label} photographs.`;
     }
   });
 });

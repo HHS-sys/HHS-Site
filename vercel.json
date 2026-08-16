@@ -13,12 +13,25 @@
     { "source": "/decks.html", "destination": "/services/decks-exterior/", "permanent": true },
     { "source": "/water-damage.html", "destination": "/services/water-damage/", "permanent": true },
     { "source": "/commercial.html", "destination": "/services/commercial/", "permanent": true },
+    { "source": "/handyman.html", "destination": "/services/handyman-repairs/", "permanent": true },
     { "source": "/structural-layout.html", "destination": "/services/structural-layout/", "permanent": true },
     { "source": "/reviews/", "destination": "/projects/", "permanent": true }
   ],
   "headers": [
     {
       "source": "/project-:id.jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/kitchenette-finish-tour.mp4",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/drywall-potlight-progress.mp4",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
