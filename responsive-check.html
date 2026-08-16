@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Responsive verification</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; overflow: hidden; background: #fff; }
+    iframe { display: block; border: 0; background: #fff; }
+  </style>
+</head>
+<body>
+  <iframe id="site" title="Responsive site verification"></iframe>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const width = Math.min(1600, Math.max(320, Number(params.get("width")) || 390));
+    const height = Math.min(1400, Math.max(568, Number(params.get("height")) || 844));
+    const requested = params.get("path") || "/";
+    const path = /^\/[a-z0-9\-/]*\/?$/i.test(requested) ? requested : "/";
+    const frame = document.querySelector("#site");
+    frame.width = String(width);
+    frame.height = String(height);
+    frame.src = path;
+  </script>
+</body>
+</html>
