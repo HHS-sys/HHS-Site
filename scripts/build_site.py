@@ -25,11 +25,15 @@ INSTAGRAM = "https://www.instagram.com/hekman_home_services_inc/"
 AREAS = [
     "London, Ontario",
     "Westmount",
+    "Sunningdale",
+    "Old North",
+    "Stoneybrook",
     "Byron",
     "Oakridge",
     "Riverbend",
     "Medway",
     "Hyde Park",
+    "Old East Village",
     "Masonville",
     "Old South",
     "St. Thomas",
@@ -522,7 +526,7 @@ def schema(path: str, image: str) -> str:
         "url": BASE_URL,
         "logo": f"{BASE_URL}/hekman-logo.jpg",
         "image": f"{BASE_URL}/{image}",
-        "description": "Family-run renovation, repair and property improvement company based in Westmount and serving West London and nearby communities.",
+        "description": "Family-run renovation, repair and property improvement company based in Westmount and serving homeowners throughout London and nearby communities.",
         "telephone": PHONE_LINK,
         "email": EMAIL,
         "sameAs": [FACEBOOK, INSTAGRAM],
@@ -705,7 +709,7 @@ def header(current: str) -> str:
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="utility-bar">
       <div class="utility-inner">
-        <span>Based in Westmount · Serving West London</span>
+        <span>Based in Westmount · Serving London &amp; area</span>
         <span><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><i aria-hidden="true"></i><a href="mailto:{EMAIL}">{EMAIL}</a></span>
       </div>
     </div>
@@ -739,13 +743,13 @@ def footer() -> str:
             <img class="brand-logo" src="/hekman-logo.jpg" alt="" width="64" height="64" loading="lazy" decoding="async">
             <span><strong>Hekman Home Services Inc.</strong><small>London, Ontario</small></span>
           </a>
-          <p>Based in Westmount. Working throughout West London and nearby communities.</p>
+          <p>Based in Westmount. Working throughout London and nearby communities.</p>
           <p><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
           <p class="social-links"><a href="{INSTAGRAM}" rel="me noopener" target="_blank">Instagram</a><a href="{FACEBOOK}" rel="me noopener" target="_blank">Facebook</a></p>
         </div>
         <div><h2>Explore</h2><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Our Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
         <div><h2>Popular services</h2><ul><li><a href="/services/bathrooms/">Bathrooms</a></li><li><a href="/services/kitchens/">Kitchens</a></li><li><a href="/services/basements/">Basements</a></li><li><a href="/services/decks-exterior/">Decks &amp; Exterior</a></li><li><a href="/services/handyman-repairs/">Handyman &amp; Repairs</a></li><li><a href="/services/commercial/">Commercial Work</a></li></ul></div>
-        <div><h2>Service area</h2><p>Westmount, Byron, Oakridge, Riverbend, Medway, Hyde Park and nearby London communities.</p></div>
+        <div><h2>Service area</h2><p>All of London—including Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Medway and nearby communities.</p></div>
       </div>
       <div class="wrap footer-fine"><span>© <span data-year></span> Hekman Home Services Inc. All rights reserved.</span><a href="/contact/">Start a project</a></div>
     </footer>
@@ -886,7 +890,7 @@ def homepage() -> str:
     local_proof = f"""
       <section class="section section-stone local-proof-section">
         <div class="wrap">
-          {section_heading("West London project proof", "Real work, close to home.", "Three different local projects show the range: smarter storage and flooring in Medway, a neighbour’s porch in Westmount, and an ongoing home transformation completed in careful phases.")}
+          {section_heading("London project proof", "Real work, close to home.", "Three detailed local projects show the range: smarter storage and flooring in Medway, a neighbour’s porch in Westmount, and an ongoing home transformation completed in careful phases.")}
           <div class="story-card-grid local-proof-grid">
             <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Layout, kitchen, one powder room, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
             <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, cool gray-brown plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, new closets, doors, casing, baseboards and seamless floor transitions <i aria-hidden="true">↗</i></b></span></a>
@@ -901,7 +905,7 @@ def homepage() -> str:
       </section>
     """
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "Based in Westmount. Working throughout West London and nearby communities. From full renovations to the repair list that keeps growing, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "Based in Westmount. Serving homeowners across London and nearby communities. From full renovations to the repair list that keeps growing, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
@@ -938,14 +942,14 @@ def homepage() -> str:
       </section>
       <section class="section section-paper">
         <div class="wrap area-layout">
-          <div class="reveal"><p class="eyebrow">Service area</p><h2>Based in Westmount. Close to the work.</h2><p><strong>Based in Westmount. Working throughout West London and nearby communities.</strong> That includes homes in Byron, Oakridge, Riverbend, Medway, Hyde Park and other London neighbourhoods.</p><div class="area-pills">{"".join(f'<span>{area}</span>' for area in AREAS)}</div></div>
+          <div class="reveal"><p class="eyebrow">Service area</p><h2>Based in Westmount. Working across London.</h2><p><strong>North, south, east and west—we work throughout the city and nearby communities.</strong> That includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Old South and beyond.</p><div class="area-pills">{"".join(f'<span>{area}</span>' for area in AREAS)}</div></div>
           <div class="photo-stack reveal"><img src="/project-070.jpg" alt="Hekman Home Services team" loading="lazy"><div class="photo-note"><strong>Hands-on, local service</strong><span>Respect for your home and clear communication throughout the work.</span></div></div>
         </div>
       </section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture what could work better?</p><h2>Start with the room—or repair—you keep thinking about.</h2><p>Send a few photos and tell us what is not working now. Rene and Steph will help turn that starting point into a practical next step.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>
     """
-    return page("Renovations & Repairs West London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout West London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
+    return page("Renovations & Repairs London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
 
 
 def services_page() -> str:
@@ -1431,7 +1435,7 @@ def projects_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Real homes. Real stages. Clear project facts.", "Begin with three West London stories, then explore other verified transformations, repairs and commercial work. In-progress projects are labelled clearly, and every homeowner remains anonymous.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Real homes. Real stages. Clear project facts.", "Begin with three detailed London project stories, then explore other verified transformations, repairs and commercial work. In-progress projects are labelled clearly, and every homeowner remains anonymous.")}
         <div class="story-card-grid">
           <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Kitchen, one powder room, layout, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, relocated closets, flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
@@ -1447,7 +1451,7 @@ def projects_page() -> str:
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Show us what’s not working. Tell us what better looks like.</h2><p>Whether you are imagining a complete transformation, dealing with damage or finally tackling the repairs that have piled up, you do not need every answer before reaching out. A few photos and an honest conversation are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
     </main>"""
-    return page("Renovation Projects West London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
+    return page("Renovation Projects London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
 
 
 def about_page() -> str:
@@ -1457,7 +1461,7 @@ def about_page() -> str:
       <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you speak with are part of the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Together they combine more than 20 years of hands-on renovation and repair experience with the planning, sales and design perspective that helps a project feel considered from the first walkthrough to the final details.</p><p>That closeness matters. Existing conditions are discussed, choices are connected to the whole property and the client is never handed off to an anonymous process. The work stays grounded in a simple idea: fix it properly, communicate clearly and leave the space feeling complete.</p><p class="signature-line">Fix it. Sell it. Celebrate it.</p></div><div class="editorial-media reveal"><img src="/project-079.jpg" alt="Hekman Home Services team reviewing plans" loading="lazy"><span>Planning the work together</span></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What guides the work", "Professional does not have to feel impersonal.", "The strongest projects come from good preparation, honest conversations and care for the property throughout the work.")}<div class="values-grid"><article class="reveal"><span>01</span><h3>Listen first</h3><p>Understand the problem, priorities and intended result before defining the work.</p></article><article class="reveal"><span>02</span><h3>Protect the property</h3><p>Preparation, dust control and cleanup are treated as part of the project.</p></article><article class="reveal"><span>03</span><h3>Communicate clearly</h3><p>When existing conditions affect the plan, explain what changed and why.</p></article><article class="reveal"><span>04</span><h3>Finish thoughtfully</h3><p>Trim, transitions and final details matter because they are what make the work feel complete.</p></article></div></div></section>
       <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene leads construction in the field—from opening walls and solving repair conditions to the practical preparation and finish work that make a renovation hold together. His role stays hands-on throughout the project.</p></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph guides client communication, project planning and design decisions. Her eye for how rooms connect shaped transformations such as the 1970s Westmount project, where layout, flooring, trim, doors and finishes had to read as one home.</p></div></article></div></section>
-      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Close to the work.</h2><p><strong>Based in Westmount. Working throughout West London and nearby communities.</strong> Hekman Home Services regularly works in neighbourhoods including Byron, Oakridge, Riverbend, Medway and Hyde Park, as well as other London areas.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
+      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Working across London.</h2><p><strong>North, south, east and west—we work throughout the city and nearby communities.</strong> Hekman Home Services serves Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Old South and beyond.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Let’s discuss your property.</p><h2>Start with the space and the goal.</h2><p>We will help make sense of the connected work from there.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "project-070.jpg", "about", body, "about-page")
@@ -1471,7 +1475,7 @@ def contact_page() -> str:
     body = f"""
     {hero("project-129.jpg", "Completed kitchen renovation", "Contact Hekman Home Services", "Tell us what you want to change.", "A short description, the project location and a few photos are enough to begin the conversation.", small=True, position="50% 58%")}
     <main id="main">
-      <section class="section section-paper" id="quote"><div class="wrap contact-layout"><div class="contact-intro reveal"><p class="eyebrow">Request a quote</p><h2>Start with what you know.</h2><p>You do not need every finish or measurement decided. Tell us what is not working, what you would like the space to become and where the property is located.</p><div class="contact-direct"><h3>Prefer direct contact?</h3><a href="tel:{PHONE_LINK}"><small>Call or text</small><strong>{PHONE_DISPLAY}</strong></a><a href="mailto:{EMAIL}"><small>Email</small><strong>{EMAIL}</strong></a><div><small>Service area</small><strong>West London &amp; nearby communities</strong></div></div></div>
+      <section class="section section-paper" id="quote"><div class="wrap contact-layout"><div class="contact-intro reveal"><p class="eyebrow">Request a quote</p><h2>Start with what you know.</h2><p>You do not need every finish or measurement decided. Tell us what is not working, what you would like the space to become and where the property is located.</p><div class="contact-direct"><h3>Prefer direct contact?</h3><a href="tel:{PHONE_LINK}"><small>Call or text</small><strong>{PHONE_DISPLAY}</strong></a><a href="mailto:{EMAIL}"><small>Email</small><strong>{EMAIL}</strong></a><div><small>Service area</small><strong>London &amp; nearby communities</strong></div></div></div>
       <form class="quote-form reveal" id="quote-form" novalidate><div class="form-heading"><span>Project enquiry</span><small>Fields marked * are required</small></div><div class="form-grid"><label>Name *<input name="name" autocomplete="name" required></label><label>Project location *<input name="location" autocomplete="address-level2" placeholder="London, Byron, St. Thomas…" required></label></div><fieldset><legend>How should we reach you? *</legend><p id="contact-help">Enter a phone number, an email address, or both.</p><div class="form-grid"><label>Phone<input name="phone" type="tel" autocomplete="tel"></label><label>Email<input name="email" type="email" autocomplete="email"></label></div></fieldset><div class="form-grid"><label>Project type<select name="service"><option value="">Choose one</option>{options}<option value="Multiple services / other">Multiple services / other</option></select></label><label>Preferred timing<input name="timing" placeholder="Flexible, this fall, as soon as possible…"></label></div><label>Project details *<textarea name="message" placeholder="What would you like repaired, renovated or changed?" required></textarea></label><p class="form-error" data-form-error role="alert"></p><button class="button button-dark" type="submit">Prepare Quote Email <span aria-hidden="true">↗</span></button><p class="form-note">This opens your email app with the details filled in so you can review and send them directly. You can attach project photos before sending.</p></form></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What happens next", "A useful first conversation starts with context.", "Sharing a few details helps us understand the likely scope before arranging the next step.")}<ol class="process-grid compact-process"><li class="reveal"><span>01</span><h3>Describe the project</h3><p>Include the location, room and result you have in mind.</p></li><li class="reveal"><span>02</span><h3>Add photos</h3><p>Attach wide views and closer images of the affected areas.</p></li><li class="reveal"><span>03</span><h3>Connect</h3><p>We review the information and discuss the appropriate next step.</p></li></ol></div></section>
     </main>"""
@@ -1549,7 +1553,7 @@ def build() -> None:
     write("llms.txt", f"""
     # Hekman Home Services Inc.
 
-    > Husband-and-wife-led renovation, repair and property improvement company based in Westmount and serving West London and nearby communities.
+    > Husband-and-wife-led renovation, repair and property improvement company based in Westmount and serving homeowners throughout London and nearby communities.
 
     Canonical website: {BASE_URL}/
     Phone: {PHONE_DISPLAY}
@@ -1559,7 +1563,7 @@ def build() -> None:
     {chr(10).join(f'- {item["name"]}: {BASE_URL}{service_url(slug)}' for slug, item in SERVICES.items())}
 
     ## Service area
-    Based in Westmount. Working throughout West London and nearby communities, including Byron, Oakridge, Riverbend, Medway, Hyde Park and other London neighbourhoods.
+    Based in Westmount. Working throughout London and nearby communities—north, south, east and west. This includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Old South and other London neighbourhoods.
 
     ## Selected project stories
     - Medway flooring and storage transformation: {BASE_URL}/projects/medway-flooring-storage/

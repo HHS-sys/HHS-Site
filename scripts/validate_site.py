@@ -296,9 +296,14 @@ def check() -> list[str]:
     if "multiple bathroom" in westmount_page.lower() or "two bathroom" in westmount_page.lower():
         errors.append("Phased Westmount page overstates the confirmed one-powder-room scope")
 
-    positioning = "Based in Westmount. Working throughout West London and nearby communities."
+    positioning = "Based in Westmount. Serving homeowners across London and nearby communities."
     if positioning not in homepage:
-        errors.append("Homepage is missing the required West London positioning statement")
+        errors.append("Homepage is missing the required all-London positioning statement")
+    for neighbourhood in ("Sunningdale", "Old North", "Stoneybrook"):
+        if neighbourhood not in homepage:
+            errors.append(f"Homepage service area is missing {neighbourhood}")
+        if neighbourhood not in (ROOT / "llms.txt").read_text(encoding="utf-8"):
+            errors.append(f"llms.txt service area is missing {neighbourhood}")
 
     return errors
 
