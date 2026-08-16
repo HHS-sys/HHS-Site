@@ -1,0 +1,387 @@
+{
+  "catalogVersion": "2026-08-16",
+  "purpose": "A maintainable map of verified Hekman Home Services project media used by the rebuilt website.",
+  "preservation": {
+    "numberedProjectSeries": {
+      "pattern": "project-001.jpg through project-169.jpg",
+      "fileCount": 169
+    },
+    "namedSourcePhotoFiles": {
+      "pattern": "NNN-original-name.jpg",
+      "fileCount": 308
+    },
+    "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
+  },
+  "displayStrategy": {
+    "projectGalleryPhotographs": 98,
+    "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
+  },
+  "inventoryAudit": {
+    "rootJpgFiles": 524,
+    "exactUniqueBinaries": 498,
+    "numberedProjectSeries": 169,
+    "namedSourcePhotoFiles": 308,
+    "descriptiveAndBrandFiles": 47,
+    "continuityMethod": [
+      "window geometry and glass pattern",
+      "ceiling slope, grid and permanent lines",
+      "door and wall openings",
+      "fixture and plumbing-wall position",
+      "permanent trim",
+      "room proportions"
+    ],
+    "highLevelClusters": [
+      {
+        "range": "project-001.jpg to project-017.jpg",
+        "subjects": [
+          "tools",
+          "stairs",
+          "carpet and hard-surface flooring",
+          "drywall",
+          "popcorn ceiling",
+          "pot-light work"
+        ]
+      },
+      {
+        "range": "project-025.jpg to project-035.jpg",
+        "subjects": [
+          "Westmount structure and layout",
+          "doors and trim",
+          "drywall",
+          "flooring"
+        ]
+      },
+      {
+        "range": "project-036.jpg and project-045.jpg to project-054.jpg",
+        "subjects": [
+          "commercial fitness-space ceiling",
+          "lighting",
+          "facility work"
+        ]
+      },
+      {
+        "range": "project-037.jpg to project-044.jpg and project-055.jpg to project-073.jpg",
+        "subjects": [
+          "carpet",
+          "vinyl",
+          "hardwood",
+          "basement and lower-level flooring"
+        ]
+      },
+      {
+        "range": "project-089.jpg to project-104.jpg",
+        "subjects": [
+          "deck and exterior work",
+          "post holes",
+          "framing",
+          "completed deck"
+        ]
+      },
+      {
+        "range": "project-105.jpg to project-138.jpg",
+        "subjects": [
+          "kitchens",
+          "cabinetry",
+          "drywall",
+          "structural openings",
+          "backsplash",
+          "Hilltop kitchen"
+        ]
+      },
+      {
+        "range": "project-139.jpg to project-164.jpg",
+        "subjects": [
+          "multiple distinct bathroom projects",
+          "heated flooring",
+          "shower preparation",
+          "insulation and drywall",
+          "Hilltop bathrooms",
+          "frosted-window wall repair"
+        ]
+      }
+    ]
+  },
+  "verifiedCollections": [
+    {
+      "id": "hilltop-home-transformation",
+      "route": "/projects/hilltop-home-transformation/",
+      "subjects": [
+        "kitchen",
+        "lower level",
+        "staircase",
+        "entry",
+        "upstairs green-tile bathroom transformation",
+        "basement bathroom transformation"
+      ],
+      "assets": [
+        "hilltop-kitchen-wide.jpg",
+        "hilltop-kitchen-angle.jpg",
+        "hilltop-kitchen-range.jpg",
+        "hilltop-kitchen-sink.jpg",
+        "hilltop-kitchen-island.jpg",
+        "hilltop-lower-level.jpg",
+        "hilltop-staircase.jpg",
+        "hilltop-entry.jpg",
+        "hilltop-green-tile-before.jpg",
+        "hilltop-green-tile-after.jpg",
+        "hilltop-basement-bathroom-before.jpg",
+        "hilltop-basement-bathroom-during.jpg",
+        "hilltop-basement-bathroom-vanity.jpg",
+        "hilltop-basement-bathroom-wide.jpg",
+        "hilltop-bathroom-shower.jpg",
+        "hilltop-bathroom-vanity.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "upstairs green-tile bathroom",
+          "stages": [
+            "hilltop-green-tile-before.jpg",
+            "hilltop-green-tile-after.jpg",
+            "hilltop-bathroom-vanity.jpg"
+          ]
+        },
+        {
+          "name": "basement bathroom",
+          "stages": [
+            "hilltop-basement-bathroom-before.jpg",
+            "hilltop-basement-bathroom-during.jpg",
+            "hilltop-basement-bathroom-wide.jpg",
+            "hilltop-bathroom-shower.jpg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "westmount-1970s-transformation",
+      "route": "/projects/westmount-1970s-transformation/",
+      "subjects": [
+        "wall opening",
+        "layout",
+        "living space",
+        "doors",
+        "closets",
+        "flooring"
+      ],
+      "assets": [
+        "westmount-wall-opening-1.jpg",
+        "westmount-wall-opening-2.jpg",
+        "westmount-living-finish.jpg",
+        "westmount-closet-finish.jpg"
+      ]
+    },
+    {
+      "id": "commercial-salon-repair",
+      "route": "/projects/commercial-salon-repair/",
+      "subjects": [
+        "commercial water damage",
+        "restoration",
+        "active business",
+        "completed salon"
+      ],
+      "assets": [
+        "salon-after-1.jpg",
+        "salon-after-2.jpg"
+      ],
+      "continuityNote": "Completed views of the salon restoration; no unrelated ceiling images are presented as this project's earlier stages."
+    },
+    {
+      "id": "restoration-repair-examples",
+      "route": "/services/water-damage/",
+      "subjects": [
+        "damaged ceiling",
+        "drywall rebuilding",
+        "restorative construction",
+        "finish restoration"
+      ],
+      "assets": [
+        "salon-water-damage-1.jpg",
+        "salon-water-damage-2.jpg",
+        "salon-drywall-rebuild.jpg",
+        "project-014.jpg"
+      ],
+      "continuityNote": "Individual restoration examples. They are not represented as one before/during/after sequence."
+    },
+    {
+      "id": "commercial-fitness-space",
+      "route": "/services/commercial/",
+      "subjects": [
+        "LED lighting upgrade",
+        "occupied fitness facility",
+        "commercial improvement"
+      ],
+      "assets": [
+        "project-045.jpg",
+        "project-049.jpg",
+        "project-048.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "verified lighting upgrade",
+          "stages": [
+            "project-045.jpg",
+            "project-049.jpg",
+            "project-048.jpg"
+          ]
+        }
+      ],
+      "continuityAnchors": [
+        "exposed round duct",
+        "open gym floor",
+        "ceiling lines",
+        "rack and equipment positions"
+      ]
+    },
+    {
+      "id": "office-kitchen-renewal",
+      "route": "/projects/kitchen-renewal/",
+      "subjects": [
+        "existing office kitchen",
+        "wall and plumbing access",
+        "cabinet installation",
+        "finished kitchen"
+      ],
+      "sequence": [
+        "kitchenette-before-wide.jpg",
+        "kitchenette-before-detail.jpg",
+        "kitchenette-wall-plumbing-stage.jpg",
+        "kitchenette-cabinet-installation.jpg",
+        "kitchenette-after-detail.jpg",
+        "kitchenette-after-wide.jpg"
+      ],
+      "video": "kitchenette-finish-tour.mp4"
+    },
+    {
+      "id": "popcorn-ceiling-transformation",
+      "route": "/projects/popcorn-ceiling-transformation/",
+      "subjects": [
+        "existing texture",
+        "drywall sander",
+        "skim coating",
+        "surface correction",
+        "primer"
+      ],
+      "assets": [
+        "project-016.jpg",
+        "popcorn-ceiling-sander.jpg",
+        "project-017.jpg",
+        "project-015.jpg",
+        "popcorn-ceiling-primer.jpg"
+      ]
+    },
+    {
+      "id": "frosted-window-bathroom-repair",
+      "route": "/services/bathrooms/#frosted-window-repair",
+      "subjects": [
+        "existing tiled bathroom",
+        "tile removal",
+        "insulation access",
+        "wall-board rebuilding",
+        "drywall compound"
+      ],
+      "assets": [
+        "project-155.jpg",
+        "project-146.jpg",
+        "project-153.jpg",
+        "project-152.jpg"
+      ],
+      "continuityAnchors": [
+        "two-panel frosted window",
+        "black-framed shower",
+        "vanity plumbing wall",
+        "room proportions"
+      ]
+    },
+    {
+      "id": "glass-block-bathroom-conversion",
+      "route": "/projects/glass-block-bathroom-conversion/",
+      "subjects": [
+        "jetted-tub removal",
+        "wall and floor access",
+        "insulation",
+        "shower preparation",
+        "tile",
+        "sliding glass enclosure"
+      ],
+      "sequence": [
+        "bathroom-glass-block-before.jpg",
+        "bathroom-glass-block-demolition.jpg",
+        "bathroom-glass-block-open-wall.jpg",
+        "bathroom-walnut-vanity-after.jpg"
+      ],
+      "videos": [
+        "bathroom-glass-block-transformation.mp4",
+        "bathroom-finish-details.mp4"
+      ]
+    }
+  ],
+  "serviceCoverage": {
+    "flooring": [
+      "carpet",
+      "vinyl plank",
+      "laminate",
+      "hardwood",
+      "tile",
+      "stairs and transitions"
+    ],
+    "bathrooms": [
+      "completed bathrooms",
+      "glass showers",
+      "vanities",
+      "tile",
+      "waterproofing",
+      "fixtures",
+      "jetted-tub to shower conversions"
+    ],
+    "drywallAndInsulation": [
+      "open walls and ceilings",
+      "insulation",
+      "drywall installation",
+      "patching",
+      "compound",
+      "sanding",
+      "painting"
+    ],
+    "exterior": [
+      "decks",
+      "fences",
+      "posts",
+      "manual post-hole digging",
+      "powered auger work"
+    ],
+    "restorationAndDamage": [
+      "commercial water-damage restoration",
+      "damaged ceiling repair",
+      "drywall rebuilding",
+      "insulation and connected finishes",
+      "primer, paint and finish restoration"
+    ],
+    "commercial": [
+      "salon restoration",
+      "fitness-facility LED lighting",
+      "office kitchen renewal",
+      "drywall and ceilings",
+      "lighting",
+      "maintenance lists"
+    ],
+    "handymanAndRepairs": [
+      "doors",
+      "trim",
+      "drywall patching",
+      "painting",
+      "bathroom fixtures",
+      "plumbing-related repairs",
+      "pot-light and ceiling work"
+    ]
+  },
+  "videoDelivery": {
+    "autoplay": false,
+    "preload": "none; videos wait for user interaction before downloading media",
+    "playsInline": true,
+    "optimizedFiles": [
+      "kitchenette-finish-tour.mp4",
+      "drywall-potlight-progress.mp4",
+      "bathroom-glass-block-transformation.mp4",
+      "bathroom-finish-details.mp4"
+    ]
+  }
+}
