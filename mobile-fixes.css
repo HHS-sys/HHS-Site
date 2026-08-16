@@ -1,0 +1,128 @@
+/* Responsive hardening and mobile fallbacks.
+   Loaded by main.js so the navigation remains usable even if Safari serves a stale layout. */
+
+.brand > span {
+  min-width: 0;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+@media (max-width: 860px) {
+  .site-header {
+    background: rgba(7, 19, 33, 0.98);
+  }
+
+  .nav-shell {
+    position: relative;
+    gap: 14px;
+  }
+
+  .brand {
+    max-width: calc(100% - 58px);
+    flex: 1 1 auto;
+  }
+
+  .brand strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav-toggle {
+    position: relative;
+    z-index: 202;
+    display: inline-flex !important;
+    flex: 0 0 auto;
+  }
+
+  .primary-nav {
+    position: fixed;
+    top: 70px;
+    right: 0;
+    left: 0;
+    z-index: 201;
+    display: none !important;
+    max-height: calc(100svh - 70px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 22px max(20px, env(safe-area-inset-right)) 28px max(20px, env(safe-area-inset-left));
+    border-block: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(7, 19, 33, 0.99);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    visibility: visible;
+  }
+
+  .primary-nav.is-open {
+    display: grid !important;
+  }
+
+  .primary-nav a {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 4px;
+    font-size: 1rem;
+  }
+
+  .primary-nav .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+  body.nav-open::before {
+    position: fixed;
+    inset: 70px 0 0;
+    z-index: 199;
+    background: rgba(2, 8, 15, 0.58);
+    content: "";
+  }
+}
+
+@media (max-width: 620px) {
+  .nav-shell {
+    min-height: 66px;
+  }
+
+  .brand {
+    max-width: calc(100% - 54px);
+  }
+
+  .brand strong {
+    max-width: none !important;
+    font-size: 0.86rem;
+  }
+
+  .primary-nav {
+    top: 66px;
+    max-height: calc(100svh - 66px);
+  }
+
+  body.nav-open::before {
+    inset-block-start: 66px;
+  }
+
+  .mobile-actions {
+    right: max(9px, env(safe-area-inset-right));
+    bottom: max(9px, env(safe-area-inset-bottom));
+    left: max(9px, env(safe-area-inset-left));
+  }
+
+  .contact-direct strong,
+  .footer-brand a {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand strong {
+    font-size: 0.8rem;
+  }
+}
