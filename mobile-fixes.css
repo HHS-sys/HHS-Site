@@ -1,5 +1,6 @@
 /* Responsive hardening and mobile fallbacks.
-   Loaded by main.js so the navigation remains usable even if Safari serves a stale layout. */
+   Loaded by main.js so the navigation remains usable even if Safari serves a stale layout.
+   Production refresh: 2026-08-16. */
 
 .brand > span {
   min-width: 0;
