@@ -3,7 +3,7 @@
 ## Mission
 Build a premium, honest, photography-led website that helps homeowners and property managers choose Hekman Home Services for renovations, repairs, restoration and handyman work in London, Ontario.
 
-The primary audience is approximately age 30–80, with special emphasis on West London: Westmount, Byron, Oakridge, Riverbend, Hyde Park and nearby neighbourhoods. The site must remain easy to read, simple to navigate and reassuring on mobile.
+The primary audience is approximately age 30–80, with special emphasis on West London: Westmount, Byron, Oakridge, Riverbend, Hyde Park, Medway and nearby neighbourhoods. The site must remain easy to read, simple to navigate and reassuring on mobile.
 
 ## Non-negotiable truth and privacy rules
 - Use real Hekman project photography first. Do not use stock photography.
@@ -17,8 +17,9 @@ The primary audience is approximately age 30–80, with special emphasis on West
 
 ## Current project facts to preserve
 
-### Winding Woods — upper-level flooring and storage transformation
-- London, Ontario; Winding Woods area.
+### Medway — upper-level flooring and storage transformation
+- London, Ontario; use `Medway` as the public neighbourhood name.
+- Do not use the street name as the public project title.
 - Keep the client anonymous on the public site.
 - The project began as a flooring update and expanded into a better use of the upper level.
 - Carpet was removed in three rooms.
@@ -41,7 +42,8 @@ The primary audience is approximately age 30–80, with special emphasis on West
 
 ### Phased Westmount home transformation
 - This is one large, ongoing transformation completed in phases around the clients' timing and budget.
-- It includes layout changes, demolition, drywall, painting, flooring, lighting, kitchen work, bathrooms, trim, doors, storage and related finishing.
+- It includes layout changes, demolition, drywall, painting, flooring, lighting, kitchen work, one powder-room renovation, trim, doors, storage and related finishing.
+- Do not describe this project as including multiple bathroom renovations. The confirmed bathroom scope is one powder room.
 - Real progress images should tell the story from demolition through preparation, installation and completed phases.
 - The kitchen is still being completed. Do not label a kitchen rendering as an actual after photo.
 - The planned backsplash is white 2-inch by 10-inch subway tile in a herringbone pattern carried to the ceiling.
@@ -68,7 +70,7 @@ The primary audience is approximately age 30–80, with special emphasis on West
 - Write naturally for London and West London searches without keyword stuffing.
 - Use specific project pages with unique titles, descriptions, headings, alt text, captions, breadcrumbs and internal links.
 - Keep `sitemap.xml`, `robots.txt`, `llms.txt`, canonical URLs and structured data accurate.
-- Mention Westmount, Byron, Oakridge, Riverbend, Hyde Park and London only where relevant.
+- Mention Westmount, Byron, Oakridge, Riverbend, Hyde Park, Medway and London only where relevant.
 - Prioritize useful, firsthand project detail so search engines and AI systems can understand what Hekman actually completed.
 
 ## Engineering workflow
