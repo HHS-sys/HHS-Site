@@ -272,10 +272,10 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Repairs after leaks and water damage", "Damaged drywall and ceiling rebuilding", "Insulation and wall-cavity restoration", "Flooring, trim and baseboard repair", "Residential and commercial restoration", "Primer, paint and final finish work"],
         "gallery": [
-            ("salon-water-damage-2.jpg", "Damaged ceiling opened to expose the affected construction", "Ceiling damage opened for repair"),
-            ("salon-drywall-rebuild.jpg", "Ceiling and wall surfaces being rebuilt with new drywall and compound", "Drywall restoration in progress"),
-            ("salon-after-1.jpg", "Bright working salon after water-damage restoration", "Commercial space restored"),
-            ("project-014.jpg", "Smooth completed ceiling after repair and finish work", "Completed ceiling finish"),
+            ("salon-water-damage-2.jpg", "Damaged ceiling opened to expose the affected construction", "Ceiling damage opened for investigation and repair"),
+            ("salon-drywall-rebuild.jpg", "Ceiling and wall surfaces being rebuilt with new drywall and compound", "Wall and ceiling surfaces rebuilt after repairs"),
+            ("salon-after-1.jpg", "Bright working salon after water-damage restoration", "Salon returned to working condition"),
+            ("project-014.jpg", "Smooth completed ceiling after repair and finish work", "A smooth ceiling finish restored"),
         ],
         "faq": [
             ("Do you stop the active leak?", "The source should be identified and corrected first. Our scope can focus on removal, repair and rebuilding afterward."),
@@ -954,7 +954,14 @@ def service_page(slug: str) -> str:
         for variant, related_slug in enumerate(item["related"], 2)
     )
     showcase = bathroom_showcase() if slug == "bathrooms" else commercial_showcase() if slug == "commercial" else ""
-    gallery_section = "" if slug == "commercial" else f"""
+    if slug == "commercial":
+        gallery_section = ""
+    elif slug == "water-damage":
+        gallery_section = f"""
+      <section class="section section-stone"><div class="wrap">{section_heading("Restoration in practice", "Different damage. One goal: make the space feel whole again.", "A damaged ceiling, an opened wall, a disrupted business or an unfinished surface can each require a different repair plan. These are individual moments from separate restoration projects.")}<div class="gallery-grid">{gallery}</div><div class="section-actions reveal"><a class="button button-dark" href="/projects/">View More Projects</a></div></div></section>
+    """
+    else:
+        gallery_section = f"""
       <section class="section section-stone"><div class="wrap">{section_heading("Details from real projects", "See what careful work looks like.", "Preparation, progress and finished spaces from Hekman Home Services work in London and nearby communities.")}<div class="gallery-grid">{gallery}</div><div class="section-actions reveal"><a class="button button-dark" href="/projects/">View More Projects</a></div></div></section>
     """
     body = f"""
