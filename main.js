@@ -80,11 +80,10 @@ filterButtons.forEach((button) => {
     });
 
     if (filterStatus) {
-      const label = button.textContent.trim().toLowerCase();
       filterStatus.textContent =
         selected === "all"
           ? `Showing all ${visibleCount} photographs.`
-          : `Showing ${visibleCount} ${label} photographs.`;
+          : `Showing ${visibleCount} photographs in ${button.textContent.trim()}.`;
     }
   });
 });

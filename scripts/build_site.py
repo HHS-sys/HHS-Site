@@ -275,7 +275,7 @@ SERVICES: dict[str, dict] = {
             ("salon-water-damage-1.jpg", "Water-damaged ceiling opened to expose affected material", "Water damage documented"),
             ("salon-water-damage-2.jpg", "Second view of opened commercial ceiling after a leak", "Repair area opened"),
             ("salon-drywall-rebuild.jpg", "Commercial walls and ceiling after new drywall and compound", "Drywall rebuilding"),
-            ("salon-after-1.jpg", "Finished Pixie and Paige salon interior after commercial repairs", "Completed commercial space"),
+            ("salon-after-1.jpg", "Finished London salon interior after commercial repairs", "Completed commercial space"),
         ],
         "faq": [
             ("Do you stop the active leak?", "The source should be identified and corrected first. Our scope can focus on removal, repair and rebuilding afterward."),
@@ -290,7 +290,7 @@ SERVICES: dict[str, dict] = {
         "title": "Commercial Maintenance London ON | Hekman Home Services",
         "description": "Commercial maintenance and repairs in London, Ontario, including salon, fitness, retail, office-kitchen, drywall, lighting and repair work.",
         "hero": "salon-after-2.jpg",
-        "hero_alt": "Completed Pixie and Paige salon interior after commercial repair work",
+        "hero_alt": "Completed London salon interior after commercial repair work",
         "position": "50% 56%",
         "lead": "Responsive repair and improvement work for salons, fitness facilities, offices, retail, rentals and managed properties.",
         "intro": "Commercial spaces need repairs completed with a clear scope, awareness of customers and staff, and respect for day-to-day operations. Hekman Home Services can address one urgent repair, a tenant improvement or a grouped maintenance list across drywall, ceilings, pot lights, plumbing fixtures, painting, doors, trim, kitchenettes and other compatible work.",
@@ -301,7 +301,7 @@ SERVICES: dict[str, dict] = {
         ],
         "bullets": ["Commercial drywall and water-damage repairs", "Pot lights and ceiling finish work", "Salon, retail, office-kitchen and fitness-space improvements", "Plumbing fixtures, doors, trim and painting", "Grouped maintenance lists", "Rental and managed-property repairs"],
         "gallery": [
-            ("salon-after-2.jpg", "Completed Pixie and Paige salon interior", "Salon commercial work"),
+            ("salon-after-2.jpg", "Completed London salon interior", "Salon commercial work"),
             ("salon-after-1.jpg", "Long view of finished salon stations and lighting", "Finished salon interior"),
             ("salon-water-damage-1.jpg", "Water-damaged commercial ceiling opened for repair", "Water-damage repair"),
             ("salon-drywall-rebuild.jpg", "Commercial room during drywall rebuilding", "Drywall restoration"),
@@ -452,16 +452,16 @@ SERVICE_CARD_VARIANTS: dict[str, list[tuple[str, str]]] = {
         ("project-103.jpg", "Completed elevated wood deck at a residential property"),
     ],
     "water-damage": [
-        ("salon-water-damage-1.jpg", "Commercial ceiling opened after water damage at Pixie and Paige"),
+        ("salon-water-damage-1.jpg", "Commercial ceiling opened after water damage in a London salon"),
         ("salon-water-damage-2.jpg", "Water-damaged salon ceiling prepared for repair"),
         ("salon-drywall-rebuild.jpg", "Salon ceiling and drywall being rebuilt after leak damage"),
     ],
     "commercial": [
         ("project-054.jpg", "Completed commercial fitness space after ceiling and lighting work"),
         ("kitchenette-after-wide.jpg", "Completed staff kitchen in a London commercial property"),
-        ("salon-after-1.jpg", "Completed Pixie and Paige salon stations and lighting"),
+        ("salon-after-1.jpg", "Completed London salon stations and lighting"),
         ("project-049.jpg", "Commercial fitness-space ceiling work in progress"),
-        ("salon-after-2.jpg", "Finished Pixie and Paige salon interior"),
+        ("salon-after-2.jpg", "Finished London salon interior"),
     ],
     "structural-layout": [
         ("westmount-wall-opening-2.jpg", "Structural support during the Westmount layout transformation"),
@@ -789,7 +789,7 @@ def homepage() -> str:
             <a class="project-tile project-tall reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen renovation" loading="lazy"><span><small>Whole-home transformation</small>Hilltop, designed as one complete home</span></a>
             <a class="project-tile reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living area after a layout change" loading="lazy"><span><small>1970s Westmount home</small>A new sense of flow</span></a>
             <a class="project-tile reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small>Jetted tub to glass shower</span></a>
-            <a class="project-tile project-wide reveal" href="/projects/pixie-paige-salon-repairs/"><img src="/salon-after-2.jpg" alt="Completed Pixie and Paige salon interior" loading="lazy"><span><small>Commercial · Pixie &amp; Paige</small>Repairing the damage without losing the character</span></a>
+            <a class="project-tile project-wide reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-2.jpg" alt="Completed London salon interior" loading="lazy"><span><small>Commercial salon repair</small>Repairing the damage without losing the character</span></a>
           </div>
           <div class="section-actions reveal"><a class="button button-dark" href="/projects/">Explore Our Work</a></div>
         </div>
@@ -895,12 +895,12 @@ def bathroom_showcase() -> str:
 
 def commercial_showcase() -> str:
     return f"""
-    <section class="section section-paper commercial-showcase" id="pixie-paige">
+    <section class="section section-paper commercial-showcase" id="commercial-salon">
       <div class="wrap">
-        {section_heading("Commercial project spotlight", "Pixie & Paige salon: repair, rebuild and finish.", "One commercial maintenance project brought together water-damage repair, drywall restoration, lighting upgrades and a fixture repair while respecting the needs of an active salon.")}
+        {section_heading("Commercial project spotlight", "A London salon: repair, rebuild and finish.", "One commercial maintenance project brought together water-damage repair, drywall restoration, lighting upgrades and a fixture repair while respecting the needs of an active salon.")}
         <article class="case-study reveal">
           <div class="case-study-copy">
-            <p class="eyebrow">Pixie &amp; Paige · London</p>
+            <p class="eyebrow">Commercial salon · London</p>
             <h3>Restoring a working salon after a water leak</h3>
             <p>Damaged ceiling material was opened and removed so the affected area could be addressed. New drywall was installed, taped, finished and prepared for paint, with the surrounding commercial space brought back to a clean finish.</p>
             <ul>
@@ -910,14 +910,14 @@ def commercial_showcase() -> str:
               <li>Toilet repair and compatible maintenance items</li>
             </ul>
             <p class="case-note">The work moved through several affected areas of the salon—from opening damaged ceiling sections to rebuilding drywall and completing the surrounding finish.</p>
-            <a class="text-link dark-link" href="/projects/pixie-paige-salon-repairs/">Read the full salon project story <span aria-hidden="true">↗</span></a>
+            <a class="text-link dark-link" href="/projects/commercial-salon-repair/">Read the full salon project story <span aria-hidden="true">↗</span></a>
           </div>
           <div class="case-study-media case-study-media-five">
-            <figure><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened at Pixie and Paige salon" loading="lazy"><figcaption>Damage documented</figcaption></figure>
+            <figure><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened inside a London salon" loading="lazy"><figcaption>Damage documented</figcaption></figure>
             <figure><img src="/salon-water-damage-2.jpg" alt="Second affected ceiling area opened after the salon leak" loading="lazy"><figcaption>Affected material opened</figcaption></figure>
             <figure><img src="/salon-drywall-rebuild.jpg" alt="New drywall and compound during the salon rebuild" loading="lazy"><figcaption>Drywall rebuild</figcaption></figure>
-            <figure><img src="/salon-after-1.jpg" alt="Completed Pixie and Paige salon stations and lighting" loading="lazy"><figcaption>Completed salon</figcaption></figure>
-            <figure><img src="/salon-after-2.jpg" alt="Finished Pixie and Paige salon interior with mirrors and workstations" loading="lazy"><figcaption>Finished commercial space</figcaption></figure>
+            <figure><img src="/salon-after-1.jpg" alt="Completed London salon stations and lighting" loading="lazy"><figcaption>Completed salon</figcaption></figure>
+            <figure><img src="/salon-after-2.jpg" alt="Finished London salon interior with mirrors and workstations" loading="lazy"><figcaption>Finished commercial space</figcaption></figure>
           </div>
         </article>
         <article class="case-study case-study-compact reveal">
@@ -1043,20 +1043,20 @@ def westmount_project_page() -> str:
 
 def salon_project_page() -> str:
     body = f"""
-    {hero("salon-after-2.jpg", "Completed Pixie and Paige salon after commercial repairs", "Commercial project · London, Ontario", "Pixie & Paige: restoring a working salon after a leak.", "Water-damaged ceiling and drywall, lighting upgrades and compatible maintenance work were coordinated into one commercial repair scope.", small=True, position="50% 56%")}
+    {hero("salon-after-2.jpg", "Completed London salon after commercial repairs", "Commercial project · London, Ontario", "Restoring a working salon after a water leak.", "Water-damaged ceiling and drywall, lighting upgrades and compatible maintenance work were coordinated into one commercial repair scope.", small=True, position="50% 56%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Commercial repair &amp; restoration</p><h2>The damage crossed rooms. The repair had to connect them again.</h2><p>A water leak affected ceiling and drywall areas inside Pixie &amp; Paige. Damaged material was opened and removed, the areas were allowed to dry and prepared, then new drywall was installed, taped, compounded, sanded and painted.</p><p>The broader visit also included lighting upgrades, a toilet repair and related kitchenette work—grouping compatible maintenance so the salon could return to a clean, functional finish.</p></div><ul class="scope-list reveal"><li>Water-damaged ceiling and drywall removal</li><li>Drying and preparation of affected areas</li><li>New drywall, tape, compound and sanding</li><li>Primer, paint and finish restoration</li><li>Lighting upgrades</li><li>Fixture and kitchenette maintenance</li></ul></div></section>
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Commercial repair &amp; restoration</p><h2>The damage crossed rooms. The repair had to connect them again.</h2><p>A water leak affected ceiling and drywall areas inside a working London salon. Damaged material was opened and removed, the areas were allowed to dry and prepared, then new drywall was installed, taped, compounded, sanded and painted.</p><p>The broader visit also included lighting upgrades, a toilet repair and related kitchenette work—grouping compatible maintenance so the salon could return to a clean, functional finish.</p></div><ul class="scope-list reveal"><li>Water-damaged ceiling and drywall removal</li><li>Drying and preparation of affected areas</li><li>New drywall, tape, compound and sanding</li><li>Primer, paint and finish restoration</li><li>Lighting upgrades</li><li>Fixture and kitchenette maintenance</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Inside the salon repair", "Damage, rebuild and the finished business space.", "The leak affected more than one viewpoint, so the story follows the scope across the salon rather than forcing a single-angle comparison.")}<div class="story-mosaic story-mosaic-salon">
-        <figure class="story-feature"><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened at Pixie and Paige salon" loading="lazy"><figcaption>Damage opened and documented</figcaption></figure>
-        <figure><img src="/salon-water-damage-2.jpg" alt="Second affected ceiling area inside Pixie and Paige salon" loading="lazy"><figcaption>Another affected area</figcaption></figure>
-        <figure><img src="/salon-drywall-rebuild.jpg" alt="New drywall and compound during the Pixie and Paige salon rebuild" loading="lazy"><figcaption>Drywall rebuild underway</figcaption></figure>
-        <figure class="story-wide"><img src="/salon-after-1.jpg" alt="Completed Pixie and Paige salon stations and lighting" loading="lazy"><figcaption>Salon stations and lighting restored</figcaption></figure>
-        <figure class="story-wide"><img src="/salon-after-2.jpg" alt="Finished Pixie and Paige salon with mirrors and workstations" loading="lazy"><figcaption>The completed salon</figcaption></figure>
+        <figure class="story-feature"><img src="/salon-water-damage-1.jpg" alt="Water-damaged ceiling opened inside a London salon" loading="lazy"><figcaption>Damage opened and documented</figcaption></figure>
+        <figure><img src="/salon-water-damage-2.jpg" alt="Second affected ceiling area inside the salon" loading="lazy"><figcaption>Another affected area</figcaption></figure>
+        <figure><img src="/salon-drywall-rebuild.jpg" alt="New drywall and compound during the salon rebuild" loading="lazy"><figcaption>Drywall rebuild underway</figcaption></figure>
+        <figure class="story-wide"><img src="/salon-after-1.jpg" alt="Completed London salon stations and lighting" loading="lazy"><figcaption>Salon stations and lighting restored</figcaption></figure>
+        <figure class="story-wide"><img src="/salon-after-2.jpg" alt="Finished London salon with mirrors and workstations" loading="lazy"><figcaption>The completed salon</figcaption></figure>
       </div></div></section>
       <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/salon-after-1.jpg" alt="Long view through the completed salon interior" loading="lazy"><span>Commercial work with the business in mind</span></div><div class="editorial-copy reveal"><p class="eyebrow">Why the scope matters</p><h2>One repair visit can solve more than the visible damage.</h2><p>Commercial owners often have a primary problem and a list of connected maintenance needs. Grouping compatible drywall, ceiling, lighting, fixture and finish work creates a clearer path back to normal operations.</p><a class="text-link dark-link" href="/services/commercial/">Explore commercial maintenance <span aria-hidden="true">↗</span></a></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">A repair affecting your business?</p><h2>Send us the scope and the space.</h2><p>Photos, access details and operating hours help us understand what the project requires.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("Pixie & Paige Salon Repairs | Hekman Home Services", "See Hekman Home Services repair water-damaged drywall and ceilings, upgrade lighting and complete maintenance work at Pixie & Paige salon in London, Ontario.", "/projects/pixie-paige-salon-repairs/", "salon-after-2.jpg", "projects", body, "project-story-page")
+    return page("Commercial Salon Repair London ON | Hekman Home Services", "See Hekman Home Services repair water-damaged drywall and ceilings, upgrade lighting and complete related maintenance work inside a London, Ontario salon.", "/projects/commercial-salon-repair/", "salon-after-2.jpg", "projects", body, "project-story-page")
 
 
 def kitchen_renewal_project_page() -> str:
@@ -1229,12 +1229,12 @@ PROJECTS = [
     ("project-139.jpg", "handyman bathrooms", "Bathroom toilet and flooring installation detail", "Bathroom fixture detail", "Handyman repair"),
     ("drywall-potlight-progress-poster.jpg", "handyman drywall structural", "Drywall finishing and pot lights during an interior renovation", "Drywall and pot lights", "Lighting / drywall"),
 
-    # Commercial projects: Pixie & Paige salon and a fitness facility.
-    ("salon-water-damage-1.jpg", "commercial drywall", "Water-damaged ceiling opened at Pixie and Paige salon", "Salon water-damage repair", "Commercial"),
+    # Commercial projects: a London salon and a fitness facility.
+    ("salon-water-damage-1.jpg", "commercial drywall", "Water-damaged ceiling opened inside a London salon", "Salon water-damage repair", "Commercial"),
     ("salon-water-damage-2.jpg", "commercial drywall", "Second affected ceiling area opened after the salon leak", "Affected ceiling opened", "Commercial"),
     ("salon-drywall-rebuild.jpg", "commercial drywall", "New drywall and compound during the salon rebuild", "Salon drywall rebuild", "Commercial"),
-    ("salon-after-1.jpg", "commercial", "Completed Pixie and Paige salon stations and lighting", "Finished salon interior", "Commercial"),
-    ("salon-after-2.jpg", "commercial", "Finished Pixie and Paige salon with mirrors and workstations", "Pixie & Paige salon", "Commercial"),
+    ("salon-after-1.jpg", "commercial", "Completed London salon stations and lighting", "Finished salon interior", "Commercial"),
+    ("salon-after-2.jpg", "commercial", "Finished London salon with mirrors and workstations", "Completed salon", "Commercial"),
     ("project-045.jpg", "commercial", "Commercial fitness-space ceiling and lighting detail", "Fitness-space scope", "Commercial"),
     ("project-049.jpg", "commercial drywall", "Commercial fitness-space ceiling work in progress", "Fitness-space progress", "Commercial"),
     ("project-046.jpg", "commercial", "Existing fitness-space ceiling and lighting conditions", "Fitness-space ceiling scope", "Commercial"),
@@ -1250,12 +1250,12 @@ def projects_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Six transformations. Six very different challenges.", "Step inside Hilltop, a 1970s Westmount home, a genuine tub-to-shower conversion, Pixie & Paige salon, a compact office kitchen and a London popcorn-ceiling transformation.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Six transformations. Six very different challenges.", "Step inside Hilltop, a 1970s Westmount home, a genuine tub-to-shower conversion, a commercial salon repair, a compact office kitchen and a London popcorn-ceiling transformation.")}
         <div class="story-card-grid">
           <a class="story-card story-card-large reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathroom, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small><strong>Jetted tub to glass shower</strong><b>Demolition, open-wall work, tile and enclosure <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-living-finish.jpg" alt="Finished Westmount living room" loading="lazy"><span><small>1970s Westmount Beauty</small><strong>A new sense of flow</strong><b>Wall opening, flooring, trim, doors and closets <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/pixie-paige-salon-repairs/"><img src="/salon-after-2.jpg" alt="Completed Pixie and Paige salon" loading="lazy"><span><small>Commercial repair</small><strong>Pixie &amp; Paige</strong><b>Water damage, drywall, lighting and maintenance <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-2.jpg" alt="Completed London salon interior" loading="lazy"><span><small>Commercial repair</small><strong>London salon restoration</strong><b>Water damage, drywall, lighting and maintenance <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card story-card-wide reveal" href="/projects/popcorn-ceiling-transformation/"><img src="/popcorn-ceiling-sander.jpg" alt="Ceiling sander used during popcorn ceiling removal" loading="lazy"><span><small>Before · during · finish stage</small><strong>Popcorn ceiling transformation</strong><b>Sand, skim, check and prime <i aria-hidden="true">↗</i></b></span></a>
         </div>
@@ -1320,7 +1320,7 @@ def build() -> None:
     write("projects/index.html", projects_page())
     write("projects/hilltop-home-transformation/index.html", hilltop_project_page())
     write("projects/westmount-1970s-transformation/index.html", westmount_project_page())
-    write("projects/pixie-paige-salon-repairs/index.html", salon_project_page())
+    write("projects/commercial-salon-repair/index.html", salon_project_page())
     write("projects/kitchen-renewal/index.html", kitchen_renewal_project_page())
     write("projects/popcorn-ceiling-transformation/index.html", popcorn_project_page())
     write("projects/glass-block-bathroom-conversion/index.html", glass_block_bathroom_project_page())
@@ -1351,7 +1351,7 @@ def build() -> None:
     project_urls = [
         "/projects/hilltop-home-transformation/",
         "/projects/westmount-1970s-transformation/",
-        "/projects/pixie-paige-salon-repairs/",
+        "/projects/commercial-salon-repair/",
         "/projects/kitchen-renewal/",
         "/projects/popcorn-ceiling-transformation/",
         "/projects/glass-block-bathroom-conversion/",
@@ -1378,7 +1378,7 @@ def build() -> None:
     ## Selected project stories
     - Hilltop whole-home transformation: {BASE_URL}/projects/hilltop-home-transformation/
     - 1970s Westmount home transformation: {BASE_URL}/projects/westmount-1970s-transformation/
-    - Pixie & Paige salon commercial repairs: {BASE_URL}/projects/pixie-paige-salon-repairs/
+    - Commercial salon water-damage repair: {BASE_URL}/projects/commercial-salon-repair/
     - Office kitchen renewal, before through completion: {BASE_URL}/projects/kitchen-renewal/
     - Popcorn ceiling transformation: {BASE_URL}/projects/popcorn-ceiling-transformation/
     - Jetted-tub to glass-shower bathroom conversion: {BASE_URL}/projects/glass-block-bathroom-conversion/
