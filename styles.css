@@ -467,6 +467,7 @@ button.button { cursor: pointer; }
 .work-video span { margin-top: 3px; color: var(--muted-dark); font-size: 0.76rem; }
 
 .comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.comparison-grid-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .comparison-card { padding: 12px 12px 26px; border: 1px solid var(--line-dark); border-radius: 22px; background: rgba(255, 255, 255, 0.4); }
 .comparison-images { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .comparison-images figure { position: relative; margin: 0; overflow: hidden; }
@@ -476,6 +477,7 @@ button.button { cursor: pointer; }
 .comparison-images figcaption { position: absolute; bottom: 9px; left: 9px; padding: 5px 8px; color: var(--cream); background: rgba(13, 13, 11, 0.78); font-size: 0.62rem; font-weight: 850; letter-spacing: 0.08em; text-transform: uppercase; }
 .comparison-card h3 { margin: 22px 12px 7px; font-family: var(--display); font-size: 1.35rem; font-weight: 500; }
 .comparison-card > p { margin: 0 12px; color: var(--muted-dark); font-size: 0.83rem; }
+.hilltop-bathroom-details { margin-top: 16px; }
 .filter-bar { display: flex; margin-bottom: 34px; gap: 8px; flex-wrap: wrap; }
 .filter-button { min-height: 44px; padding: 9px 15px; border: 1px solid var(--line-light); border-radius: 999px; color: #c4beb5; background: transparent; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
 .filter-button:hover, .filter-button.active { border-color: var(--brass-light); color: var(--deep); background: var(--brass-light); }

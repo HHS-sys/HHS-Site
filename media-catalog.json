@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 95,
+    "projectGalleryPhotographs": 101,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "verifiedCollections": [
@@ -25,7 +25,8 @@
         "lower level",
         "staircase",
         "entry",
-        "bathrooms"
+        "upstairs green-tile bathroom transformation",
+        "basement bathroom transformation"
       ],
       "assets": [
         "hilltop-kitchen-wide.jpg",
@@ -36,8 +37,33 @@
         "hilltop-lower-level.jpg",
         "hilltop-staircase.jpg",
         "hilltop-entry.jpg",
+        "hilltop-green-tile-before.jpg",
+        "hilltop-green-tile-after.jpg",
+        "hilltop-basement-bathroom-before.jpg",
+        "hilltop-basement-bathroom-during.jpg",
+        "hilltop-basement-bathroom-vanity.jpg",
+        "hilltop-basement-bathroom-wide.jpg",
         "hilltop-bathroom-shower.jpg",
         "hilltop-bathroom-vanity.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "upstairs green-tile bathroom",
+          "stages": [
+            "hilltop-green-tile-before.jpg",
+            "hilltop-green-tile-after.jpg",
+            "hilltop-bathroom-vanity.jpg"
+          ]
+        },
+        {
+          "name": "basement bathroom",
+          "stages": [
+            "hilltop-basement-bathroom-before.jpg",
+            "hilltop-basement-bathroom-during.jpg",
+            "hilltop-basement-bathroom-wide.jpg",
+            "hilltop-bathroom-shower.jpg"
+          ]
+        }
       ]
     },
     {
@@ -111,6 +137,29 @@
         "project-017.jpg",
         "project-015.jpg",
         "popcorn-ceiling-primer.jpg"
+      ]
+    },
+    {
+      "id": "frosted-window-bathroom-repair",
+      "route": "/services/bathrooms/#frosted-window-repair",
+      "subjects": [
+        "existing tiled bathroom",
+        "tile removal",
+        "insulation access",
+        "wall-board rebuilding",
+        "drywall compound"
+      ],
+      "assets": [
+        "project-155.jpg",
+        "project-146.jpg",
+        "project-153.jpg",
+        "project-152.jpg"
+      ],
+      "continuityAnchors": [
+        "two-panel frosted window",
+        "black-framed shower",
+        "vanity plumbing wall",
+        "room proportions"
       ]
     },
     {

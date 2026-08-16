@@ -55,6 +55,10 @@ SERVICES: dict[str, dict] = {
             ("bathroom-glass-block-before.jpg", "Bathroom with a jetted tub and glass-block window before the tub-to-shower conversion", "Before: jetted-tub layout"),
             ("bathroom-glass-block-open-wall.jpg", "Jetted tub removed with the insulated wall and floor framing exposed", "During: opened wall and floor"),
             ("bathroom-walnut-vanity-after.jpg", "Completed tub-to-shower conversion with gray tile, a walnut vanity and sliding glass door", "After: glass shower conversion"),
+            ("hilltop-green-tile-before.jpg", "Hilltop bathroom with its original green-tile tub surround", "Hilltop before: green-tile surround"),
+            ("hilltop-green-tile-after.jpg", "Completed Hilltop tub surround with marble-look tile and dark accent trim", "Hilltop after: rebuilt tub surround"),
+            ("hilltop-basement-bathroom-before.jpg", "Hilltop basement bathroom before the shower, ceiling and finishes were renewed", "Hilltop basement bathroom before"),
+            ("hilltop-basement-bathroom-wide.jpg", "Completed Hilltop basement bathroom with white vanity and glass shower", "Hilltop basement bathroom after"),
             ("project-148.jpg", "Completed bathroom with glass shower enclosure", "Another glass shower renovation"),
             ("project-160.jpg", "Bathroom waterproofing system during construction", "Waterproofing in progress"),
         ],
@@ -750,6 +754,41 @@ def bathroom_showcase() -> str:
             <figure><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed glass shower conversion with walnut vanity" loading="lazy"><figcaption>Completed conversion</figcaption></figure>
           </div>
         </article>
+        <article class="case-study case-study-compact reveal" id="hilltop-bathrooms">
+          <div class="case-study-copy">
+            <p class="eyebrow">Two Hilltop bathrooms</p>
+            <h3>Different rooms. Different starting points. One carefully finished home.</h3>
+            <p>The upstairs bathroom is recognizable by its sloped ceiling and ornate mirror: an original green-tile tub surround gave way to a bright marble-look finish. Downstairs, an older shower and drop ceiling were rebuilt with white subway tile, restrained gray accents, a glass enclosure and a clean new vanity.</p>
+            <ul>
+              <li>Existing-room documentation before demolition</li>
+              <li>Shower and tub-surround rebuilding</li>
+              <li>Ceiling, wall, floor and vanity finishing</li>
+              <li>Consistent details across the wider Hilltop renovation</li>
+            </ul>
+            <a class="text-link dark-link" href="/projects/hilltop-home-transformation/#hilltop-bathrooms">See both Hilltop bathroom stories <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="case-study-media case-study-media-five">
+            <figure><img src="/hilltop-green-tile-before.jpg" alt="Hilltop bathroom before renovation with green tile around the tub" loading="lazy"><figcaption>Upstairs before</figcaption></figure>
+            <figure><img src="/hilltop-green-tile-after.jpg" alt="Hilltop bathroom after renovation with marble-look tub-surround tile" loading="lazy"><figcaption>Upstairs after</figcaption></figure>
+            <figure><img src="/hilltop-basement-bathroom-before.jpg" alt="Hilltop basement bathroom before renovation with an older shower and drop ceiling" loading="lazy"><figcaption>Basement before</figcaption></figure>
+            <figure><img src="/hilltop-basement-bathroom-during.jpg" alt="Hilltop basement bathroom during tile, wall and floor work" loading="lazy"><figcaption>Basement during</figcaption></figure>
+            <figure><img src="/hilltop-basement-bathroom-wide.jpg" alt="Completed Hilltop basement bathroom with white vanity and glass shower" loading="lazy"><figcaption>Basement after</figcaption></figure>
+          </div>
+        </article>
+        <article class="case-study case-study-compact reveal" id="frosted-window-repair">
+          <div class="case-study-copy">
+            <p class="eyebrow">The work behind the finish</p>
+            <h3>The same frosted window marks every stage of this bathroom repair.</h3>
+            <p>The original wall tile was removed while the black-framed shower remained in place. Opening the room exposed the wall cavity, insulation and plumbing access; new wall board and compound then rebuilt the surfaces around the unchanged window and shower.</p>
+            <p class="case-note">The fixed window, shower frame and room proportions trace the repair clearly from one stage to the next.</p>
+          </div>
+          <div class="case-study-media case-study-media-four">
+            <figure><img src="/project-155.jpg" alt="Frosted-window bathroom before wall and floor repair" loading="lazy"><figcaption>Existing room</figcaption></figure>
+            <figure><img src="/project-146.jpg" alt="Wall tile being removed in the frosted-window bathroom" loading="lazy"><figcaption>Tile removal</figcaption></figure>
+            <figure><img src="/project-153.jpg" alt="Exterior wall opened to insulation beneath the bathroom window" loading="lazy"><figcaption>Wall and insulation</figcaption></figure>
+            <figure><img src="/project-152.jpg" alt="New wall board and compound around the same frosted bathroom window" loading="lazy"><figcaption>Wall rebuilding</figcaption></figure>
+          </div>
+        </article>
       </div>
     </section>
     """
@@ -838,7 +877,7 @@ def hilltop_project_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen and island", "Hekman project story · London, Ontario", "Hilltop: one home, one clear point of view.", "A whole-home transformation connecting the kitchen, bathroom, lower level, entry, stairs, flooring and finish details into a cohesive result.", small=True, position="50% 52%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Whole-home transformation</p><h2>More than a collection of renovated rooms.</h2><p>Hilltop is the kind of project where every choice affects the next. The bright kitchen became an anchor, while flooring, stairs, the lower level, bathroom and entry were carried through with a consistent balance of warm wood, crisp white finishes and dark architectural details.</p><p>The completed-home photography shows how those decisions read together from one space to the next.</p></div><ul class="scope-list reveal"><li>Kitchen cabinetry, island and finish details</li><li>Bathroom renovation and glass shower</li><li>Lower-level living space</li><li>Flooring, stairs and transitions</li><li>Entry and interior finish work</li><li>Whole-home visual continuity</li></ul></div></section>
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Whole-home transformation</p><h2>More than a collection of renovated rooms.</h2><p>Hilltop is the kind of project where every choice affects the next. The bright kitchen became an anchor, while flooring, stairs, the lower level, two bathrooms and the entry were carried through with a consistent balance of warm wood, crisp white finishes and dark architectural details.</p><p>The project photography follows those decisions from one space to the next, including two bathroom renovations with very different starting points.</p></div><ul class="scope-list reveal"><li>Kitchen cabinetry, island and finish details</li><li>Upstairs tub surround and basement shower</li><li>Lower-level living space</li><li>Flooring, stairs and transitions</li><li>Entry and interior finish work</li><li>Whole-home visual continuity</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Inside Hilltop", "A complete home, viewed room by room.", "The kitchen leads the story, but the strength of the transformation is how the finished spaces belong together.")}<div class="story-mosaic story-mosaic-hilltop">
         <figure class="story-feature"><img src="/hilltop-kitchen-angle.jpg" alt="Angled view of the completed Hilltop kitchen" loading="lazy"><figcaption>The kitchen anchors the transformation</figcaption></figure>
         <figure><img src="/hilltop-kitchen-range.jpg" alt="Hilltop kitchen range wall and white cabinetry" loading="lazy"><figcaption>Cabinetry and range wall</figcaption></figure>
@@ -850,11 +889,36 @@ def hilltop_project_page() -> str:
         <figure><img src="/hilltop-bathroom-shower.jpg" alt="Completed Hilltop bathroom glass shower" loading="lazy"><figcaption>Glass shower finish</figcaption></figure>
         <figure><img src="/hilltop-bathroom-vanity.jpg" alt="Completed Hilltop bathroom vanity" loading="lazy"><figcaption>Bathroom vanity</figcaption></figure>
       </div></div></section>
+      <section class="section section-paper" id="hilltop-bathrooms"><div class="wrap">{section_heading("Two bathroom transformations", "The room details make each sequence unmistakable.", "A sloped ceiling and ornate mirror identify the upstairs bathroom. Downstairs, the shower position, vanity wall and compact footprint carry through from the older room to the finished glass enclosure.")}
+        <div class="comparison-grid comparison-grid-two">
+          <article class="comparison-card reveal">
+            <div class="comparison-images">
+              <figure><img src="/hilltop-green-tile-before.jpg" alt="Hilltop upstairs bathroom before renovation with green tile around the tub" loading="lazy"><figcaption>Before</figcaption></figure>
+              <figure><img src="/hilltop-green-tile-after.jpg" alt="Hilltop upstairs bathroom after renovation with marble-look tub-surround tile" loading="lazy"><figcaption>After</figcaption></figure>
+            </div>
+            <h3>Upstairs: green tile to a brighter tub surround</h3>
+            <p>The original green tile was replaced with marble-look wall tile, dark linear accents and updated fixtures. The sloped ceiling remains the room’s defining architectural line.</p>
+          </article>
+          <article class="comparison-card reveal">
+            <div class="comparison-images">
+              <figure><img src="/hilltop-basement-bathroom-before.jpg" alt="Hilltop basement bathroom before renovation with an older shower and drop ceiling" loading="lazy"><figcaption>Before</figcaption></figure>
+              <figure><img src="/hilltop-basement-bathroom-wide.jpg" alt="Hilltop basement bathroom after renovation with a white vanity and glass shower" loading="lazy"><figcaption>After</figcaption></figure>
+            </div>
+            <h3>Downstairs: a complete shower and finish renewal</h3>
+            <p>The older shower, drop ceiling and blue finishes gave way to white subway tile, gray accents, a glass enclosure, a clean drywall ceiling and a new vanity.</p>
+          </article>
+        </div>
+        <div class="case-study-media case-study-media-three hilltop-bathroom-details reveal">
+          <figure><img src="/hilltop-bathroom-vanity.jpg" alt="Completed Hilltop upstairs bathroom vanity beneath the sloped ceiling" loading="lazy"><figcaption>Upstairs vanity finish</figcaption></figure>
+          <figure><img src="/hilltop-basement-bathroom-during.jpg" alt="Hilltop basement bathroom during wall, tile and floor work" loading="lazy"><figcaption>Basement build stage</figcaption></figure>
+          <figure><img src="/hilltop-basement-bathroom-vanity.jpg" alt="Completed Hilltop basement bathroom white vanity and mirror" loading="lazy"><figcaption>Basement vanity finish</figcaption></figure>
+        </div>
+      </div></section>
       <section class="section section-stone"><div class="wrap editorial-grid"><div class="editorial-media reveal"><img src="/hilltop-kitchen-wide.jpg" alt="Wide view across the Hilltop kitchen and dining space" loading="lazy"><span>A cohesive whole-home finish</span></div><div class="editorial-copy reveal"><p class="eyebrow">The design idea</p><h2>Consistency without making every room identical.</h2><p>Hilltop uses repeated cues—light cabinetry, warm flooring, dark railings and hardware, clean sightlines—to give the home a recognizable character. Each room still solves its own practical needs, but the transitions no longer feel accidental.</p><a class="text-link dark-link" href="/contact/#quote">Discuss a whole-home renovation <span aria-hidden="true">↗</span></a></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "The rooms are only part of the scope.", "Whole-home work brings layout, surfaces, storage and finishing into the same plan.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True)}{service_card("bathrooms", compact=True)}{service_card("basements", compact=True)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Planning a bigger transformation?</p><h2>Start with the whole home.</h2><p>Show us the rooms, the frustrations and what you want the property to become.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("Hilltop Home Transformation | Hekman Home Services", "Explore Hekman Home Services’ Hilltop whole-home renovation in London, including the kitchen, bathrooms, lower level, stairs, flooring and finish work.", "/projects/hilltop-home-transformation/", "hilltop-kitchen-wide.jpg", "projects", body, "project-story-page")
+    return page("Hilltop Home Transformation | Hekman Home Services", "Explore Hekman Home Services’ Hilltop renovation in London, including the kitchen, two bathroom transformations, lower level, stairs and finish work.", "/projects/hilltop-home-transformation/", "hilltop-kitchen-wide.jpg", "projects", body, "project-story-page")
 
 
 def westmount_project_page() -> str:
@@ -971,20 +1035,27 @@ PROJECTS = [
     ("project-113.jpg", "kitchens", "Kitchen cabinet installation in progress", "Cabinet installation", "Kitchen process"),
     ("project-107.jpg", "kitchens", "Kitchen renovation work in progress", "Kitchen build stage", "Kitchen process"),
 
-    # Bathrooms: one verified tub-to-shower sequence plus separate projects shown individually.
-    ("hilltop-bathroom-shower.jpg", "bathrooms", "Completed Hilltop bathroom with glass shower", "Hilltop glass shower", "Bathroom"),
-    ("hilltop-bathroom-vanity.jpg", "bathrooms", "Completed Hilltop bathroom vanity and mirror", "Hilltop vanity", "Bathroom"),
+    # Bathrooms: Hilltop's two rooms, a verified tub-to-shower conversion,
+    # a frosted-window repair sequence, and separate completed projects.
+    ("hilltop-green-tile-before.jpg", "bathrooms", "Hilltop upstairs bathroom with its original green-tile tub surround", "Hilltop upstairs bathroom before", "Hilltop bathroom sequence"),
+    ("hilltop-green-tile-after.jpg", "bathrooms", "Hilltop upstairs bathroom with a rebuilt marble-look tub surround", "Hilltop upstairs bathroom after", "Hilltop bathroom sequence"),
+    ("hilltop-bathroom-vanity.jpg", "bathrooms", "Completed Hilltop upstairs bathroom vanity beneath the sloped ceiling", "Hilltop upstairs vanity", "Hilltop bathroom sequence"),
+    ("hilltop-basement-bathroom-before.jpg", "bathrooms", "Hilltop basement bathroom before the shower, ceiling and finish renewal", "Hilltop basement bathroom before", "Hilltop bathroom sequence"),
+    ("hilltop-basement-bathroom-during.jpg", "bathrooms drywall flooring", "Hilltop basement bathroom during shower tile, wall and floor work", "Hilltop basement bathroom during", "Hilltop bathroom sequence"),
+    ("hilltop-basement-bathroom-wide.jpg", "bathrooms", "Completed Hilltop basement bathroom with white vanity and glass shower", "Hilltop basement bathroom after", "Hilltop bathroom sequence"),
+    ("hilltop-basement-bathroom-vanity.jpg", "bathrooms", "Completed Hilltop basement bathroom white vanity and framed mirror", "Hilltop basement vanity", "Hilltop bathroom sequence"),
+    ("hilltop-bathroom-shower.jpg", "bathrooms", "Completed Hilltop basement shower with white subway tile and gray accents", "Hilltop basement shower", "Hilltop bathroom sequence"),
     ("bathroom-glass-block-before.jpg", "bathrooms", "Bathroom with a jetted tub and glass-block window before conversion", "Before: jetted-tub layout", "Bathroom sequence"),
     ("bathroom-glass-block-demolition.jpg", "bathrooms", "Tiled jetted-tub platform partly removed during demolition", "Tub-platform demolition", "Bathroom sequence"),
     ("bathroom-glass-block-open-wall.jpg", "bathrooms insulation", "Tub removed with wall insulation and floor framing exposed", "Open wall and floor", "Bathroom sequence"),
     ("bathroom-walnut-vanity-after.jpg", "bathrooms flooring handyman", "Completed tub-to-shower conversion with a walnut vanity, gray tile and sliding glass door", "After: glass shower conversion", "Bathroom sequence"),
+    ("project-155.jpg", "bathrooms flooring", "Frosted-window bathroom before wall and floor repair", "Frosted-window bathroom before", "Bathroom repair sequence"),
+    ("project-146.jpg", "bathrooms drywall", "Wall tile removal in the same frosted-window bathroom", "Tile removal", "Bathroom repair sequence"),
+    ("project-153.jpg", "bathrooms drywall insulation", "Bathroom exterior wall opened to insulation below the frosted window", "Wall and insulation access", "Bathroom repair sequence"),
+    ("project-152.jpg", "bathrooms drywall", "New wall board and compound around the same frosted bathroom window", "Wall rebuilding", "Bathroom repair sequence"),
     ("project-144.jpg", "bathrooms", "Completed tiled bathroom shower", "Tiled shower", "Bathroom"),
     ("project-148.jpg", "bathrooms", "Completed bathroom with glass shower enclosure", "Glass shower renovation", "Bathroom"),
-    ("project-150.jpg", "bathrooms", "Completed bathroom renovation with modern finishes", "Completed bathroom", "Bathroom"),
-    ("project-155.jpg", "bathrooms flooring", "Existing tiled bathroom documented before renovation", "Existing bathroom before work", "Bathroom assessment"),
-    ("project-157.jpg", "bathrooms", "Completed bathroom vanity and mirror", "Vanity and mirror", "Bathroom"),
     ("project-161.jpg", "bathrooms", "Completed bathroom with warm wood vanity", "Warm vanity finish", "Bathroom"),
-    ("project-164.jpg", "bathrooms", "Completed bathroom with tiled wet area", "Bathroom finish", "Bathroom"),
     ("project-141.jpg", "bathrooms flooring", "Electric floor-heating system during bathroom construction", "Heated floor installation", "Bathroom process"),
     ("project-143.jpg", "bathrooms", "Bathroom tile and shower preparation in progress", "Tile preparation", "Bathroom process"),
     ("project-160.jpg", "bathrooms", "Waterproofing system during bathroom construction", "Shower waterproofing", "Bathroom process"),

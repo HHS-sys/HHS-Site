@@ -181,6 +181,11 @@ def check() -> list[str]:
             for filename in collection.get("assets", collection.get("sequence", [])):
                 if not (ROOT / filename).is_file():
                     errors.append(f"media-catalog.json: missing collection asset {filename}")
+            for sequence in collection.get("sequences", []):
+                for stage in sequence.get("stages", []):
+                    filename = stage if isinstance(stage, str) else stage.get("asset")
+                    if filename and not (ROOT / filename).is_file():
+                        errors.append(f"media-catalog.json: missing sequence asset {filename}")
             video = collection.get("video")
             if video and not (ROOT / video).is_file():
                 errors.append(f"media-catalog.json: missing collection video {video}")
