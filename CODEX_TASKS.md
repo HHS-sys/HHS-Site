@@ -15,11 +15,13 @@ Read `AGENTS.md` before changing anything.
 
 ## Phase 2 — Add three accurate local stories
 
-### A. Winding Woods flooring and storage transformation
+### A. Medway flooring and storage transformation
 Create a new project story page and add it to the Projects page, relevant service pages, sitemap and internal links.
 
 Suggested public title:
-`Winding Woods: More Storage, Better Flow and a Seamless Upper Level`
+`Medway: More Storage, Better Flow and a Seamless Upper Level`
+
+Do not use the street name as the public project title.
 
 Required story points:
 - Carpet removal in three rooms.
@@ -63,7 +65,8 @@ Required story points:
 - The project is ongoing and completed in phases around the clients' life, timing and budget.
 - Show the strongest demolition, protection/preparation, drywall/paint, lighting, flooring, cabinet installation and completed-phase images.
 - Explain that each phase is designed to connect with what came before and what is still planned.
-- Include kitchen, bathrooms, flooring, lighting, layout, storage, trim and finishing without claiming incomplete work is finished.
+- Include kitchen work, one powder-room renovation, flooring, lighting, layout, storage, trim and finishing without claiming incomplete work is finished.
+- Do not describe the project as having multiple bathroom renovations. The confirmed bathroom scope is one powder room.
 - The planned kitchen backsplash is white 2-inch by 10-inch subway tile in a ceiling-height herringbone pattern.
 - Any kitchen rendering must be labelled `Design visualization — planned backsplash and final styling`.
 - Add a visible `Project in progress` status treatment.
