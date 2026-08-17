@@ -55,6 +55,15 @@ PROJECT_DETAILS: dict[str, dict] = {
         "status": "Project in progress",
         "services": ["Layout changes", "Kitchen work", "One powder-room renovation", "Flooring, lighting and finishing"],
     },
+    "/projects/commercial-salon-repair/": {
+        "name": "London Salon: Moisture Investigation and Interior Restoration",
+        "description": "An anonymous London salon repair documented from moisture investigation and affected material removal through wall and ceiling rebuilding and the completed working space.",
+        "image": "salon-after-1.jpg",
+        "image_alt": "London salon interior after wall and ceiling repair work",
+        "neighbourhood": "London, Ontario",
+        "status": "Completed",
+        "services": ["Moisture investigation", "Wall and ceiling rebuilding", "Drywall and finish restoration"],
+    },
 }
 
 PROJECTS = [
@@ -109,9 +118,9 @@ PROJECTS = [
     ("project-045.jpg", "commercial", "Older box-style fluorescent fixtures before a fitness-space lighting upgrade", "Fitness lighting before", "Before upgrade"),
     ("project-049.jpg", "commercial", "Crew replacing commercial lighting from scaffolding and ladders", "Fitness lighting installation", "Installation in progress"),
     ("project-048.jpg", "commercial", "Fitness facility illuminated by the completed LED lighting upgrade", "Fitness lighting after", "Completed result"),
-    ("salon-water-damage-2.jpg", "restoration commercial drywall", "Damaged salon ceiling opened to expose the affected construction", "Salon ceiling opened", "Commercial restoration"),
-    ("salon-drywall-rebuild.jpg", "restoration commercial drywall", "Salon ceiling and wall surfaces being rebuilt with drywall and compound", "Salon rebuild", "Commercial restoration"),
-    ("salon-after-1.jpg", "restoration commercial", "Working London salon returned to a bright finish after water damage", "Salon restored", "Completed restoration"),
+    ("salon-moisture-investigation.jpg", "restoration commercial", "Moisture meter documenting the affected trim area in an anonymous London salon", "Salon moisture check", "Investigation"),
+    ("salon-wall-ceiling-rebuild.jpg", "restoration commercial drywall", "Wall and ceiling surfaces being rebuilt in an anonymous London salon", "Salon wall and ceiling rebuild", "Work in progress"),
+    ("salon-restored-wall.jpg", "restoration commercial", "Completed wall repair in an anonymous London salon", "Salon wall restored", "Completed restoration"),
 ]
 PROJECT_GALLERY_PRIORITY = (
     "melrose-bathroom-after.jpg",
@@ -133,4 +142,3 @@ PROJECT_GALLERY_PRIORITY = (
     "hilltop-green-tile-after.jpg",
     "hilltop-basement-bathroom-wide.jpg",
 )
-

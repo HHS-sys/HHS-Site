@@ -225,15 +225,46 @@
       "route": "/projects/commercial-salon-repair/",
       "subjects": [
         "commercial water damage",
+        "moisture investigation",
         "restoration",
         "active business",
         "completed salon"
       ],
       "assets": [
-        "salon-after-1.jpg",
-        "salon-after-2.jpg"
+        "salon-moisture-investigation.jpg",
+        "salon-affected-wallboard.jpg",
+        "salon-wall-ceiling-rebuild.jpg",
+        "salon-restored-wall.jpg",
+        "salon-after-1.jpg"
       ],
-      "continuityNote": "Completed views of the salon restoration; no unrelated ceiling images are presented as this project's earlier stages."
+      "sequences": [
+        {
+          "name": "verified salon moisture-repair sequence",
+          "status": "completed",
+          "assets": [
+            "salon-restored-wall.jpg",
+            "salon-moisture-investigation.jpg",
+            "salon-affected-wallboard.jpg",
+            "salon-wall-ceiling-rebuild.jpg",
+            "salon-after-1.jpg"
+          ]
+        }
+      ],
+      "continuityNote": "The newly supplied moisture, affected-wallboard, rebuilding and restored-wall photographs were confirmed as one salon project. The public site keeps the business anonymous. The exact repaired wall leads the documented sequence; the wider room view provides context. Older unrelated ceiling examples remain outside this sequence."
+    },
+    {
+      "id": "team-london-portrait",
+      "route": "/about/",
+      "subjects": [
+        "Rene Hekman",
+        "Steph Hekman",
+        "London Ontario",
+        "local team"
+      ],
+      "assets": [
+        "rene-steph-london-ontario.jpg"
+      ],
+      "continuityNote": "Authentic Rene and Steph portrait at the London Canada sign. Use as local team photography, not project evidence."
     },
     {
       "id": "restoration-repair-examples",

@@ -31,7 +31,8 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     - Phased Westmount home transformation, ongoing: {BASE_URL}/projects/westmount-1970s-transformation/
       An ongoing project completed around the clients' timing and budget. The confirmed scope includes layout changes, kitchen work, one powder-room renovation, flooring, pot lights, storage, doors, trim and finishing. The kitchen is not complete; a white 2-inch by 10-inch herringbone backsplash to the ceiling is planned.
     - Hilltop whole-home transformation: {BASE_URL}/projects/hilltop-home-transformation/
-    - Commercial salon water-damage repair: {BASE_URL}/projects/commercial-salon-repair/
+    - Anonymous London salon moisture investigation and interior restoration: {BASE_URL}/projects/commercial-salon-repair/
+      Moisture at the trim was documented before affected wall material was removed. The connected wall and ceiling surfaces were rebuilt and finished, returning the working salon to a bright client-ready result.
     - Office kitchen renewal, before through completion: {BASE_URL}/projects/kitchen-renewal/
     - Popcorn ceiling transformation: {BASE_URL}/projects/popcorn-ceiling-transformation/
     - Jetted-tub to glass-shower bathroom conversion: {BASE_URL}/projects/glass-block-bathroom-conversion/
@@ -43,4 +44,3 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     - Instagram: {INSTAGRAM}
     - Facebook: {FACEBOOK}
     """
-

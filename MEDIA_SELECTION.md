@@ -80,3 +80,29 @@ These finish the existing verified Medway sequence without changing its anonymou
 - Anonymous bathroom demolition: useful opening and demolition evidence, but no strong finished result was supplied; do not present it as a complete transformation.
 - Painted-over 1970s popcorn ceiling by Rene and Libin: retain the clear before/process/smooth-result grouping for a focused ceiling update.
 - Salon and commercial repair progress: retain as supporting evidence for the existing commercial restoration story; avoid repeating similar open-ceiling frames.
+
+## Site-elite follow-up curation — 2026-08-17
+
+### Anonymous London salon restoration
+
+The owner confirmed that the newly supplied moisture, wallboard and wall/ceiling-repair media belongs to the existing salon story. The public story remains anonymous and does not publish the business name.
+
+- `salon-restored-wall.jpg` — exact brand-neutral completed wall result; lead the documented sequence with this image
+- `salon-after-1.jpg` — broader brand-neutral room context after repairs; protective tape remains visible, so do not present it as the exact final wall view
+- `salon-moisture-investigation.jpg` — one selected moisture-reading photograph; caption as investigation evidence only
+- `salon-affected-wallboard.jpg` — affected material documented after opening; do not label it as mould without testing evidence
+- `salon-wall-ceiling-rebuild.jpg` — strongest wide rebuilding view with useful room context
+
+Do not use `salon-after-2.jpg` on the public site because the salon name and identifiable portrait display are visible. The separately produced privacy edit is not used as construction proof; the genuine restored-wall photograph remains the documented result.
+
+The older `salon-water-damage-1.jpg`, `salon-water-damage-2.jpg` and `salon-drywall-rebuild.jpg` remain individual restoration examples and are not folded into this verified sequence.
+
+### Local team portrait
+
+- `rene-steph-london-ontario.jpg` — authentic Rene and Steph portrait at the London Canada sign; suitable for About/local-trust content, not project evidence
+
+Selected originals are preserved in the private task workspace rather than the public repository; public copies are stripped and compressed.
+
+### Pond Mills residential material
+
+Keep Pond Mills separate from both the salon and the Medway flooring/storage story. The current edited before/after clip is low resolution, watermarked and may combine several rooms. Do not publish a Pond Mills case study until the room sequence and matching exterior drainage photographs are verified and a strong finished still is available.

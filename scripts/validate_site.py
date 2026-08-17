@@ -220,7 +220,7 @@ def check() -> list[str]:
         if count > 1:
             errors.append(f"duplicate meta description used {count} times: {value}")
 
-    for asset in ("styles.css", "mobile-fixes.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json"):
+    for asset in ("styles.css", "mobile-fixes.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json", ".vercelignore"):
         if not (ROOT / asset).is_file():
             errors.append(f"missing required asset {asset}")
 
@@ -325,6 +325,28 @@ def check() -> list[str]:
         if f"<loc>{BASE_URL}{route}</loc>" not in sitemap:
             errors.append(f"sitemap.xml: missing primary route {route}")
 
+    for project_page in sorted((ROOT / "projects").glob("*/index.html")):
+        route = f"/{project_page.relative_to(ROOT).parent.as_posix()}/"
+        inbound_pages = {
+            source_page
+            for source_page, parser in parsed.items()
+            if source_page != project_page
+            and any(
+                attribute == "href"
+                and not urlsplit(value).scheme
+                and not urlsplit(value).netloc
+                and urlsplit(value).path == route
+                for attribute, value in parser.links
+            )
+        }
+        if not inbound_pages:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story has no inbound HTML link")
+
+    public_html = "\n".join(page.read_text(encoding="utf-8") for page in html_files)
+    for private_reference in ("pixie", "paige", "salon-after-2.jpg"):
+        if private_reference.lower() in public_html.lower():
+            errors.append(f"public HTML exposes private salon reference: {private_reference}")
+
     for video in (
         "kitchenette-finish-tour.mp4",
         "drywall-potlight-progress.mp4",
@@ -344,6 +366,8 @@ def check() -> list[str]:
     melrose_page = (ROOT / "projects/melrose-bathroom-layout/index.html").read_text(encoding="utf-8")
     hyde_park_page = (ROOT / "projects/hyde-park-kitchen-renewal/index.html").read_text(encoding="utf-8")
     blackfriars_page = (ROOT / "projects/blackfriars-leak-restoration/index.html").read_text(encoding="utf-8")
+    salon_page = (ROOT / "projects/commercial-salon-repair/index.html").read_text(encoding="utf-8")
+    about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 
     for required in (
@@ -394,6 +418,31 @@ def check() -> list[str]:
     for prohibited in ("we remediated the mold", "Hekman remediated the mold", "we replaced the knob-and-tube"):
         if prohibited.lower() in blackfriars_page.lower():
             errors.append(f"Blackfriars project page overstates regulated work: {prohibited}")
+
+    for required in (
+        "The repair disappears",
+        "Moisture investigation",
+        "salon-moisture-investigation.jpg",
+        "salon-affected-wallboard.jpg",
+        "salon-wall-ceiling-rebuild.jpg",
+        "salon-restored-wall.jpg",
+        "salon-after-1.jpg",
+        '"@type":"Article"',
+    ):
+        if required.lower() not in salon_page.lower():
+            errors.append(f"Salon project page is missing required detail: {required}")
+    for prohibited in ("pixie", "paige", "salon-after-2.jpg", "mould", "mold"):
+        if prohibited.lower() in salon_page.lower():
+            errors.append(f"Salon project page exposes an unsupported or private reference: {prohibited}")
+
+    for required in (
+        'id="hekman-promise"',
+        "Honest advice &amp; transparent pricing",
+        "Approval before additional work",
+        "two-year workmanship guarantee",
+    ):
+        if required.lower() not in about_page.lower():
+            errors.append(f"About page is missing Hekman Promise detail: {required}")
 
     positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
