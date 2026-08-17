@@ -186,9 +186,9 @@ def check() -> list[str]:
             errors.append(f"{page.relative_to(ROOT)}: expected robots value {expected_robots}")
         if parser.h1_count != 1:
             errors.append(f"{page.relative_to(ROOT)}: expected one h1, found {parser.h1_count}")
-        if "/styles.css" not in parser.stylesheets:
+        if not any(urlsplit(value).path == "/styles.css" for value in parser.stylesheets):
             errors.append(f"{page.relative_to(ROOT)}: shared stylesheet is missing")
-        if "/main.js" not in parser.scripts:
+        if not any(urlsplit(value).path == "/main.js" for value in parser.scripts):
             errors.append(f"{page.relative_to(ROOT)}: shared JavaScript is missing")
         if parser.img_without_alt:
             errors.append(f"{page.relative_to(ROOT)}: images missing alt {parser.img_without_alt}")

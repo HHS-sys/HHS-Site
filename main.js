@@ -15,10 +15,10 @@ document.documentElement.classList.add("js");
     .trim();
 
   if (!coreStylesLoaded) {
-    addStylesheet("/styles.css?v=20260816-1", "core-style-fallback");
+    addStylesheet("/styles.css?v=20260817-1", "core-style-fallback");
   }
 
-  addStylesheet("/mobile-fixes.css?v=20260816-1", "mobile-layout-fixes");
+  addStylesheet("/mobile-fixes.css?v=20260817-1", "mobile-layout-fixes");
 })();
 
 document.querySelectorAll("[data-year]").forEach((element) => {
@@ -46,7 +46,10 @@ navToggle?.addEventListener("click", () => {
 });
 
 primaryNav?.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => setNavigation(false));
+  link.addEventListener("click", () => {
+    // Let Safari complete the link's default navigation before hiding its ancestor.
+    window.setTimeout(() => setNavigation(false), 0);
+  });
 });
 
 document.addEventListener("keydown", (event) => {

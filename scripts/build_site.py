@@ -16,6 +16,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
+ASSET_VERSION = "20260817-1"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -211,8 +212,8 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <meta name="twitter:title" content="{title}">
       <meta name="twitter:description" content="{html.escape(description, quote=True)}">
       <meta name="twitter:image" content="{BASE_URL}/{image}">
-      <link rel="stylesheet" href="/styles.css">
-      <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css">
+      <link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
+      <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css?v={ASSET_VERSION}">
       {structured_data}
     </head>
     """
@@ -270,7 +271,7 @@ def footer() -> str:
       <a href="tel:{PHONE_LINK}"><span aria-hidden="true">☎</span> Call</a>
       <a href="/contact/#quote"><span aria-hidden="true">↗</span> Request a quote</a>
     </nav>
-    <script src="/main.js" defer></script>
+    <script src="/main.js?v={ASSET_VERSION}" defer></script>
     """
 def page(title: str, description: str, path: str, image: str, current: str, body: str, body_class: str = "", *, indexable: bool = True) -> str:
     body = polish_editorial_markup(body)
