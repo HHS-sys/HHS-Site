@@ -1,5 +1,5 @@
 {
-  "catalogVersion": "2026-08-16",
+  "catalogVersion": "2026-08-17",
   "purpose": "A maintainable map of verified Hekman Home Services project media used by the rebuilt website.",
   "preservation": {
     "numberedProjectSeries": {
@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 98,
+    "projectGalleryPhotographs": 54,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
@@ -169,7 +169,9 @@
         "medway-closet-relocation-progress.jpg",
         "medway-underlayment-prep.jpg",
         "medway-floor-installation.jpg",
-        "medway-floor-door-transition.jpg"
+        "medway-floor-door-transition.jpg",
+        "medway-finished-room.jpg",
+        "medway-finished-floor-detail.jpg"
       ],
       "continuityNote": "Anonymous Medway project. The real doorway, flooring and transition photograph is the exact installed flooring reference. No reconstructed room image is used on the public project page."
     },
@@ -341,6 +343,69 @@
       ]
     },
     {
+      "id": "melrose-bathroom-layout",
+      "route": "/projects/melrose-bathroom-layout/",
+      "publicLocation": "Melrose area, London, Ontario",
+      "subjects": [
+        "bathroom moved through an existing wall",
+        "tiled shower",
+        "wall-hung toilet",
+        "vanity and lighting",
+        "new utility room",
+        "exercise-room drywall, ceiling and paint"
+      ],
+      "assets": [
+        "melrose-bathroom-after.jpg",
+        "melrose-wall-hung-toilet-progress.jpg",
+        "melrose-shower-tile-progress.jpg",
+        "melrose-shower-toilet-detail.jpg",
+        "melrose-exercise-room-finishing.jpg",
+        "melrose-exercise-room-after.jpg"
+      ],
+      "video": "melrose-bathroom-tour.mp4",
+      "privacyNote": "No homeowner name or location more precise than the Melrose area is published."
+    },
+    {
+      "id": "hyde-park-kitchen-renewal",
+      "route": "/projects/hyde-park-kitchen-renewal/",
+      "subjects": [
+        "cabinet refacing",
+        "new pantry",
+        "appliance reconfiguration",
+        "added dishwasher",
+        "backsplash",
+        "sourced counters and sink"
+      ],
+      "assets": [
+        "hyde-park-kitchen-after.jpg",
+        "hyde-park-pantry-and-appliance-layout.jpg",
+        "hyde-park-sink-and-dishwasher.jpg",
+        "hyde-park-kitchen-preparation.jpg",
+        "hyde-park-backsplash-installation.jpg"
+      ],
+      "budgetNote": "This project was completed for under $20,000. It is not a fixed package or guarantee."
+    },
+    {
+      "id": "blackfriars-leak-restoration",
+      "route": "/projects/blackfriars-leak-restoration/",
+      "subjects": [
+        "initial leak investigation",
+        "mold and evidence of mice",
+        "structural concerns",
+        "knob-and-tube wiring",
+        "specialist and qualified-trade coordination",
+        "rebuild and finish restoration"
+      ],
+      "assets": [
+        "blackfriars-first-opening.jpg",
+        "blackfriars-investigation.jpg",
+        "blackfriars-structural-concern.jpg",
+        "blackfriars-rebuild.jpg",
+        "blackfriars-restored-room.jpg"
+      ],
+      "roleNote": "Hekman identified visible conditions, coordinated the appropriate team and trades, managed the rebuild and restored the finishes; no regulated-work claim is made."
+    },
+    {
       "id": "glass-block-bathroom-conversion",
       "route": "/projects/glass-block-bathroom-conversion/",
       "subjects": [
@@ -430,7 +495,8 @@
       "kitchenette-finish-tour.mp4",
       "drywall-potlight-progress.mp4",
       "bathroom-glass-block-transformation.mp4",
-      "bathroom-finish-details.mp4"
+      "bathroom-finish-details.mp4",
+      "melrose-bathroom-tour.mp4"
     ]
   }
 }
