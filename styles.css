@@ -266,7 +266,6 @@ button.button { cursor: pointer; }
 .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
 .trust-grid > div { position: relative; min-height: 130px; padding: 27px 26px; border-left: 1px solid var(--line-light); }
 .trust-grid > div:last-child { border-right: 1px solid var(--line-light); }
-.trust-grid span { position: absolute; top: 14px; right: 16px; color: #6f6a62; font-family: var(--display); font-size: 1.1rem; }
 .trust-grid strong, .trust-grid small { display: block; }
 .trust-grid strong { margin-bottom: 7px; font-family: var(--display); font-size: 1.18rem; font-weight: 500; }
 .trust-grid small { color: #aaa49b; font-size: 0.82rem; line-height: 1.55; }
@@ -485,7 +484,11 @@ button.button { cursor: pointer; }
 .testimonial-card { position: relative; min-height: 245px; padding: 38px; margin: 0; border: 1px solid var(--line-dark); border-radius: var(--radius); background: rgba(255, 255, 255, 0.5); box-shadow: var(--shadow); }
 .testimonial-card::before { display: block; margin-bottom: 20px; color: var(--brand-red); content: "“"; font-family: var(--display); font-size: 4.5rem; line-height: 0.55; }
 .testimonial-card p { margin: 0; color: var(--ink); font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 2rem); line-height: 1.25; }
-.testimonial-card footer { margin-top: 24px; color: var(--muted-dark); font-size: 0.84rem; font-weight: 800; }
+.testimonial-card footer { margin-top: 24px; color: var(--muted-dark); font-size: 0.82rem; }
+.testimonial-card footer strong, .testimonial-card footer span, .testimonial-card footer a { display: block; }
+.testimonial-card footer strong { color: var(--ink); font-size: 0.88rem; font-weight: 850; }
+.testimonial-card footer span { margin-top: 3px; }
+.testimonial-card footer a { margin-top: 12px; color: var(--brand-red-dark); font-weight: 850; text-underline-offset: 4px; }
 .testimonial-feature { max-width: 970px; padding: 52px; margin-inline: auto; border: 1px solid var(--line-dark); border-radius: 30px; background: rgba(255, 255, 255, 0.52); box-shadow: var(--shadow); }
 .testimonial-feature blockquote { margin: 0; color: var(--ink); font-family: var(--display); font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.08; letter-spacing: -0.035em; }
 .testimonial-feature > p:not(.eyebrow) { color: var(--muted-dark); }
@@ -517,7 +520,7 @@ button.button { cursor: pointer; }
 .filter-button:hover, .filter-button.active { border-color: var(--brass-light); color: var(--deep); background: var(--brass-light); }
 .projects-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 .project-card { margin: 0; overflow: hidden; border: 1px solid var(--line-light); border-radius: 18px; background: var(--soft); }
-.project-card.is-hidden { display: none; }
+.project-card.is-hidden, .js .project-card.is-collapsed { display: none; }
 .project-image { display: block; width: 100%; padding: 0; overflow: hidden; border: 0; background: var(--deep); cursor: zoom-in; }
 .project-image img { width: 100%; height: 300px; object-fit: cover; filter: saturate(0.86); transition: filter 0.35s ease, transform 0.4s ease; }
 .project-image:hover img { filter: saturate(1); transform: scale(1.025); }
@@ -525,6 +528,9 @@ button.button { cursor: pointer; }
 .project-card figcaption span { font-family: var(--display); font-size: 1rem; line-height: 1.15; }
 .project-card figcaption small { color: var(--brass-light); font-size: 0.68rem; font-weight: 850; letter-spacing: 0.08em; text-align: right; text-transform: uppercase; }
 .filter-status { margin: 25px 0 0; color: #928c84; font-size: 0.75rem; }
+.gallery-actions { display: flex; margin-top: 24px; justify-content: center; }
+.gallery-actions [hidden] { display: none; }
+.proof-card > h3:first-child, .values-grid article > h3:first-child, .process-grid li > h3:first-child { margin-top: 0; }
 .lightbox { width: min(1100px, calc(100% - 36px)); max-width: none; max-height: calc(100vh - 36px); padding: 14px; overflow: visible; border: 1px solid var(--line-light); border-radius: 18px; color: var(--cream); background: var(--deep); box-shadow: var(--shadow-dark); }
 .lightbox::backdrop { background: rgba(5, 5, 4, 0.86); backdrop-filter: blur(8px); }
 .lightbox img { width: 100%; max-height: calc(100vh - 120px); border-radius: 10px; object-fit: contain; }

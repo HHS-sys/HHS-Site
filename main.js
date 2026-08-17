@@ -93,11 +93,57 @@ if ("IntersectionObserver" in window) {
 const filterButtons = document.querySelectorAll("[data-filter]");
 const projectCards = document.querySelectorAll("[data-category]");
 const filterStatus = document.querySelector("[data-filter-status]");
+const loadMoreButton = document.querySelector("[data-load-more]");
+const galleryPageSize = 18;
+const moreCategories = new Set(["flooring", "drywall", "insulation", "structural"]);
+let selectedProjectFilter = "all";
+let galleryVisibleLimit = galleryPageSize;
+
+function matchesProjectFilter(card, selected) {
+  const categories = (card.dataset.category || "").split(/\s+/);
+  if (selected === "all") return true;
+  if (selected === "more") {
+    return categories.some((category) => moreCategories.has(category));
+  }
+  return categories.includes(selected);
+}
+
+function updateProjectGallery() {
+  const matchingCards = Array.from(projectCards).filter((card) =>
+    matchesProjectFilter(card, selectedProjectFilter),
+  );
+  const visibleCount = Math.min(galleryVisibleLimit, matchingCards.length);
+  const activeButton = Array.from(filterButtons).find(
+    (button) => button.dataset.filter === selectedProjectFilter,
+  );
+
+  projectCards.forEach((card) => {
+    const matches = matchesProjectFilter(card, selectedProjectFilter);
+    const matchIndex = matchingCards.indexOf(card);
+    card.classList.toggle("is-hidden", !matches);
+    card.classList.toggle(
+      "is-collapsed",
+      matches && matchIndex >= galleryVisibleLimit,
+    );
+  });
+
+  if (filterStatus) {
+    const categoryName = activeButton?.textContent.trim();
+    filterStatus.textContent =
+      selectedProjectFilter === "all"
+        ? `Showing ${visibleCount} of ${matchingCards.length} photographs.`
+        : `Showing ${visibleCount} of ${matchingCards.length} photographs in ${categoryName}.`;
+  }
+
+  if (loadMoreButton) {
+    loadMoreButton.hidden = visibleCount >= matchingCards.length;
+  }
+}
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const selected = button.dataset.filter;
-    let visibleCount = 0;
+    selectedProjectFilter = button.dataset.filter || "all";
+    galleryVisibleLimit = galleryPageSize;
 
     filterButtons.forEach((candidate) => {
       const active = candidate === button;
@@ -105,21 +151,16 @@ filterButtons.forEach((button) => {
       candidate.setAttribute("aria-pressed", String(active));
     });
 
-    projectCards.forEach((card) => {
-      const categories = (card.dataset.category || "").split(/\s+/);
-      const visible = selected === "all" || categories.includes(selected);
-      card.classList.toggle("is-hidden", !visible);
-      if (visible) visibleCount += 1;
-    });
-
-    if (filterStatus) {
-      filterStatus.textContent =
-        selected === "all"
-          ? `Showing all ${visibleCount} photographs.`
-          : `Showing ${visibleCount} photographs in ${button.textContent.trim()}.`;
-    }
+    updateProjectGallery();
   });
 });
+
+loadMoreButton?.addEventListener("click", () => {
+  galleryVisibleLimit += galleryPageSize;
+  updateProjectGallery();
+});
+
+updateProjectGallery();
 
 const lightbox = document.querySelector("[data-lightbox-dialog]");
 const lightboxImage = lightbox?.querySelector("img");
