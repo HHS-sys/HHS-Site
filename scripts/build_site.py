@@ -473,7 +473,7 @@ def homepage() -> str:
       </section>
     """
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "From what’s not working to a home that works better", "Hekman Home Services renovates, repairs and restores homes across London—from kitchens and bathrooms to flooring, drywall, ceilings and the unexpected work in between.", secondary=("/projects/", "View our work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Repairs that disappear. Renovations that belong", "Hekman Home Services renovates, repairs and restores homes across London—from kitchens and bathrooms to flooring, drywall, ceilings and the unexpected work in between.", secondary=("/projects/", "View our work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
