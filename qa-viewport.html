@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; background: #d8d5ce; }
-    body { width: var(--qa-width, 390px); overflow-x: hidden; }
+    body { width: var(--qa-width, 390px); overflow: hidden; }
     iframe { display: block; width: var(--qa-width, 390px); height: var(--qa-height, 844px); border: 0; background: white; }
   </style>
 </head>
@@ -25,10 +25,12 @@
     frame.src = route;
     frame.addEventListener('load', () => {
       setTimeout(() => {
-        const doc = frame.contentDocument;
-        frame.style.height = Math.max(height, doc.documentElement.scrollHeight) + 'px';
+        if (params.get('full') === '1') {
+          frame.style.height = Math.max(height, frame.contentDocument.documentElement.scrollHeight) + 'px';
+          document.body.style.overflow = 'visible';
+        }
         document.body.dataset.ready = 'true';
-      }, 700);
+      }, 500);
     });
   </script>
 </body>
