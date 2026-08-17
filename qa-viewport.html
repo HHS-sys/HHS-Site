@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hotfix responsive QA</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #d8d5ce; }
+    body { width: var(--qa-width, 390px); min-height: var(--qa-height, 844px); overflow: hidden; }
+    iframe { display: block; width: var(--qa-width, 390px); height: var(--qa-height, 844px); border: 0; background: white; }
+  </style>
+</head>
+<body>
+  <iframe id="qa-frame" title="Responsive site preview"></iframe>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const width = Math.max(320, Math.min(1440, Number(params.get('width')) || 390));
+    const height = Math.max(320, Math.min(1200, Number(params.get('height')) || 844));
+    const requestedRoute = params.get('route') || '/';
+    const allowedRoute = requestedRoute === '/' ||
+      /^\/(?:services|projects)(?:\/[a-z0-9-]+)*\/?$/.test(requestedRoute) ||
+      /^\/(?:about|contact)\/?$/.test(requestedRoute);
+    const route = allowedRoute && requestedRoute !== '/qa-viewport.html' ? requestedRoute : '/';
+    document.documentElement.style.setProperty('--qa-width', width + 'px');
+    document.documentElement.style.setProperty('--qa-height', height + 'px');
+    const frame = document.getElementById('qa-frame');
+    document.body.dataset.ready = 'false';
+    document.body.dataset.requestedWidth = String(width);
+    document.body.dataset.requestedHeight = String(height);
+    frame.addEventListener('load', async () => {
+      document.body.dataset.ready = 'false';
+      try { await frame.contentDocument.fonts.ready; } catch (_) {}
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.body.dataset.observedWidth = String(frame.contentWindow.innerWidth);
+        document.body.dataset.observedHeight = String(frame.contentWindow.innerHeight);
+        document.body.dataset.ready = 'true';
+      }));
+    });
+    frame.src = route;
+  </script>
+</body>
+</html>
