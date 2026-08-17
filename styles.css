@@ -339,7 +339,7 @@ button.button { cursor: pointer; }
 .editorial-media { position: relative; }
 .editorial-media::before { position: absolute; inset: 22px -22px -22px 22px; border: 1px solid rgba(53, 185, 234, 0.28); content: ""; }
 .editorial-media img { position: relative; z-index: 1; width: 100%; min-height: 620px; border-radius: 14px; object-fit: cover; box-shadow: var(--shadow-dark); }
-.editorial-media > span { position: absolute; right: 22px; bottom: 22px; z-index: 2; padding: 9px 13px; background: rgba(7, 19, 33, 0.82); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(9px); }
+.editorial-media > span { position: absolute; right: 22px; bottom: 22px; z-index: 2; padding: 9px 13px; color: var(--cream); background: rgba(7, 19, 33, 0.82); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; backdrop-filter: blur(9px); }
 .editorial-copy > p { margin: 25px 0 0; color: var(--muted-dark); font-size: 1.03rem; }
 .line-list { padding: 0; margin: 36px 0; list-style: none; }
 .line-list li { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line-light); }
