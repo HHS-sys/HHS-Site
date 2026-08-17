@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import html
 import json
+import re
 from pathlib import Path
 from textwrap import dedent
 
@@ -40,6 +41,33 @@ AREAS = [
 ]
 
 PROJECT_DETAILS: dict[str, dict] = {
+    "/projects/melrose-bathroom-layout/": {
+        "name": "Melrose: A Bathroom Reworked From the Layout Out",
+        "description": "A Melrose-area bathroom and lower-level project that moved the room through a wall, added a utility room and finished a new exercise room.",
+        "image": "melrose-bathroom-after.jpg",
+        "image_alt": "Completed Melrose-area bathroom with a wall-hung toilet, tiled shower, vanity and illuminated mirror",
+        "neighbourhood": "Melrose area, London, Ontario",
+        "status": "Completed",
+        "services": ["Bathroom layout change", "Utility-room construction", "Drywall, ceiling and paint"],
+    },
+    "/projects/hyde-park-kitchen-renewal/": {
+        "name": "Hyde Park: A Kitchen Renewed Without Starting Over",
+        "description": "A Hyde Park kitchen renewal with refaced cabinetry, a new pantry, reconfigured appliances, dishwasher, backsplash, counters and sink.",
+        "image": "hyde-park-kitchen-after.jpg",
+        "image_alt": "Completed Hyde Park kitchen with refaced cabinetry, new counters, sink and backsplash",
+        "neighbourhood": "Hyde Park, London, Ontario",
+        "status": "Completed",
+        "services": ["Cabinet refacing", "Pantry and appliance layout", "Backsplash, counters and sink"],
+    },
+    "/projects/blackfriars-leak-restoration/": {
+        "name": "Blackfriars: A Small Leak That Needed a Much Bigger Plan",
+        "description": "A Blackfriars leak investigation and restoration that uncovered mold, evidence of mice, structural concerns and knob-and-tube wiring.",
+        "image": "blackfriars-restored-room.jpg",
+        "image_alt": "Restored Blackfriars room with a smooth finished ceiling and painted walls",
+        "neighbourhood": "Blackfriars, London, Ontario",
+        "status": "Completed",
+        "services": ["Investigation and project coordination", "Structural and trade coordination", "Drywall, ceiling and finish restoration"],
+    },
     "/projects/medway-flooring-storage/": {
         "name": "Medway: More Storage, Better Flow and a Seamless Upper Level",
         "description": "An anonymous Medway flooring and storage project with carpet removal in three rooms, relocated and new closets, plank flooring, doors, casing and baseboards.",
@@ -727,7 +755,7 @@ def header(current: str) -> str:
           {nav_item("projects", "/projects/", "Our Work")}
           {nav_item("about", "/about/", "About")}
           {nav_item("contact", "/contact/", "Contact")}
-          <a class="nav-cta" href="/contact/#quote">Request a Quote</a>
+          <a class="nav-cta" href="/contact/#quote">Request a quote</a>
         </nav>
       </div>
     </header>
@@ -755,13 +783,14 @@ def footer() -> str:
     </footer>
     <nav class="mobile-actions" aria-label="Quick contact">
       <a href="tel:{PHONE_LINK}"><span aria-hidden="true">☎</span> Call</a>
-      <a href="/contact/#quote"><span aria-hidden="true">↗</span> Request a Quote</a>
+      <a href="/contact/#quote"><span aria-hidden="true">↗</span> Request a quote</a>
     </nav>
     <script src="/main.js" defer></script>
     """
 
 
 def page(title: str, description: str, path: str, image: str, current: str, body: str, body_class: str = "", *, indexable: bool = True) -> str:
+    body = polish_editorial_markup(body)
     return f"""<!doctype html>
     <html lang="en">
     {head(title, description, path, image, indexable=indexable)}
@@ -771,6 +800,28 @@ def page(title: str, description: str, path: str, image: str, current: str, body
       {footer()}
     </body>
     </html>"""
+
+
+def polish_editorial_markup(markup: str) -> str:
+    """Apply sitewide label rules after the substantive page copy is written."""
+    markup = re.sub(r"(<h[1-6]\b[^>]*>)(.*?)(\.)(</h[1-6]>)", r"\1\2\4", markup, flags=re.DOTALL)
+    sentence_case_labels = {
+        "Request a Quote": "Request a quote",
+        "View Our Work": "View our work",
+        "View All Services": "View all services",
+        "View More Projects": "View more projects",
+        "Explore More Real Projects": "Explore more real projects",
+        "Tell Us About Your Project": "Tell us about your project",
+        "Tell Us About It": "Tell us about it",
+        "See Completed Work": "See completed work",
+        "Return Home": "Return home",
+        "Explore Services": "Explore services",
+        "Prepare Quote Email": "Prepare quote email",
+        "Start the Conversation": "Start the conversation",
+    }
+    for old, new in sentence_case_labels.items():
+        markup = markup.replace(old, new)
+    return markup
 
 
 def hero(image: str, alt: str, eyebrow: str, heading: str, lead: str, *, small: bool = False, position: str = "50% 50%", secondary: tuple[str, str] | None = None) -> str:
@@ -785,6 +836,22 @@ def hero(image: str, alt: str, eyebrow: str, heading: str, lead: str, *, small: 
         <h1>{heading}</h1>
         <p class="hero-lead">{lead}</p>
         <div class="button-row"><a class="button button-primary" href="/contact/#quote">Request a Quote</a>{secondary_link}<a class="text-call" href="tel:{PHONE_LINK}">Call {PHONE_DISPLAY}</a></div>
+      </div>
+    </section>
+    """
+
+
+def project_story_hero(image: str, alt: str, eyebrow: str, heading: str, lead: str) -> str:
+    return f"""
+    <section class="project-story-hero">
+      <div class="wrap project-story-hero-grid">
+        <div class="project-story-hero-copy">
+          <p class="eyebrow">{eyebrow}</p>
+          <h1>{heading}</h1>
+          <p>{lead}</p>
+          <div class="button-row"><a class="button button-primary" href="/contact/#quote">Request a quote</a><a class="text-call" href="tel:{PHONE_LINK}">Call {PHONE_DISPLAY}</a></div>
+        </div>
+        <figure class="project-story-hero-media"><img src="/{image}" alt="{html.escape(alt, quote=True)}" fetchpriority="high" decoding="async"></figure>
       </div>
     </section>
     """
@@ -819,13 +886,13 @@ def project_spotlight(slug: str) -> str:
             "See the Medway flooring and storage story",
         ),
         "structural-layout": (
-            "Medway storage project",
-            "A closet opening moved so the storage could work harder",
-            "The former opening was closed and prepared as a seamless wall while a larger closet was created on the opposite side. A new double closet added useful storage in the primary bedroom.",
-            "medway-closet-relocation-progress.jpg",
-            "Former Medway closet opening closed and prepared for a seamless primed wall",
-            "/projects/medway-flooring-storage/",
-            "See the Medway layout changes",
+            "Melrose-area project proof",
+            "A bathroom moved through the wall so the lower level could work better",
+            "Reworking the footprint created a more useful bathroom, made room for a dedicated utility space and supported a newly finished exercise room beside it.",
+            "melrose-wall-hung-toilet-progress.jpg",
+            "Wall-hung toilet installed during the Melrose-area bathroom layout change",
+            "/projects/melrose-bathroom-layout/",
+            "See the Melrose layout story",
         ),
         "handyman-repairs": (
             "Repeat Westmount customer",
@@ -846,13 +913,40 @@ def project_spotlight(slug: str) -> str:
             "See the porch revitalization",
         ),
         "kitchens": (
-            "Westmount project in progress",
-            "Kitchen work that fits a thoughtful phased plan",
-            "The kitchen is one part of an ongoing transformation completed around the clients’ timing and budget. Cabinetry is installed; the planned white herringbone backsplash and final styling are still ahead.",
-            "westmount-transformation-kitchen-current.jpg",
-            "Current Westmount kitchen progress with cabinetry installed before the planned backsplash",
-            "/projects/westmount-1970s-transformation/",
-            "See the phased Westmount transformation",
+            "Hyde Park project proof",
+            "A kitchen renewed by keeping what still worked",
+            "Refaced cabinetry, a new pantry and a better appliance arrangement changed the room without requiring a full tear-out. New counters, sink, dishwasher and backsplash completed the update.",
+            "hyde-park-kitchen-after.jpg",
+            "Completed Hyde Park kitchen with refaced cabinetry, counters, sink and backsplash",
+            "/projects/hyde-park-kitchen-renewal/",
+            "See the Hyde Park kitchen story",
+        ),
+        "bathrooms": (
+            "Melrose-area project proof",
+            "A bathroom reworked from the layout out",
+            "The room moved to the other side of an existing wall, then came together with a tiled shower, wall-hung toilet, vanity, lighting and careful finish work.",
+            "melrose-bathroom-after.jpg",
+            "Completed Melrose-area bathroom with tiled shower, wall-hung toilet and vanity",
+            "/projects/melrose-bathroom-layout/",
+            "See the completed Melrose bathroom",
+        ),
+        "drywall-ceiling-repair": (
+            "Melrose-area finish work",
+            "A new exercise room finished from ceiling to floor",
+            "Drywall, ceiling work and paint turned the adjacent lower-level room into a clean exercise space while the bathroom and new utility room were completed nearby.",
+            "melrose-exercise-room-after.jpg",
+            "Completed Melrose-area exercise room with smooth ceiling and painted walls",
+            "/projects/melrose-bathroom-layout/",
+            "See the connected Melrose spaces",
+        ),
+        "water-damage": (
+            "Blackfriars restoration",
+            "A small leak revealed a much larger problem",
+            "Opening the affected area exposed mold, evidence of mice, structural concerns and knob-and-tube wiring. Hekman coordinated the appropriate team and trades before restoring the room.",
+            "blackfriars-investigation.jpg",
+            "Ceiling opened during investigation of a leak in a Blackfriars home",
+            "/projects/blackfriars-leak-restoration/",
+            "See the Blackfriars restoration story",
         ),
     }
     details = spotlights.get(slug)
@@ -890,11 +984,11 @@ def homepage() -> str:
     local_proof = f"""
       <section class="section section-stone local-proof-section">
         <div class="wrap">
-          {section_heading("London project proof", "Real work, close to home.", "Three detailed local projects show the range: smarter storage and flooring in Medway, a neighbour’s porch in Westmount, and an ongoing home transformation completed in careful phases.")}
+          {section_heading("Recent work across London", "Real spaces, resolved with care", "A moved bathroom in the Melrose area, a resourceful kitchen renewal in Hyde Park and a small Blackfriars leak that revealed much more—three projects shaped by different homes and honest problem-solving.")}
           <div class="story-card-grid local-proof-grid">
-            <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Layout, kitchen, one powder room, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
-            <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, cool gray-brown plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, new closets, doors, casing, baseboards and seamless floor transitions <i aria-hidden="true">↗</i></b></span></a>
-            <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · repeat customer</small><strong>A brighter welcome, built by neighbours</strong><b>Porch, entry, exterior lines and lighting revitalized <i aria-hidden="true">↗</i></b></span></a>
+            <a class="story-card story-card-large reveal" href="/projects/melrose-bathroom-layout/"><img src="/melrose-bathroom-after.jpg" alt="Completed Melrose-area bathroom with tiled shower, wall-hung toilet and illuminated mirror" loading="lazy"><span><small>Melrose area · completed</small><strong>A new layout for three connected spaces</strong><b>Moved bathroom, dedicated utility room and a finished exercise space <i aria-hidden="true">↗</i></b></span></a>
+            <a class="story-card reveal" href="/projects/hyde-park-kitchen-renewal/"><img src="/hyde-park-kitchen-after.jpg" alt="Completed Hyde Park kitchen with refaced cabinetry, new counters, sink and backsplash" loading="lazy"><span><small>Hyde Park · completed</small><strong>Renewed without starting over</strong><b>Refaced cabinets, pantry, appliances, dishwasher, counters and backsplash <i aria-hidden="true">↗</i></b></span></a>
+            <a class="story-card reveal" href="/projects/blackfriars-leak-restoration/"><img src="/blackfriars-restored-room.jpg" alt="Restored Blackfriars room with a smooth ceiling and painted walls" loading="lazy"><span><small>Blackfriars · restoration</small><strong>Restored after the real problem was understood</strong><b>Investigation, specialist coordination, rebuilding and finish restoration <i aria-hidden="true">↗</i></b></span></a>
           </div>
           <div class="testimonial-grid" aria-label="Anonymous homeowner testimonials">
             <blockquote class="testimonial-card reveal"><p>“This team is amazing—so meticulous and detail-oriented. Love their work.”</p><footer>Anonymous Medway homeowner</footer></blockquote>
@@ -905,7 +999,7 @@ def homepage() -> str:
       </section>
     """
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs.", "Based in Westmount. Serving homeowners across London and nearby communities. From full renovations to the repair list that keeps growing, Hekman Home Services connects the details into one thoughtful plan.", secondary=("/projects/", "View Our Work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Good work should feel like it belongs", "Based in Westmount and working across London, Hekman Home Services brings renovations, restorative repairs and the details between them into one thoughtful plan.", secondary=("/projects/", "View our work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
@@ -918,7 +1012,7 @@ def homepage() -> str:
       {local_proof}
       <section class="section section-paper">
         <div class="wrap">
-          {section_heading("What we do", "One team for the work that makes a house feel complete.", "From full-room renovations to complex repair lists, we bring the connected parts of a project together with clear communication and careful finishing.")}
+          {section_heading("What we do", "One team for the work that makes a house feel complete", "From full-room renovations to complex repair lists, we bring the connected parts of a project together with clear communication and careful finishing.")}
           <div class="service-grid">{featured}</div>
           <div class="section-actions reveal"><a class="button button-dark" href="/services/">View All Services</a></div>
         </div>
@@ -1118,6 +1212,69 @@ def service_page(slug: str) -> str:
     return page(item["title"], item["description"], service_url(slug), item["hero"], "services", body, "service-page")
 
 
+def melrose_project_page() -> str:
+    project_name = "Melrose: A Bathroom Reworked From the Layout Out"
+    body = f"""
+    {project_story_hero("melrose-bathroom-after.jpg", "Completed Melrose-area bathroom with a wall-hung toilet, tiled shower, vanity and illuminated mirror", "Melrose area · London, Ontario", project_name, "Moving the bathroom to the other side of an existing wall created a better lower-level plan—with a new utility room and a finished exercise space beside it.")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Multi-space renovation · completed</p><h2>The best answer was not inside the old footprint</h2><p>The original bathroom location limited how the lower level could work. Rather than force new finishes into the same arrangement, the plan moved the bathroom through the wall and reconsidered the surrounding rooms at the same time.</p><p>The new bathroom brings together a tiled shower, wall-hung toilet, vanity, lighting and precise finish work. The reworked footprint also created a dedicated utility room, while drywall, ceiling work and paint turned the adjacent space into a clean exercise room.</p></div><ul class="scope-list reveal"><li>Bathroom moved to the other side of an existing wall</li><li>Tiled shower and wall-hung toilet</li><li>Vanity, mirror lighting and finish work</li><li>New dedicated utility room</li><li>Drywall and ceiling finishing</li><li>Painted exercise room</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("The bathroom", "Layout first, then every visible detail", "Progress photographs show the wall-hung toilet and shower tile taking shape before the vanity, lighting, glass and final finishes brought the room together.")}<div class="story-mosaic story-mosaic-melrose">
+        <figure class="story-feature"><img src="/melrose-bathroom-after.jpg" alt="Completed Melrose-area bathroom with vanity, illuminated mirror and tiled shower" loading="lazy"><figcaption>Completed bathroom</figcaption></figure>
+        <figure><img src="/melrose-wall-hung-toilet-progress.jpg" alt="Wall-hung toilet installed during the Melrose-area bathroom renovation" loading="lazy"><figcaption>Layout and fixture progress</figcaption></figure>
+        <figure><img src="/melrose-shower-tile-progress.jpg" alt="Dark wall tile being installed in the Melrose-area shower" loading="lazy"><figcaption>Shower tile in progress</figcaption></figure>
+        <figure class="story-wide"><img src="/melrose-shower-toilet-detail.jpg" alt="Completed Melrose-area tiled shower and wall-hung toilet" loading="lazy"><figcaption>Completed shower and toilet detail</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/melrose-exercise-room-after.jpg" alt="Completed Melrose-area exercise room with smooth ceiling and painted walls" loading="lazy"><span>A connected room, fully finished</span></div><div class="editorial-copy reveal"><p class="eyebrow">Beyond the bathroom</p><h2>The surrounding rooms had to work too</h2><p>Layout changes rarely stop at one wall. The same plan that improved the bathroom also made space for utilities and gave the exercise room a proper finish. Drywall, ceiling work and paint were treated as part of the transformation—not as loose ends after the main room was done.</p><a class="text-link dark-link" href="/services/structural-layout/">Explore layout changes <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-paper"><div class="wrap">{section_heading("A closer look", "Six seconds through the finished room", "The short walkthrough is quiet by design: it waits for you to press play and shows the completed layout without interrupting the page.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/melrose-bathroom-after.jpg" aria-label="Short walkthrough of the completed Melrose-area bathroom"><source src="/melrose-bathroom-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Finished bathroom walkthrough</strong><span>Vanity, illuminated mirror, tiled shower and wall-hung toilet in the completed room</span></figcaption></figure></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "One layout, three better spaces", "Bathroom work, drywall finishing and layout changes were planned as one connected project.")}<div class="service-grid related-grid">{service_card("bathrooms", compact=True, variant=2)}{service_card("drywall-ceiling-repair", compact=True, variant=2)}{service_card("structural-layout", compact=True, variant=2)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Is the current layout holding the room back?</p><h2>Start with how the whole space should work</h2><p>A few wide photographs and a simple sketch can help begin the conversation.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell us about your project</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Melrose Bathroom & Layout Renovation | Hekman", PROJECT_DETAILS["/projects/melrose-bathroom-layout/"]["description"], "/projects/melrose-bathroom-layout/", "melrose-bathroom-after.jpg", "projects", body, "project-story-page")
+
+
+def hyde_park_kitchen_project_page() -> str:
+    project_name = "Hyde Park: A Kitchen Renewed Without Starting Over"
+    body = f"""
+    {project_story_hero("hyde-park-kitchen-after.jpg", "Completed Hyde Park kitchen with refaced cabinetry, new counters, sink and backsplash", "Hyde Park · London, Ontario", project_name, "A resourceful update kept the kitchen’s useful foundations, then improved storage, appliance flow and the surfaces the homeowners touch every day.")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Focused kitchen renewal · completed</p><h2>Keep the useful parts and invest where the room needs change</h2><p>The existing cabinets were refaced rather than discarded. A purpose-built pantry added storage, and the appliance arrangement was reworked to make room for a dishwasher and a more practical daily flow.</p><p>Hekman Home Services also helped source the counters and sink, then connected the new elements with backsplash tile and finish work. The homeowners told the team they were thrilled with the result.</p></div><ul class="scope-list reveal"><li>Existing cabinetry refaced</li><li>New pantry storage</li><li>Appliances reconfigured</li><li>Dishwasher added</li><li>Backsplash installed</li><li>Counters and sink sourced</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("The finished kitchen", "A familiar room with a clearer rhythm", "The strongest photographs focus on the completed room, with supporting views of the pantry, sink and dishwasher, careful protection and backsplash installation.")}<div class="story-mosaic story-mosaic-hyde-park">
+        <figure class="story-feature"><img src="/hyde-park-kitchen-after.jpg" alt="Wide view of the completed Hyde Park kitchen" loading="lazy"><figcaption>Completed kitchen</figcaption></figure>
+        <figure><img src="/hyde-park-pantry-and-appliance-layout.jpg" alt="New pantry and reconfigured appliance wall in the Hyde Park kitchen" loading="lazy"><figcaption>Pantry and appliance layout</figcaption></figure>
+        <figure><img src="/hyde-park-sink-and-dishwasher.jpg" alt="New sink, counter and dishwasher in the Hyde Park kitchen" loading="lazy"><figcaption>Sink, counter and dishwasher</figcaption></figure>
+        <figure><img src="/hyde-park-kitchen-preparation.jpg" alt="Hyde Park kitchen protected during the update" loading="lazy"><figcaption>Room protection during the work</figcaption></figure>
+        <figure class="story-wide"><img src="/hyde-park-backsplash-installation.jpg" alt="Backsplash tile being installed in the Hyde Park kitchen" loading="lazy"><figcaption>Backsplash installation</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid"><div class="editorial-media reveal"><img src="/hyde-park-pantry-and-appliance-layout.jpg" alt="Hyde Park pantry and reconfigured appliance wall" loading="lazy"><span>Storage and flow, reconsidered</span></div><div class="editorial-copy reveal"><p class="eyebrow">A project-specific budget result</p><h2>Thoughtful choices kept this update under $20,000</h2><p>This particular kitchen was completed for less than $20,000 by retaining and refacing serviceable cabinetry, focusing the layout changes and sourcing carefully. It is a result from this home—not a fixed package or a guarantee for another kitchen, where size, materials and existing conditions will differ.</p><a class="text-link dark-link" href="/services/kitchens/">Explore kitchen renovations <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "A kitchen update is a set of linked decisions", "Cabinetry, plumbing fixtures, tile and finish work have to meet cleanly for the room to feel resolved.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True, variant=2)}{service_card("handyman-repairs", compact=True, variant=3)}{service_card("flooring", compact=True, variant=2)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Wondering what is worth keeping?</p><h2>Start with the kitchen you already have</h2><p>We can review what works, what does not and where a focused investment could make the greatest difference.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell us about your project</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Hyde Park Kitchen Renewal | Hekman Home Services", PROJECT_DETAILS["/projects/hyde-park-kitchen-renewal/"]["description"], "/projects/hyde-park-kitchen-renewal/", "hyde-park-kitchen-after.jpg", "projects", body, "project-story-page")
+
+
+def blackfriars_project_page() -> str:
+    project_name = "Blackfriars: A Small Leak That Needed a Much Bigger Plan"
+    body = f"""
+    {project_story_hero("blackfriars-restored-room.jpg", "Restored Blackfriars room with a smooth ceiling and painted walls", "Blackfriars · London, Ontario", project_name, "What looked like a limited leak became an investigation, a coordinated response and a careful restoration once the ceiling and wall were opened.")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Investigation and restoration · completed</p><h2>The first opening changed the scope</h2><p>The project began with what appeared to be a small leak. Opening the affected ceiling and wall revealed mold, evidence of mice, structural concerns and knob-and-tube wiring—conditions that needed a broader, properly coordinated response before finishes could be restored.</p><p>Hekman Home Services identified the visible concerns, protected the project sequence and coordinated the appropriate remediation team and qualified trades. Once those conditions were addressed, Hekman managed the rebuild and restored the drywall, ceiling and painted finish.</p></div><ul class="scope-list reveal"><li>Initial leak area opened and assessed</li><li>Mold and evidence of mice identified</li><li>Structural concerns documented</li><li>Knob-and-tube wiring identified</li><li>Appropriate team and trades coordinated</li><li>Room rebuilt and finishes restored</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("From symptom to restored room", "Open carefully, understand fully, rebuild in the right order", "This sequence is deliberately concise: the first opening, the deeper investigation, a structural detail, the rebuilding stage and the finished room.")}<div class="story-mosaic story-mosaic-blackfriars">
+        <figure><img src="/blackfriars-first-opening.jpg" alt="Small initial ceiling opening during the Blackfriars leak investigation" loading="lazy"><figcaption>Initial opening</figcaption></figure>
+        <figure class="story-feature"><img src="/blackfriars-investigation.jpg" alt="Protected investigation work after the Blackfriars ceiling was opened further" loading="lazy"><figcaption>Deeper investigation</figcaption></figure>
+        <figure><img src="/blackfriars-structural-concern.jpg" alt="Exposed framing documented during the Blackfriars investigation" loading="lazy"><figcaption>Structural condition documented</figcaption></figure>
+        <figure><img src="/blackfriars-rebuild.jpg" alt="Blackfriars room during framing, insulation and rebuilding work" loading="lazy"><figcaption>Rebuilding in progress</figcaption></figure>
+        <figure class="story-wide"><img src="/blackfriars-restored-room.jpg" alt="Restored Blackfriars room with smooth ceiling and painted walls" loading="lazy"><figcaption>Room restored</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/blackfriars-investigation.jpg" alt="Ceiling investigation underway in the protected Blackfriars room" loading="lazy"><span>Stop, identify and coordinate</span></div><div class="editorial-copy reveal"><p class="eyebrow">The responsible sequence</p><h2>Finish work had to wait until the hidden conditions were addressed</h2><p>A renovation contractor should not blur the line between construction work and regulated or specialist work. Hekman’s role was to recognize what the opening revealed, bring the right people into the project and return to the restoration only when the preceding work was ready.</p><a class="text-link dark-link" href="/services/water-damage/">Explore restorative repairs <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Investigation, coordination and restoration", "Unexpected conditions can connect water damage, structural review, electrical work and interior finishing in one carefully sequenced plan.")}<div class="service-grid related-grid">{service_card("water-damage", compact=True, variant=2)}{service_card("drywall-ceiling-repair", compact=True, variant=3)}{service_card("structural-layout", compact=True, variant=3)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Has a small repair started to look bigger?</p><h2>Show us what changed when the area was opened</h2><p>Photographs of the affected room and any visible conditions can help frame a responsible next step.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell us about the repair</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Blackfriars Leak Restoration | Hekman Home Services", PROJECT_DETAILS["/projects/blackfriars-leak-restoration/"]["description"], "/projects/blackfriars-leak-restoration/", "blackfriars-restored-room.jpg", "projects", body, "project-story-page")
+
+
 def hilltop_project_page() -> str:
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen and island", "Hekman project story · London, Ontario", "Hilltop: one home, one clear point of view.", "A whole-home transformation connecting the kitchen, bathroom, lower level, entry, stairs, flooring and finish details into a cohesive result.", small=True, position="50% 52%")}
@@ -1173,11 +1330,13 @@ def medway_project_page() -> str:
     <main id="main">
       {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Anonymous Medway project · completed</p><h2>A flooring project that solved much more than the floor.</h2><p>Carpet was removed from three rooms and replaced with cool gray-brown plank flooring carried through the upper level to coordinate with the previously completed main floor.</p><p>At the same time, an existing closet opening was closed and relocated to create a larger closet on the other side of the wall. The primary bedroom also received a new double closet. New doors, casing and baseboards connected the rooms, and the altered wall surfaces were left seamless and primed for the homeowner’s final paint.</p></div><ul class="scope-list reveal"><li>Carpet removal in three rooms</li><li>Plank flooring and clean transitions</li><li>Relocated and enlarged closet</li><li>New double closet in the primary bedroom</li><li>New doors, casing and baseboards</li><li>Seamless primed surfaces, ready for final paint</li></ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Before, during and finished detail", "The real work is visible in the transitions.", "Four carefully selected photographs show the original carpeted room, the relocated closet opening, flooring installation and the exact completed plank colour at the doorway.")}<div class="story-mosaic story-mosaic-medway">
-        <figure class="story-feature"><img src="/medway-closet-before.jpg" alt="Medway room before the flooring and closet changes, with carpet and the new closet opening visible" loading="lazy"><figcaption>Before: carpet and existing room layout</figcaption></figure>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Before, during and complete", "The real work is visible in the transitions", "Six selected photographs show the original carpeted room, the relocated closet opening, flooring installation and the finished upper level, including the exact plank colour at the doorway.")}<div class="story-mosaic story-mosaic-medway">
+        <figure class="story-feature"><img src="/medway-finished-room.jpg" alt="Completed Medway room with cool gray-brown plank flooring and finished baseboards" loading="lazy"><figcaption>Completed room</figcaption></figure>
+        <figure><img src="/medway-closet-before.jpg" alt="Medway room before the flooring and closet changes, with carpet and the new closet opening visible" loading="lazy"><figcaption>Before: carpet and existing room layout</figcaption></figure>
         <figure><img src="/medway-closet-relocation-progress.jpg" alt="Former Medway closet opening closed and prepared to become a seamless wall" loading="lazy"><figcaption>During: former closet opening closed</figcaption></figure>
         <figure><img src="/medway-floor-installation.jpg" alt="Plank flooring being installed in the Medway upper level" loading="lazy"><figcaption>During: plank flooring installation</figcaption></figure>
         <figure class="story-wide"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway door, cool gray-brown plank flooring and clean threshold transition" loading="lazy"><figcaption>Completed detail: door, floor and transition</figcaption></figure>
+        <figure><img src="/medway-finished-floor-detail.jpg" alt="Close view of the completed Medway plank flooring and clean edge detail" loading="lazy"><figcaption>Completed floor detail</figcaption></figure>
       </div></div></section>
       <section class="section section-stone"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/medway-floor-door-transition.jpg" alt="Close view of the completed Medway flooring at a doorway transition" loading="lazy"><span>Exact installed flooring</span></div><div class="editorial-copy reveal"><p class="eyebrow">Budget-conscious collaboration</p><h2>More function, with the spending focused where it mattered.</h2><p>The homeowner supplied the flooring. Hekman Home Services provided the trim and doors at cost, helping the larger storage and finish scope stay within the homeowner’s budget.</p><p>The result improves daily storage, creates a more connected upper level and adds a cleaner finish that supports future resale appeal.</p><a class="text-link dark-link" href="/services/flooring/">Explore flooring installation <span aria-hidden="true">↗</span></a></div></div></section>
       <section class="section section-paper"><div class="wrap testimonial-feature reveal"><p class="eyebrow">Homeowner feedback</p><blockquote>“This team is amazing—so meticulous and detail-oriented. Love their work.”</blockquote><p>The homeowner has already said they want Hekman Home Services back for future work.</p><cite>Anonymous Medway homeowner</cite></div></section>
@@ -1304,7 +1463,7 @@ def glass_block_bathroom_project_page() -> str:
     return page("Tub-to-Shower Bathroom Transformation | Hekman", "See a real jetted-tub-to-shower bathroom renovation by Hekman Home Services, documented from demolition and open-wall work through the finished glass shower.", "/projects/glass-block-bathroom-conversion/", "bathroom-walnut-vanity-after.jpg", "projects", body, "project-story-page")
 
 
-PROJECTS = [
+PROJECT_ARCHIVE = [
     # Kitchens: completed views and clearly identifiable installation details.
     ("hilltop-kitchen-wide.jpg", "kitchens", "Wide view of the completed Hilltop kitchen and island", "Hilltop kitchen", "Kitchen"),
     ("hilltop-kitchen-angle.jpg", "kitchens", "Angled view across the completed Hilltop kitchen", "Hilltop kitchen perspective", "Kitchen"),
@@ -1428,25 +1587,87 @@ PROJECTS = [
 ]
 
 
+# A deliberately edited selection for the public gallery. The broader archive
+# above remains available for future stories without turning this page into a
+# near-duplicate image dump.
+PROJECTS = [
+    ("melrose-bathroom-after.jpg", "bathrooms structural", "Completed Melrose-area bathroom with vanity, illuminated mirror and tiled shower", "Melrose bathroom", "Completed layout change"),
+    ("melrose-wall-hung-toilet-progress.jpg", "bathrooms structural", "Wall-hung toilet installed during the Melrose-area bathroom renovation", "Melrose fixture progress", "Bathroom process"),
+    ("melrose-shower-tile-progress.jpg", "bathrooms", "Dark wall tile being installed in the Melrose-area shower", "Melrose shower tile", "Bathroom process"),
+    ("melrose-shower-toilet-detail.jpg", "bathrooms", "Completed Melrose-area tiled shower and wall-hung toilet", "Melrose finish detail", "Completed bathroom"),
+    ("melrose-exercise-room-finishing.jpg", "drywall handyman", "Ceiling and paint finishing underway in the Melrose-area exercise room", "Melrose exercise room progress", "Drywall and paint"),
+    ("melrose-exercise-room-after.jpg", "basements drywall", "Completed Melrose-area exercise room with smooth ceiling and painted walls", "Melrose exercise room", "Completed lower level"),
+    ("hyde-park-kitchen-after.jpg", "kitchens", "Wide view of the completed Hyde Park kitchen", "Hyde Park kitchen", "Completed renewal"),
+    ("hyde-park-pantry-and-appliance-layout.jpg", "kitchens handyman", "New pantry and reconfigured appliance wall in the Hyde Park kitchen", "Hyde Park pantry", "Storage and layout"),
+    ("hyde-park-sink-and-dishwasher.jpg", "kitchens handyman", "New sink, counter and dishwasher in the Hyde Park kitchen", "Hyde Park sink wall", "Kitchen finish"),
+    ("hyde-park-kitchen-preparation.jpg", "kitchens handyman", "Hyde Park kitchen protected during the update", "Hyde Park preparation", "Room protection"),
+    ("hyde-park-backsplash-installation.jpg", "kitchens", "Backsplash tile being installed in the Hyde Park kitchen", "Hyde Park backsplash", "Tile installation"),
+    ("blackfriars-first-opening.jpg", "restoration drywall", "Small initial ceiling opening during the Blackfriars leak investigation", "Blackfriars first opening", "Investigation"),
+    ("blackfriars-investigation.jpg", "restoration drywall", "Protected investigation work after the Blackfriars ceiling was opened further", "Blackfriars investigation", "Restoration process"),
+    ("blackfriars-structural-concern.jpg", "restoration structural", "Exposed framing documented during the Blackfriars investigation", "Blackfriars framing", "Condition documented"),
+    ("blackfriars-rebuild.jpg", "restoration drywall insulation structural", "Blackfriars room during framing, insulation and rebuilding work", "Blackfriars rebuild", "Restoration process"),
+    ("blackfriars-restored-room.jpg", "restoration drywall", "Restored Blackfriars room with smooth ceiling and painted walls", "Blackfriars restored room", "Completed restoration"),
+    ("medway-finished-room.jpg", "flooring handyman", "Completed Medway room with cool gray-brown plank flooring and finished baseboards", "Medway finished room", "Completed flooring"),
+    ("medway-finished-floor-detail.jpg", "flooring", "Close view of the completed Medway plank flooring and clean edge detail", "Medway floor detail", "Completed flooring"),
+    ("hilltop-kitchen-wide.jpg", "kitchens", "Wide view of the completed Hilltop kitchen and island", "Hilltop kitchen", "Completed kitchen"),
+    ("hilltop-kitchen-range.jpg", "kitchens", "Hilltop kitchen range wall and white cabinetry", "Hilltop range wall", "Kitchen detail"),
+    ("hilltop-lower-level.jpg", "basements flooring", "Completed Hilltop lower-level living area with fireplace", "Hilltop lower level", "Completed basement"),
+    ("hilltop-staircase.jpg", "basements flooring", "Finished Hilltop staircase with dark railing", "Hilltop staircase", "Flooring and stairs"),
+    ("hilltop-green-tile-before.jpg", "bathrooms", "Hilltop upstairs bathroom with its original green-tile tub surround", "Hilltop bathroom before", "Verified sequence"),
+    ("hilltop-green-tile-after.jpg", "bathrooms", "Hilltop upstairs bathroom with a rebuilt marble-look tub surround", "Hilltop bathroom after", "Verified sequence"),
+    ("hilltop-basement-bathroom-before.jpg", "bathrooms basements", "Hilltop basement bathroom before the shower, ceiling and finish renewal", "Hilltop basement bath before", "Verified sequence"),
+    ("hilltop-basement-bathroom-wide.jpg", "bathrooms basements", "Completed Hilltop basement bathroom with white vanity and glass shower", "Hilltop basement bath after", "Verified sequence"),
+    ("bathroom-glass-block-before.jpg", "bathrooms", "Bathroom with a jetted tub and glass-block window before conversion", "Jetted-tub layout", "Bathroom before"),
+    ("bathroom-glass-block-demolition.jpg", "bathrooms", "Tiled jetted-tub platform partly removed during demolition", "Tub-platform demolition", "Bathroom process"),
+    ("bathroom-glass-block-open-wall.jpg", "bathrooms insulation", "Tub removed with wall insulation and floor framing exposed", "Bathroom wall opened", "Bathroom process"),
+    ("bathroom-walnut-vanity-after.jpg", "bathrooms flooring", "Completed tub-to-shower conversion with a walnut vanity, gray tile and sliding glass door", "Glass-shower conversion", "Completed bathroom"),
+    ("kitchenette-before-wide.jpg", "kitchens commercial", "Office kitchen before cabinetry and repair work", "Office kitchen before", "Verified sequence"),
+    ("kitchenette-wall-plumbing-stage.jpg", "kitchens commercial drywall", "Office kitchen wall opened for plumbing and repair access", "Office kitchen wall access", "Verified sequence"),
+    ("kitchenette-cabinet-installation.jpg", "kitchens commercial handyman", "New office kitchen cabinet boxes and fronts during installation", "Office cabinet installation", "Verified sequence"),
+    ("kitchenette-after-wide.jpg", "kitchens commercial", "Completed office kitchen with walnut-look cabinets and gray counter", "Office kitchen after", "Completed kitchen"),
+    ("westmount-transformation-demolition.jpg", "structural drywall", "Westmount main-floor demolition and layout changes in progress", "Westmount layout work", "Ongoing transformation"),
+    ("westmount-transformation-blue-wall-flooring.jpg", "flooring structural", "Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall", "Westmount completed phase", "Flooring and lighting"),
+    ("westmount-transformation-cabinet-install.jpg", "kitchens handyman", "Hekman Home Services crew installing kitchen cabinetry in the phased Westmount project", "Westmount cabinetry", "Kitchen in progress"),
+    ("westmount-transformation-kitchen-current.jpg", "kitchens", "Current Westmount kitchen progress before the planned backsplash and final styling", "Westmount kitchen progress", "Not the final after"),
+    ("westmount-porch-work-in-progress.jpg", "exterior handyman", "Exterior work in progress at an anonymous Westmount porch and entry", "Westmount porch progress", "Exterior process"),
+    ("westmount-porch-after-night.jpg", "exterior handyman", "Finished Westmount porch and entry illuminated at night", "Westmount porch after", "Completed exterior"),
+    ("project-016.jpg", "drywall", "Original textured ceiling and patch before smooth-ceiling work", "Popcorn ceiling before", "Ceiling sequence"),
+    ("project-017.jpg", "drywall", "Skim coating underway with the room protected", "Ceiling skim coat", "Ceiling sequence"),
+    ("popcorn-ceiling-primer.jpg", "drywall", "Primer being rolled onto a smoothed ceiling", "Smooth ceiling primer", "Ceiling sequence"),
+    ("project-103.jpg", "exterior", "Completed elevated wood deck behind a brick home", "Elevated deck", "Completed exterior"),
+    ("project-101.jpg", "exterior structural", "Deck framing and support-post structure", "Deck structure", "Exterior process"),
+    ("fence-after-1.jpg", "exterior", "Completed long-run wood privacy fence", "Privacy fence", "Completed exterior"),
+    ("post-hole-digging.jpg", "exterior", "Post hole being dug by hand beside a residential property", "Post-hole preparation", "Exterior process"),
+    ("post-hole-auger.jpg", "exterior", "Powered auger digging a post hole", "Powered auger work", "Exterior process"),
+    ("project-045.jpg", "commercial", "Older box-style fluorescent fixtures before a fitness-space lighting upgrade", "Fitness lighting before", "Commercial sequence"),
+    ("project-049.jpg", "commercial", "Crew replacing commercial lighting from scaffolding and ladders", "Fitness lighting installation", "Commercial sequence"),
+    ("project-048.jpg", "commercial", "Fitness facility illuminated by the completed LED lighting upgrade", "Fitness lighting after", "Commercial sequence"),
+    ("salon-water-damage-2.jpg", "restoration commercial drywall", "Damaged salon ceiling opened to expose the affected construction", "Salon ceiling opened", "Commercial restoration"),
+    ("salon-drywall-rebuild.jpg", "restoration commercial drywall", "Salon ceiling and wall surfaces being rebuilt with drywall and compound", "Salon rebuild", "Commercial restoration"),
+    ("salon-after-1.jpg", "restoration commercial", "Working London salon returned to a bright finish after water damage", "Salon restored", "Completed restoration"),
+]
+
+
 def projects_page() -> str:
     cards = "".join(f'<figure class="project-card reveal" data-category="{categories}"><button class="project-image" type="button" data-lightbox aria-label="Enlarge {html.escape(label, quote=True)}"><img src="/{src}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"></button><figcaption><span>{label}</span><small>{tag}</small></figcaption></figure>' for src, categories, alt, label, tag in PROJECTS)
-    filters = [("all", "All Work"), ("restoration", "Restoration & Damage"), ("kitchens", "Kitchens"), ("bathrooms", "Bathrooms"), ("basements", "Basements"), ("flooring", "Flooring"), ("drywall", "Drywall & Ceilings"), ("insulation", "Insulation"), ("exterior", "Decks & Fences"), ("structural", "Structural"), ("handyman", "Handyman & Repairs"), ("commercial", "Commercial")]
+    filters = [("all", "All work"), ("restoration", "Restoration & damage"), ("kitchens", "Kitchens"), ("bathrooms", "Bathrooms"), ("basements", "Basements"), ("flooring", "Flooring"), ("drywall", "Drywall & ceilings"), ("insulation", "Insulation"), ("exterior", "Decks & fences"), ("structural", "Structural"), ("handyman", "Handyman & repairs"), ("commercial", "Commercial")]
     buttons = "".join(f'<button type="button" class="filter-button{" active" if key == "all" else ""}" data-filter="{key}" aria-pressed="{"true" if key == "all" else "false"}">{label}</button>' for key, label in filters)
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look.", "Explore whole-home transformations, kitchens, bathrooms, basements, carpet, vinyl and hardwood flooring, drywall, pot lights, painting, insulation, decks, fences, handyman repairs, structural changes and commercial work.", small=True, position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation", "Our work · London, Ontario", "Work that holds up to a closer look", "Explore carefully documented renovations, repairs and restorations from neighbourhoods across London—finished spaces, honest progress and the decisions that connect them.", small=True, position="50% 54%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Real homes. Real stages. Clear project facts.", "Begin with three detailed London project stories, then explore other verified transformations, repairs and commercial work. In-progress projects are labelled clearly, and every homeowner remains anonymous.")}
+      <section class="section section-paper"><div class="wrap">{section_heading("Project stories", "Real homes, real stages and clear project facts", "These selected London stories lead with the problem each room needed to solve. In-progress work is labelled clearly, specialist coordination is described accurately and homeowners remain anonymous.")}
         <div class="story-card-grid">
-          <a class="story-card story-card-large reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in thoughtful phases</strong><b>Kitchen, one powder room, layout, flooring, lighting, storage and finishing <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-floor-door-transition.jpg" alt="Completed Medway doorway, plank flooring and clean transition" loading="lazy"><span><small>Medway · completed</small><strong>More storage. Better flow.</strong><b>Three rooms, relocated closets, flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · repeat customer</small><strong>A porch modernized by neighbours</strong><b>Exterior progress, daytime completion and finished lighting <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card story-card-large reveal" href="/projects/melrose-bathroom-layout/"><img src="/melrose-bathroom-after.jpg" alt="Completed Melrose-area bathroom with tiled shower, wall-hung toilet and illuminated mirror" loading="lazy"><span><small>Melrose area · completed</small><strong>A bathroom reworked from the layout out</strong><b>Bathroom relocation, new utility room and a finished exercise space <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/hyde-park-kitchen-renewal/"><img src="/hyde-park-kitchen-after.jpg" alt="Completed Hyde Park kitchen with refaced cabinetry, new counters, sink and backsplash" loading="lazy"><span><small>Hyde Park · completed</small><strong>Renewed without starting over</strong><b>Cabinet refacing, pantry, appliance flow, dishwasher and new surfaces <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/blackfriars-leak-restoration/"><img src="/blackfriars-restored-room.jpg" alt="Restored Blackfriars room with a smooth ceiling and painted walls" loading="lazy"><span><small>Blackfriars · restoration</small><strong>A small leak that needed a bigger plan</strong><b>Investigation, specialist coordination, rebuilding and finish restoration <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-finished-room.jpg" alt="Completed Medway room with cool gray-brown plank flooring and finished baseboards" loading="lazy"><span><small>Medway · completed</small><strong>More storage and better flow</strong><b>Three rooms, relocated closets, flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Whole-home transformation</small><strong>Hilltop</strong><b>Kitchen, bathrooms, lower level, stairs and finish work <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card reveal" href="/projects/westmount-1970s-transformation/"><img src="/westmount-transformation-blue-wall-flooring.jpg" alt="Completed Westmount living-space phase with plank flooring, pot lights and a deep-blue feature wall" loading="lazy"><span><small><em class="status-chip">Project in progress</em> · Westmount</small><strong>A transformation built in phases</strong><b>Kitchen, one powder room, layout, flooring, lighting and storage <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/glass-block-bathroom-conversion/"><img src="/bathroom-walnut-vanity-after.jpg" alt="Completed tub-to-shower bathroom conversion" loading="lazy"><span><small>Before · during · after</small><strong>Jetted tub to glass shower</strong><b>Demolition, open-wall work, tile and enclosure <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-1.jpg" alt="Restored London salon interior" loading="lazy"><span><small>Commercial restoration</small><strong>A working salon, restored after water damage</strong><b>Construction repairs planned around the needs of the business <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card story-card-wide reveal" href="/projects/kitchen-renewal/"><img src="/kitchenette-after-wide.jpg" alt="Completed office kitchen with walnut-look cabinetry" loading="lazy"><span><small>Commercial · before · during · after</small><strong>Office kitchen renewal</strong><b>Cabinetry, plumbing access, drywall, counter and finish work <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card story-card-wide reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-1.jpg" alt="Restored London salon interior" loading="lazy"><span><small>Commercial restoration</small><strong>A working salon restored after water damage</strong><b>Construction repairs planned around the needs of the business <i aria-hidden="true">↗</i></b></span></a>
         </div>
       </div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "See the work—not only the reveal.", "These short videos show demolition, installation and finish details. They never autoplay and wait to load until you choose to watch.")}<div class="video-grid video-grid-three"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>Follow one bathroom from demolition and open-wall work to the finished glass shower.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of the completed kitchen cabinetry and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed office kitchen</strong><span>A closer look at the cabinetry, hardware, sink, counter and finished working surface.</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/drywall-potlight-progress-poster.jpg" aria-label="Video of drywall finishing and pot lights during renovation"><source src="/drywall-potlight-progress.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Drywall &amp; pot-light progress</strong><span>The in-between stage: new lighting, wall repairs and ceiling finishing underway.</span></figcaption></figure></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Short, useful views of the work", "These two quiet clips add context without taking over the page. They never autoplay and wait to load until you choose to watch.")}<div class="video-grid"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/melrose-bathroom-after.jpg" aria-label="Short walkthrough of the completed Melrose-area bathroom"><source src="/melrose-bathroom-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Melrose bathroom walkthrough</strong><span>A six-second look at the finished vanity, shower and wall-hung toilet</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>Demolition, open-wall work and the completed glass shower</span></figcaption></figure></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Explore the work", "Find the kind of project that feels familiar.", "Planning a room renovation, repairing damage, updating a commercial space or finally tackling a long repair list? Choose a category to see related work.")}<div class="filter-bar" aria-label="Filter project photographs">{buttons}</div><div class="projects-grid" id="projects-grid" aria-live="polite">{cards}</div><p class="filter-status" data-filter-status>Showing all {len(PROJECTS)} photographs.</p></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Show us what’s not working. Tell us what better looks like.</h2><p>Whether you are imagining a complete transformation, dealing with damage or finally tackling the repairs that have piled up, you do not need every answer before reaching out. A few photos and an honest conversation are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
@@ -1504,6 +1725,9 @@ def build() -> None:
     for slug in SERVICES:
         write(f"services/{slug}/index.html", service_page(slug))
     write("projects/index.html", projects_page())
+    write("projects/melrose-bathroom-layout/index.html", melrose_project_page())
+    write("projects/hyde-park-kitchen-renewal/index.html", hyde_park_kitchen_project_page())
+    write("projects/blackfriars-leak-restoration/index.html", blackfriars_project_page())
     write("projects/hilltop-home-transformation/index.html", hilltop_project_page())
     write("projects/medway-flooring-storage/index.html", medway_project_page())
     write("projects/westmount-porch-entry/index.html", westmount_porch_project_page())
@@ -1537,6 +1761,9 @@ def build() -> None:
     write("reviews/index.html", redirect_stub("/projects/", "Our Work | Hekman Home Services"))
 
     project_urls = [
+        "/projects/melrose-bathroom-layout/",
+        "/projects/hyde-park-kitchen-renewal/",
+        "/projects/blackfriars-leak-restoration/",
         "/projects/hilltop-home-transformation/",
         "/projects/medway-flooring-storage/",
         "/projects/westmount-porch-entry/",
@@ -1566,6 +1793,12 @@ def build() -> None:
     Based in Westmount. Working throughout London and nearby communities—north, south, east and west. This includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Old South and other London neighbourhoods.
 
     ## Selected project stories
+    - Melrose-area bathroom and lower-level layout: {BASE_URL}/projects/melrose-bathroom-layout/
+      The bathroom moved to the other side of an existing wall and was completed with a tiled shower, wall-hung toilet, vanity, lighting and finish work. The connected plan also created a utility room and finished an exercise room with drywall, ceiling work and paint. The public location is limited to the Melrose area, London, Ontario.
+    - Hyde Park kitchen renewal: {BASE_URL}/projects/hyde-park-kitchen-renewal/
+      Existing cabinets were refaced, a pantry was built, appliances were reconfigured, a dishwasher was added and the counters, sink and backsplash were renewed. This project was completed for under $20,000; that result is not a fixed package or guarantee for another kitchen.
+    - Blackfriars leak investigation and restoration: {BASE_URL}/projects/blackfriars-leak-restoration/
+      A small leak opening revealed mold, evidence of mice, structural concerns and knob-and-tube wiring. Hekman Home Services identified the visible conditions, coordinated the appropriate remediation team and qualified trades, then managed the rebuild and finish restoration.
     - Medway flooring and storage transformation: {BASE_URL}/projects/medway-flooring-storage/
       Carpet was removed in three rooms. New plank flooring, relocated and new closets, doors, casing and baseboards improved storage and flow. Surfaces were left seamlessly primed for the homeowner's final paint.
     - Westmount porch and entry revitalization: {BASE_URL}/projects/westmount-porch-entry/

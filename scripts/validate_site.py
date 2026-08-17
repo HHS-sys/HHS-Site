@@ -40,7 +40,17 @@ class PageParser(HTMLParser):
         self.h1_count = 0
         self.ids: set[str] = set()
         self.img_without_alt: list[str] = []
+        self.meaningful_empty_alt: list[str] = []
         self.buttons_without_type = 0
+        self.heading_text: list[str] = []
+        self.scope_items: list[str] = []
+        self.visible_text_nodes: list[str] = []
+        self.videos: list[dict[str, str | None]] = []
+        self._heading_tag = ""
+        self._heading_parts: list[str] = []
+        self._in_scope_list = False
+        self._scope_item_parts: list[str] | None = None
+        self._hidden_text_depth = 0
 
     def handle_starttag(self, tag: str, attrs_list: list[tuple[str, str | None]]) -> None:
         attrs = dict(attrs_list)
@@ -60,10 +70,27 @@ class PageParser(HTMLParser):
             self.scripts.append(attrs["src"])
         if tag == "h1":
             self.h1_count += 1
-        if tag == "img" and "alt" not in attrs:
-            self.img_without_alt.append(attrs.get("src", "<unknown>"))
+        if re.fullmatch(r"h[1-6]", tag):
+            self._heading_tag = tag
+            self._heading_parts = []
+        if tag == "img":
+            source = attrs.get("src", "<unknown>")
+            if "alt" not in attrs:
+                self.img_without_alt.append(source)
+            elif not (attrs.get("alt") or "").strip():
+                classes = (attrs.get("class") or "").split()
+                if source and attrs.get("aria-hidden") != "true" and "brand-logo" not in classes:
+                    self.meaningful_empty_alt.append(source)
         if tag == "button" and "type" not in attrs:
             self.buttons_without_type += 1
+        if tag == "video":
+            self.videos.append(attrs)
+        if tag in ("script", "style"):
+            self._hidden_text_depth += 1
+        if tag == "ul" and "scope-list" in (attrs.get("class") or "").split():
+            self._in_scope_list = True
+        if tag == "li" and self._in_scope_list:
+            self._scope_item_parts = []
         for attribute in ("href", "src"):
             value = attrs.get(attribute)
             if value:
@@ -72,10 +99,27 @@ class PageParser(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag == "title":
             self.in_title = False
+        if tag == self._heading_tag:
+            self.heading_text.append(" ".join("".join(self._heading_parts).split()))
+            self._heading_tag = ""
+            self._heading_parts = []
+        if tag == "li" and self._scope_item_parts is not None:
+            self.scope_items.append(" ".join("".join(self._scope_item_parts).split()))
+            self._scope_item_parts = None
+        if tag == "ul" and self._in_scope_list:
+            self._in_scope_list = False
+        if tag in ("script", "style"):
+            self._hidden_text_depth = max(0, self._hidden_text_depth - 1)
 
     def handle_data(self, data: str) -> None:
         if self.in_title:
             self.title += data
+        if self._heading_tag:
+            self._heading_parts.append(data)
+        if self._scope_item_parts is not None:
+            self._scope_item_parts.append(data)
+        if not self._hidden_text_depth and data.strip():
+            self.visible_text_nodes.append(data.strip())
 
 
 def local_target(value: str) -> Path | None:
@@ -148,8 +192,26 @@ def check() -> list[str]:
             errors.append(f"{page.relative_to(ROOT)}: shared JavaScript is missing")
         if parser.img_without_alt:
             errors.append(f"{page.relative_to(ROOT)}: images missing alt {parser.img_without_alt}")
+        if parser.meaningful_empty_alt:
+            errors.append(f"{page.relative_to(ROOT)}: meaningful images have empty alt {parser.meaningful_empty_alt}")
         if parser.buttons_without_type:
             errors.append(f"{page.relative_to(ROOT)}: {parser.buttons_without_type} button(s) missing type")
+        for heading in parser.heading_text:
+            if heading.endswith("."):
+                errors.append(f"{page.relative_to(ROOT)}: heading has a terminal period: {heading}")
+        punctuated_scope = [item for item in parser.scope_items if re.search(r"[.!?]$", item)]
+        if punctuated_scope:
+            errors.append(f"{page.relative_to(ROOT)}: scope-list fragments have terminal punctuation {punctuated_scope}")
+        for node in parser.visible_text_nodes:
+            if re.search(r"[^\n]\s{2,}[^\n]", node):
+                errors.append(f"{page.relative_to(ROOT)}: repeated visible whitespace in: {node[:90]}")
+            if re.search(r"(?:\.\.|,,|!!|\?\?|!\?|\?!)", node):
+                errors.append(f"{page.relative_to(ROOT)}: duplicate punctuation in: {node[:90]}")
+        for video in parser.videos:
+            if video.get("preload") != "none":
+                errors.append(f"{page.relative_to(ROOT)}: video must use preload=none")
+            if "autoplay" in video:
+                errors.append(f"{page.relative_to(ROOT)}: video must not autoplay")
 
     for value, count in Counter(titles).items():
         if count > 1:
@@ -218,6 +280,19 @@ def check() -> list[str]:
     if expected_gallery_count is not None and gallery_count != expected_gallery_count:
         errors.append(f"projects/index.html: expected {expected_gallery_count} gallery photographs, found {gallery_count}")
 
+    visible_card_copy: list[tuple[str, str]] = []
+    for page, markup in (("index.html", (ROOT / "index.html").read_text(encoding="utf-8")), ("projects/index.html", projects_html)):
+        blocks = re.findall(r'<a class="[^"]*\bstory-card\b[^"]*"[^>]*>(.*?)</a>', markup, re.DOTALL)
+        blocks += re.findall(r'<figure class="project-card reveal"[^>]*>(.*?)</figure>', markup, re.DOTALL)
+        for block in blocks:
+            copy = re.sub(r"<[^>]+>", " ", block)
+            copy = " ".join(copy.split())
+            visible_card_copy.append((page, copy))
+    card_counts = Counter(copy for _, copy in visible_card_copy)
+    for copy, count in card_counts.items():
+        if copy and count > 1:
+            errors.append(f"duplicate visible card copy used {count} times: {copy[:110]}")
+
     for page in PRIMARY:
         text = page.read_text(encoding="utf-8") if page.exists() else ""
         if "/assets/" in text:
@@ -232,6 +307,9 @@ def check() -> list[str]:
         ):
             if phrase in text.lower():
                 errors.append(f"{page.relative_to(ROOT)}: internal-facing copy remains: {phrase}")
+        visible_text = " ".join(parsed[page].visible_text_nodes) if page in parsed else ""
+        if re.search(r"\b(?:lorem ipsum|todo|coming soon|placeholder)\b", visible_text, re.IGNORECASE):
+            errors.append(f"{page.relative_to(ROOT)}: placeholder copy remains")
         for match in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.DOTALL):
             try:
                 json.loads(match)
@@ -252,6 +330,7 @@ def check() -> list[str]:
         "drywall-potlight-progress.mp4",
         "bathroom-glass-block-transformation.mp4",
         "bathroom-finish-details.mp4",
+        "melrose-bathroom-tour.mp4",
     ):
         path = ROOT / video
         if not path.is_file():
@@ -262,6 +341,9 @@ def check() -> list[str]:
     medway_page = (ROOT / "projects/medway-flooring-storage/index.html").read_text(encoding="utf-8")
     porch_page = (ROOT / "projects/westmount-porch-entry/index.html").read_text(encoding="utf-8")
     westmount_page = (ROOT / "projects/westmount-1970s-transformation/index.html").read_text(encoding="utf-8")
+    melrose_page = (ROOT / "projects/melrose-bathroom-layout/index.html").read_text(encoding="utf-8")
+    hyde_park_page = (ROOT / "projects/hyde-park-kitchen-renewal/index.html").read_text(encoding="utf-8")
+    blackfriars_page = (ROOT / "projects/blackfriars-leak-restoration/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 
     for required in (
@@ -296,7 +378,24 @@ def check() -> list[str]:
     if "multiple bathroom" in westmount_page.lower() or "two bathroom" in westmount_page.lower():
         errors.append("Phased Westmount page overstates the confirmed one-powder-room scope")
 
-    positioning = "Based in Westmount. Serving homeowners across London and nearby communities."
+    for required in ("Melrose area", "other side of an existing wall", "wall-hung toilet", "new dedicated utility room", "exercise room", "melrose-bathroom-tour.mp4"):
+        if required.lower() not in melrose_page.lower():
+            errors.append(f"Melrose project page is missing required detail: {required}")
+    if re.search(r"\b(?:street|road|avenue|drive)\b", melrose_page, re.IGNORECASE):
+        errors.append("Melrose project page may expose a location more precise than the Melrose area")
+
+    for required in ("refaced", "purpose-built pantry", "dishwasher", "backsplash", "less than $20,000", "not a fixed package or a guarantee"):
+        if required.lower() not in hyde_park_page.lower():
+            errors.append(f"Hyde Park project page is missing required detail: {required}")
+
+    for required in ("mold", "evidence of mice", "structural concerns", "knob-and-tube wiring", "coordinated the appropriate remediation team and qualified trades", "restored the drywall"):
+        if required.lower() not in blackfriars_page.lower():
+            errors.append(f"Blackfriars project page is missing required detail: {required}")
+    for prohibited in ("we remediated the mold", "Hekman remediated the mold", "we replaced the knob-and-tube"):
+        if prohibited.lower() in blackfriars_page.lower():
+            errors.append(f"Blackfriars project page overstates regulated work: {prohibited}")
+
+    positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
         errors.append("Homepage is missing the required all-London positioning statement")
     for neighbourhood in ("Sunningdale", "Old North", "Stoneybrook"):
