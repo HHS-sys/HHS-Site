@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Issue 5 viewport QA</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #d8d5ce; }
+    body { width: var(--qa-width, 390px); overflow-x: hidden; }
+    iframe { display: block; width: var(--qa-width, 390px); height: var(--qa-height, 844px); border: 0; background: white; }
+  </style>
+</head>
+<body>
+  <iframe id="qa-frame" title="Responsive site preview"></iframe>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const width = Math.max(320, Math.min(1440, Number(params.get('width')) || 390));
+    const height = Math.max(568, Math.min(1200, Number(params.get('height')) || 844));
+    const allowed = ['/', '/projects/', '/projects/melrose-bathroom-layout/'];
+    const route = allowed.includes(params.get('route')) ? params.get('route') : '/';
+    document.documentElement.style.setProperty('--qa-width', width + 'px');
+    document.documentElement.style.setProperty('--qa-height', height + 'px');
+    const frame = document.getElementById('qa-frame');
+    frame.src = route;
+    frame.addEventListener('load', () => {
+      setTimeout(() => {
+        const doc = frame.contentDocument;
+        frame.style.height = Math.max(height, doc.documentElement.scrollHeight) + 'px';
+        document.body.dataset.ready = 'true';
+      }, 700);
+    });
+  </script>
+</body>
+</html>
