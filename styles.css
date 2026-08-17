@@ -648,6 +648,7 @@ button.button { cursor: pointer; }
   .section-heading, .service-intro, .faq-layout, .editorial-grid, .area-layout, .contact-layout { grid-template-columns: 1fr; }
   .section-heading { gap: 22px; }
   .editorial-grid.reverse .editorial-media { order: 0; }
+  .editorial-media::before { inset: 18px -18px -18px 18px; }
   .editorial-media img { min-height: 520px; }
   .project-preview { grid-template-columns: 1fr 1fr; grid-template-rows: 380px 280px 280px; }
   .project-tile.project-tall { grid-row: auto; }
