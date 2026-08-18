@@ -11,12 +11,15 @@
     header { display: flex; align-items: center; justify-content: space-between; gap: 18px; max-width: 980px; margin: 0 auto 20px; }
     label { display: flex; align-items: center; gap: 10px; }
     select { min-height: 42px; padding: 0 12px; border: 1px solid #6c7b88; border-radius: 8px; color: #101820; background: #fff; }
-    main { display: flex; align-items: flex-start; justify-content: center; gap: 28px; overflow: auto; }
+    main { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 28px; overflow: auto; }
     figure { margin: 0; }
     figcaption { margin-bottom: 8px; color: #a8d9ee; font-weight: 700; }
     iframe { display: block; border: 0; background: #fff; box-shadow: 0 0 0 1px #6c7b88, 0 16px 40px rgba(0,0,0,.3); }
     .iphone-390 { width: 390px; height: 844px; }
     .iphone-430 { width: 430px; height: 932px; }
+    .landscape-844 { width: 844px; height: 390px; }
+    .breakpoint-860 { width: 860px; height: 500px; }
+    .breakpoint-861 { width: 861px; height: 500px; }
   </style>
 </head>
 <body>
@@ -37,6 +40,9 @@
   <main>
     <figure><figcaption>390 × 844</figcaption><iframe class="iphone-390" title="390 pixel responsive preview"></iframe></figure>
     <figure><figcaption>430 × 932</figcaption><iframe class="iphone-430" title="430 pixel responsive preview"></iframe></figure>
+    <figure><figcaption>844 × 390 landscape</figcaption><iframe class="landscape-844" title="844 pixel landscape responsive preview"></iframe></figure>
+    <figure><figcaption>860px mobile breakpoint</figcaption><iframe class="breakpoint-860" title="860 pixel responsive preview"></iframe></figure>
+    <figure><figcaption>861px desktop breakpoint</figcaption><iframe class="breakpoint-861" title="861 pixel responsive preview"></iframe></figure>
   </main>
   <script>
     const picker = document.querySelector('#route');
