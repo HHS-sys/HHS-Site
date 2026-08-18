@@ -515,6 +515,13 @@ def check() -> list[str]:
     positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
         errors.append("Homepage is missing the required all-London positioning statement")
+    popcorn_card = re.search(
+        r'<a class="service-card reveal" href="/services/popcorn-ceiling-removal/">\s*'
+        r'<img src="/project-016\.jpg" alt="Original popcorn-textured ceiling before removal and smooth-ceiling finishing"',
+        homepage,
+    )
+    if not popcorn_card:
+        errors.append("Homepage popcorn-ceiling card must lead with the verified textured-ceiling before image")
     for neighbourhood in ("Sunningdale", "Old North", "Stoneybrook"):
         if neighbourhood not in homepage:
             errors.append(f"Homepage service area is missing {neighbourhood}")

@@ -442,11 +442,11 @@ SERVICE_CARD_VARIANTS: dict[str, list[tuple[str, str]]] = {
         ("medway-closet-before.jpg", "Medway room with the new closet opening visible"),
     ],
     "popcorn-ceiling-removal": [
-        ("project-014.jpg", "Completed smooth ceiling after texture removal and finish work"),
+        ("project-016.jpg", "Original popcorn-textured ceiling before removal and smooth-ceiling finishing"),
         ("popcorn-ceiling-primer.jpg", "Primer being applied to a newly smoothed ceiling"),
         ("popcorn-ceiling-sander.jpg", "Drywall sander used during popcorn ceiling removal"),
         ("project-017.jpg", "Ceiling skim coating underway in a protected room"),
-        ("project-016.jpg", "Textured ceiling before smooth-ceiling finishing"),
+        ("project-014.jpg", "Completed smooth ceiling after texture removal and finish work"),
         ("project-015.jpg", "Ceiling surface correction and compound work"),
     ],
 }
