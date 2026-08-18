@@ -17,6 +17,10 @@ const ALLOWED_SERVICES = new Set([
 ]);
 
 const MAX_BODY_BYTES = 20_000;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const RATE_BUCKETS_MAX = 5_000;
+const rateBuckets = new Map();
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -110,6 +114,46 @@ function isAllowedOrigin(request) {
     return new URL(origin).host.toLowerCase() === host;
   } catch {
     return false;
+  }
+}
+
+function clientIp(request) {
+  const forwarded = String(header(request, "x-forwarded-for") || "")
+    .split(",", 1)[0]
+    .trim();
+  const direct = String(header(request, "x-real-ip") || "").trim();
+  return (forwarded || direct).slice(0, 64);
+}
+
+function enforceRateLimit(request, now = Date.now()) {
+  const ip = clientIp(request);
+  if (!ip) return;
+
+  for (const [key, bucket] of rateBuckets) {
+    if (now - bucket.startedAt >= RATE_LIMIT_WINDOW_MS) rateBuckets.delete(key);
+  }
+  if (rateBuckets.size >= RATE_BUCKETS_MAX && !rateBuckets.has(ip)) {
+    rateBuckets.delete(rateBuckets.keys().next().value);
+  }
+
+  const current = rateBuckets.get(ip);
+  const bucket =
+    !current || now - current.startedAt >= RATE_LIMIT_WINDOW_MS
+      ? { startedAt: now, count: 0 }
+      : current;
+  bucket.count += 1;
+  rateBuckets.set(ip, bucket);
+
+  if (bucket.count > RATE_LIMIT_MAX) {
+    const error = new Error(
+      "Too many enquiries were sent from this connection. Please wait a few minutes or contact us directly.",
+    );
+    error.status = 429;
+    error.retryAfter = Math.max(
+      1,
+      Math.ceil((RATE_LIMIT_WINDOW_MS - (now - bucket.startedAt)) / 1000),
+    );
+    throw error;
   }
 }
 
@@ -298,6 +342,7 @@ module.exports = async function quoteHandler(request, response) {
         : redirectToContact(response, "sent");
     }
 
+    enforceRateLimit(request);
     await sendWithResend(fields);
     console.log(
       JSON.stringify({
@@ -313,6 +358,9 @@ module.exports = async function quoteHandler(request, response) {
       : redirectToContact(response, "sent");
   } catch (error) {
     const status = Number(error.status) || 500;
+    if (status === 429) {
+      response.setHeader("Retry-After", String(error.retryAfter || 600));
+    }
     console.error(
       JSON.stringify({
         level: "error",
@@ -336,7 +384,9 @@ module.exports = async function quoteHandler(request, response) {
 
 module.exports._private = {
   emailContent,
+  enforceRateLimit,
   isAllowedOrigin,
   parseRequestBody,
+  rateBuckets,
   validate,
 };

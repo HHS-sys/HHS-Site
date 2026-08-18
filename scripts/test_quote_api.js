@@ -184,6 +184,34 @@ async function main() {
     assert.match(escaped.html, /&lt;this&gt; &amp; that/);
     assert.doesNotMatch(escaped.html, /<Steph/);
 
+    quoteHandler._private.rateBuckets.clear();
+    calls.length = 0;
+    global.fetch = async (url, options) => {
+      calls.push({ url, options });
+      return { ok: true, status: 200, async json() { return { id: "email_test" }; } };
+    };
+    for (let index = 0; index < 5; index += 1) {
+      const allowed = await run(
+        request({
+          headers: { "x-forwarded-for": "203.0.113.10" },
+          body: {
+            submissionId: `f47ac10b-58cc-4372-a567-0e02b2c3d47${index}`,
+          },
+        }),
+      );
+      assert.equal(allowed.statusCode, 200);
+    }
+    const limited = await run(
+      request({
+        headers: { "x-forwarded-for": "203.0.113.10" },
+        body: { submissionId: "f47ac10b-58cc-4372-a567-0e02b2c3d475" },
+      }),
+    );
+    assert.equal(limited.statusCode, 429);
+    assert.equal(limited.headers["retry-after"], "600");
+    assert.equal(calls.length, 5);
+    quoteHandler._private.rateBuckets.clear();
+
     delete process.env.RESEND_API_KEY;
     const unconfigured = await run(request());
     assert.equal(unconfigured.statusCode, 503);
