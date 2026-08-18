@@ -1,6 +1,6 @@
 /* Responsive hardening and mobile fallbacks.
    Loaded by main.js so the navigation remains usable even if Safari serves a stale layout.
-   Production refresh: 2026-08-16. */
+   Production refresh: 2026-08-17. */
 
 .brand > span {
   min-width: 0;
@@ -12,6 +12,10 @@ video {
 }
 
 @media (max-width: 860px) {
+  body.nav-open .site-header {
+    z-index: 200;
+  }
+
   .site-header {
     background: rgba(7, 19, 33, 0.98);
   }

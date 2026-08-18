@@ -80,3 +80,45 @@ These finish the existing verified Medway sequence without changing its anonymou
 - Anonymous bathroom demolition: useful opening and demolition evidence, but no strong finished result was supplied; do not present it as a complete transformation.
 - Painted-over 1970s popcorn ceiling by Rene and Libin: retain the clear before/process/smooth-result grouping for a focused ceiling update.
 - Salon and commercial repair progress: retain as supporting evidence for the existing commercial restoration story; avoid repeating similar open-ceiling frames.
+
+## Site-elite follow-up curation — 2026-08-17
+
+### Anonymous London salon restoration
+
+The owner confirmed that the newly supplied moisture, wallboard and wall/ceiling-repair media belongs to the existing salon story. The public story remains anonymous and does not publish the business name.
+
+- `salon-restored-wall.jpg` — exact brand-neutral completed wall result; lead the documented sequence with this image
+- `salon-restored-wall-detail.jpg` — higher-resolution brand-neutral finished-wall detail; use after the lead, not instead of it
+- `salon-after-1.jpg` — broader brand-neutral room context after repairs; protective tape remains visible, so do not present it as the exact final wall view
+- `salon-moisture-investigation.jpg` — one selected moisture-reading photograph; caption as investigation evidence only
+- `salon-affected-wallboard.jpg` — affected material documented after opening; do not label it as mould without testing evidence
+- `salon-wall-ceiling-rebuild.jpg` — strongest wide rebuilding view with useful room context
+
+Do not use `salon-after-2.jpg` on the public site because the salon name and identifiable portrait display are visible. The separately produced privacy edit is not used as construction proof; the genuine restored-wall photograph remains the documented result.
+
+The older `salon-water-damage-1.jpg`, `salon-water-damage-2.jpg` and `salon-drywall-rebuild.jpg` remain individual restoration examples and are not folded into this verified sequence.
+
+### Local team portrait
+
+- `rene-steph-london-ontario.jpg` — authentic Rene and Steph portrait at the London Canada sign; suitable for About/local-trust content, not project evidence
+- `rene-steph-owner-led.jpg` — polished owner portrait with clean negative space for the About hero; Rene’s tool belt adds an authentic field-work cue
+
+Selected originals are preserved in the private task workspace rather than the public repository; public copies are stripped and compressed.
+
+### Pond Mills residential material
+
+Keep Pond Mills separate from both the salon and the Medway flooring/storage story. The identical kitchen doorway, oak cabinetry, white range, threshold and adjoining-room details verify the supplied flooring sequence. Lead with `pond-mills-kitchen-floor-after.jpg`, pair it with `pond-mills-kitchen-floor-before.jpg`, and use `pond-mills-basement-floor-after.jpg` as the second completed payoff.
+
+The progress order is materials staged, old-floor removal, prepared substrate, plank installation and near-completion. `pond-mills-basement-floor-nearing-completion.jpg` must remain labelled as progress because edge, threshold and baseboard details were not yet finished. The clean `pond-mills-flooring-finished-tour.mp4` is silent, compressed and tied to the same rooms. Do not publish the watermarked social edit.
+
+The homeowner also confirmed wet window-well, window-trim and surrounding frame-assembly concerns, removal of a problem exterior weeping pipe, localized grading and downspout work. No supplied image documents the completed exterior response. Describe that work accurately in copy, but never caption the flooring photographs as drainage proof or imply a photographed exterior before-and-after sequence.
+
+### Anonymous London-area multi-unit deck renewal
+
+`multi-unit-decks-before.jpg` documents the weathered connected rear decks. Existing project assets `project-101.jpg`, `project-100.jpg`, `project-103.jpg` and `project-104.jpg` document open construction and completed deck-and-guard surfaces at the same brick row. The building geometry, bay projections and deck spacing support continuity.
+
+Use the silent `multi-unit-deck-repair-sequence.mp4` only with an intentional completed-deck poster. Keep the property anonymous and do not add permit, engineering, code-compliance or full-replacement claims that the media does not prove.
+
+### Fence-post installation in progress
+
+`fence-post-layout-progress.jpg` and `fence-post-auger-installation.jpg` belong to the same bungalow-yard installation. No finished fence from that job was supplied. Use the pair as factual post-layout and auger-work evidence on the exterior service page, never as a completed before-and-after story.

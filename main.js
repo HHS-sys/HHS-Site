@@ -15,10 +15,10 @@ document.documentElement.classList.add("js");
     .trim();
 
   if (!coreStylesLoaded) {
-    addStylesheet("/styles.css?v=20260816-1", "core-style-fallback");
+    addStylesheet("/styles.css?v=20260818-2", "core-style-fallback");
   }
 
-  addStylesheet("/mobile-fixes.css?v=20260816-1", "mobile-layout-fixes");
+  addStylesheet("/mobile-fixes.css?v=20260818-2", "mobile-layout-fixes");
 })();
 
 document.querySelectorAll("[data-year]").forEach((element) => {
@@ -46,7 +46,10 @@ navToggle?.addEventListener("click", () => {
 });
 
 primaryNav?.querySelectorAll("a").forEach((link) => {
-  link.addEventListener("click", () => setNavigation(false));
+  link.addEventListener("click", () => {
+    // Let Safari complete the link's default navigation before hiding its ancestor.
+    window.setTimeout(() => setNavigation(false), 0);
+  });
 });
 
 document.addEventListener("keydown", (event) => {
@@ -73,7 +76,7 @@ if (typeof mobileNavMedia.addEventListener === "function") {
 window.addEventListener("orientationchange", () => setNavigation(false));
 
 const revealElements = document.querySelectorAll(".reveal");
-if ("IntersectionObserver" in window) {
+if ("IntersectionObserver" in window && revealElements.length) {
   const observer = new IntersectionObserver(
     (entries, currentObserver) => {
       entries.forEach((entry) => {
@@ -86,8 +89,43 @@ if ("IntersectionObserver" in window) {
     { threshold: 0.08 },
   );
   revealElements.forEach((element) => observer.observe(element));
+  document.documentElement.classList.add("reveal-ready");
 } else {
   revealElements.forEach((element) => element.classList.add("is-visible"));
+}
+
+const mobileActions = document.querySelector(".mobile-actions");
+const siteFooter = document.querySelector(".site-footer");
+
+if (mobileActions && siteFooter && "IntersectionObserver" in window) {
+  const mobileActionsMedia = window.matchMedia("(max-width: 620px)");
+  let footerIsNearViewport = false;
+
+  const updateMobileActionsVisibility = () => {
+    const shouldHide = mobileActionsMedia.matches && footerIsNearViewport;
+    mobileActions.classList.toggle("is-footer-hidden", shouldHide);
+    mobileActions.toggleAttribute("inert", shouldHide);
+    if (shouldHide) {
+      mobileActions.setAttribute("aria-hidden", "true");
+    } else {
+      mobileActions.removeAttribute("aria-hidden");
+    }
+  };
+
+  const footerObserver = new IntersectionObserver(
+    ([entry]) => {
+      footerIsNearViewport = entry.isIntersecting;
+      updateMobileActionsVisibility();
+    },
+    { rootMargin: "0px 0px 72px 0px", threshold: 0 },
+  );
+
+  footerObserver.observe(siteFooter);
+  if (typeof mobileActionsMedia.addEventListener === "function") {
+    mobileActionsMedia.addEventListener("change", updateMobileActionsVisibility);
+  } else if (typeof mobileActionsMedia.addListener === "function") {
+    mobileActionsMedia.addListener(updateMobileActionsVisibility);
+  }
 }
 
 const filterButtons = document.querySelectorAll("[data-filter]");
@@ -201,6 +239,20 @@ lightbox?.addEventListener("click", (event) => {
 
 const quoteForm = document.querySelector("#quote-form");
 const formError = quoteForm?.querySelector("[data-form-error]");
+const quoteHandoff = quoteForm?.querySelector("[data-quote-handoff]");
+const quoteEmailLink = quoteForm?.querySelector("[data-quote-email]");
+const quoteCopyButton = quoteForm?.querySelector("[data-copy-quote]");
+const quoteCopyStatus = quoteForm?.querySelector("[data-copy-status]");
+let preparedQuoteText = "";
+
+function hideQuoteHandoff() {
+  if (!quoteHandoff || quoteHandoff.hidden) return;
+  quoteHandoff.hidden = true;
+  preparedQuoteText = "";
+  if (quoteCopyStatus) quoteCopyStatus.textContent = "";
+}
+
+quoteForm?.addEventListener("input", hideQuoteHandoff);
 
 quoteForm?.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -224,11 +276,7 @@ quoteForm?.addEventListener("submit", (event) => {
 
   if (formError) formError.textContent = "";
 
-  const subject = encodeURIComponent(
-    "Website quote request - Hekman Home Services",
-  );
-  const body = encodeURIComponent(
-    `Name: ${data.get("name") || ""}
+  preparedQuoteText = `Name: ${data.get("name") || ""}
 Phone: ${phone}
 Email: ${email}
 Project location: ${data.get("location") || ""}
@@ -236,8 +284,48 @@ Project type: ${data.get("service") || ""}
 Preferred timing: ${data.get("timing") || ""}
 
 Project details:
-${data.get("message") || ""}`,
-  );
+${data.get("message") || ""}`;
 
-  window.location.href = `mailto:hekmanhomeservices@gmail.com?subject=${subject}&body=${body}`;
+  const subject = encodeURIComponent(
+    "Website quote request - Hekman Home Services",
+  );
+  const body = encodeURIComponent(preparedQuoteText);
+
+  if (quoteEmailLink) {
+    quoteEmailLink.href = `mailto:hekmanhomeservices@gmail.com?subject=${subject}&body=${body}`;
+  }
+  if (quoteCopyStatus) quoteCopyStatus.textContent = "";
+  if (quoteHandoff) {
+    quoteHandoff.hidden = false;
+    quoteHandoff.focus({ preventScroll: true });
+    quoteHandoff.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+});
+
+quoteCopyButton?.addEventListener("click", async () => {
+  if (!preparedQuoteText) return;
+
+  try {
+    await navigator.clipboard.writeText(preparedQuoteText);
+    if (quoteCopyStatus) {
+      quoteCopyStatus.textContent =
+        "Copied. Paste the details into any email, text or message.";
+    }
+  } catch {
+    const copyArea = document.createElement("textarea");
+    copyArea.value = preparedQuoteText;
+    copyArea.setAttribute("readonly", "");
+    copyArea.style.position = "fixed";
+    copyArea.style.opacity = "0";
+    document.body.appendChild(copyArea);
+    copyArea.select();
+    const copied = document.execCommand("copy");
+    copyArea.remove();
+
+    if (quoteCopyStatus) {
+      quoteCopyStatus.textContent = copied
+        ? "Copied. Paste the details into any email, text or message."
+        : "Copy was unavailable. Please use the email, call or text options below.";
+    }
+  }
 });

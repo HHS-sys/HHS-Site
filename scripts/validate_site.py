@@ -11,6 +11,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from build_site import PHONE_LINK, local_raster_dimensions
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
@@ -35,12 +37,14 @@ class PageParser(HTMLParser):
         self.descriptions: list[str] = []
         self.canonicals: list[str] = []
         self.robots: list[str] = []
+        self.social_image_alts: dict[str, list[str]] = {}
         self.stylesheets: list[str] = []
         self.scripts: list[str] = []
         self.h1_count = 0
         self.ids: set[str] = set()
         self.img_without_alt: list[str] = []
         self.meaningful_empty_alt: list[str] = []
+        self.images: list[dict[str, str | None]] = []
         self.buttons_without_type = 0
         self.heading_text: list[str] = []
         self.scope_items: list[str] = []
@@ -62,6 +66,9 @@ class PageParser(HTMLParser):
             self.descriptions.append(attrs.get("content", ""))
         if tag == "meta" and attrs.get("name") == "robots":
             self.robots.append(attrs.get("content", ""))
+        social_key = attrs.get("property") or attrs.get("name")
+        if tag == "meta" and social_key in ("og:image:alt", "twitter:image:alt"):
+            self.social_image_alts.setdefault(social_key, []).append(attrs.get("content", ""))
         if tag == "link" and attrs.get("rel") == "canonical":
             self.canonicals.append(attrs.get("href", ""))
         if tag == "link" and attrs.get("rel") == "stylesheet":
@@ -74,6 +81,7 @@ class PageParser(HTMLParser):
             self._heading_tag = tag
             self._heading_parts = []
         if tag == "img":
+            self.images.append(attrs)
             source = attrs.get("src", "<unknown>")
             if "alt" not in attrs:
                 self.img_without_alt.append(source)
@@ -184,16 +192,42 @@ def check() -> list[str]:
         expected_robots = "noindex,follow" if page.name == "404.html" else "index,follow,max-image-preview:large"
         if parser.robots != [expected_robots]:
             errors.append(f"{page.relative_to(ROOT)}: expected robots value {expected_robots}")
+        if page.name != "404.html":
+            for social_key in ("og:image:alt", "twitter:image:alt"):
+                values = parser.social_image_alts.get(social_key, [])
+                if len(values) != 1 or not values[0].strip():
+                    errors.append(f"{page.relative_to(ROOT)}: needs one descriptive {social_key}")
+            og_alt = parser.social_image_alts.get("og:image:alt", [""])[0]
+            twitter_alt = parser.social_image_alts.get("twitter:image:alt", [""])[0]
+            if og_alt and twitter_alt and og_alt != twitter_alt:
+                errors.append(f"{page.relative_to(ROOT)}: social image alts do not match")
         if parser.h1_count != 1:
             errors.append(f"{page.relative_to(ROOT)}: expected one h1, found {parser.h1_count}")
-        if "/styles.css" not in parser.stylesheets:
+        if not any(urlsplit(value).path == "/styles.css" for value in parser.stylesheets):
             errors.append(f"{page.relative_to(ROOT)}: shared stylesheet is missing")
-        if "/main.js" not in parser.scripts:
+        if not any(urlsplit(value).path == "/main.js" for value in parser.scripts):
             errors.append(f"{page.relative_to(ROOT)}: shared JavaScript is missing")
         if parser.img_without_alt:
             errors.append(f"{page.relative_to(ROOT)}: images missing alt {parser.img_without_alt}")
         if parser.meaningful_empty_alt:
             errors.append(f"{page.relative_to(ROOT)}: meaningful images have empty alt {parser.meaningful_empty_alt}")
+        for image in parser.images:
+            source = image.get("src")
+            dimensions = local_raster_dimensions(source) if source else None
+            if dimensions is None:
+                continue
+            width = image.get("width")
+            height = image.get("height")
+            if not width or not height:
+                errors.append(f"{page.relative_to(ROOT)}: local raster image needs width and height: {source}")
+            elif not width.isdigit() or not height.isdigit() or int(width) <= 0 or int(height) <= 0:
+                errors.append(f"{page.relative_to(ROOT)}: local raster image has invalid dimensions: {source}")
+            else:
+                actual_width, actual_height = dimensions
+                if int(width) * actual_height != int(height) * actual_width:
+                    errors.append(f"{page.relative_to(ROOT)}: local raster image dimensions use the wrong aspect ratio: {source}")
+            if image.get("decoding") != "async":
+                errors.append(f"{page.relative_to(ROOT)}: local raster image must use decoding=async: {source}")
         if parser.buttons_without_type:
             errors.append(f"{page.relative_to(ROOT)}: {parser.buttons_without_type} button(s) missing type")
         for heading in parser.heading_text:
@@ -212,6 +246,9 @@ def check() -> list[str]:
                 errors.append(f"{page.relative_to(ROOT)}: video must use preload=none")
             if "autoplay" in video:
                 errors.append(f"{page.relative_to(ROOT)}: video must not autoplay")
+            for required_attribute in ("controls", "playsinline", "poster", "aria-label"):
+                if required_attribute not in video:
+                    errors.append(f"{page.relative_to(ROOT)}: video is missing {required_attribute}")
 
     for value, count in Counter(titles).items():
         if count > 1:
@@ -220,7 +257,7 @@ def check() -> list[str]:
         if count > 1:
             errors.append(f"duplicate meta description used {count} times: {value}")
 
-    for asset in ("styles.css", "mobile-fixes.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json"):
+    for asset in ("styles.css", "mobile-fixes.css", "main.js", "favicon.svg", "hekman-logo.jpg", "robots.txt", "sitemap.xml", "llms.txt", "media-catalog.json", "vercel.json", ".vercelignore"):
         if not (ROOT / asset).is_file():
             errors.append(f"missing required asset {asset}")
 
@@ -244,7 +281,10 @@ def check() -> list[str]:
                 if not (ROOT / filename).is_file():
                     errors.append(f"media-catalog.json: missing collection asset {filename}")
             for sequence in collection.get("sequences", []):
-                for stage in sequence.get("stages", []):
+                stages = sequence.get("stages", sequence.get("assets", []))
+                if not stages:
+                    errors.append(f"media-catalog.json: sequence has no stages or assets in {collection.get('id', '<unknown>')}")
+                for stage in stages:
                     filename = stage if isinstance(stage, str) else stage.get("asset")
                     if filename and not (ROOT / filename).is_file():
                         errors.append(f"media-catalog.json: missing sequence asset {filename}")
@@ -325,13 +365,37 @@ def check() -> list[str]:
         if f"<loc>{BASE_URL}{route}</loc>" not in sitemap:
             errors.append(f"sitemap.xml: missing primary route {route}")
 
-    for video in (
-        "kitchenette-finish-tour.mp4",
-        "drywall-potlight-progress.mp4",
-        "bathroom-glass-block-transformation.mp4",
-        "bathroom-finish-details.mp4",
-        "melrose-bathroom-tour.mp4",
-    ):
+    for project_page in sorted((ROOT / "projects").glob("*/index.html")):
+        route = f"/{project_page.relative_to(ROOT).parent.as_posix()}/"
+        project_markup = project_page.read_text(encoding="utf-8")
+        if '"@type":"Article"' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story is missing Article structured data")
+        if '"@type":"BreadcrumbList"' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story is missing BreadcrumbList structured data")
+        if '<meta property="og:type" content="article">' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story must use og:type article")
+        inbound_pages = {
+            source_page
+            for source_page, parser in parsed.items()
+            if source_page != project_page
+            and any(
+                attribute == "href"
+                and not urlsplit(value).scheme
+                and not urlsplit(value).netloc
+                and urlsplit(value).path == route
+                for attribute, value in parser.links
+            )
+        }
+        if not inbound_pages:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story has no inbound HTML link")
+
+    public_html = "\n".join(page.read_text(encoding="utf-8") for page in html_files)
+    for private_reference in ("pixie", "paige", "salon-after-2.jpg"):
+        if private_reference.lower() in public_html.lower():
+            errors.append(f"public HTML exposes private salon reference: {private_reference}")
+
+    optimized_videos = media_catalog.get("videoDelivery", {}).get("optimizedFiles", []) if "media_catalog" in locals() else []
+    for video in optimized_videos:
         path = ROOT / video
         if not path.is_file():
             errors.append(f"missing optimized video {video}")
@@ -344,6 +408,11 @@ def check() -> list[str]:
     melrose_page = (ROOT / "projects/melrose-bathroom-layout/index.html").read_text(encoding="utf-8")
     hyde_park_page = (ROOT / "projects/hyde-park-kitchen-renewal/index.html").read_text(encoding="utf-8")
     blackfriars_page = (ROOT / "projects/blackfriars-leak-restoration/index.html").read_text(encoding="utf-8")
+    salon_page = (ROOT / "projects/commercial-salon-repair/index.html").read_text(encoding="utf-8")
+    pond_mills_page = (ROOT / "projects/pond-mills-home-repairs/index.html").read_text(encoding="utf-8")
+    deck_page = (ROOT / "projects/multi-unit-deck-renewal/index.html").read_text(encoding="utf-8")
+    about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
+    contact_page = (ROOT / "contact/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 
     for required in (
@@ -395,14 +464,137 @@ def check() -> list[str]:
         if prohibited.lower() in blackfriars_page.lower():
             errors.append(f"Blackfriars project page overstates regulated work: {prohibited}")
 
+    for required in (
+        "The repair disappears",
+        "Moisture investigation",
+        "salon-moisture-investigation.jpg",
+        "salon-affected-wallboard.jpg",
+        "salon-wall-ceiling-rebuild.jpg",
+        "salon-restored-wall.jpg",
+        "salon-restored-wall-detail.jpg",
+        '"@type":"Article"',
+    ):
+        if required.lower() not in salon_page.lower():
+            errors.append(f"Salon project page is missing required detail: {required}")
+    for prohibited in ("pixie", "paige", "salon-after-2.jpg", "mould", "mold"):
+        if prohibited.lower() in salon_page.lower():
+            errors.append(f"Salon project page exposes an unsupported or private reference: {prohibited}")
+
+    for required in (
+        "home had not sold",
+        "wet conditions around window wells",
+        "problem weeping pipe",
+        "localized grading",
+        "downspout",
+        "pond-mills-kitchen-floor-before.jpg",
+        "pond-mills-kitchen-floor-after.jpg",
+        "pond-mills-basement-subfloor-prep.jpg",
+        "pond-mills-basement-floor-installation.jpg",
+        "pond-mills-basement-floor-after.jpg",
+        "pond-mills-flooring-finished-tour.mp4",
+    ):
+        if required.lower() not in pond_mills_page.lower():
+            errors.append(f"Pond Mills project page is missing required detail: {required}")
+    for prohibited in ("sold after", "then sold", "helped the home sell", "salon-"):
+        if prohibited.lower() in pond_mills_page.lower():
+            errors.append(f"Pond Mills project page contains an unsupported or mixed-job reference: {prohibited}")
+
+    for required in (
+        "multi-unit-decks-before.jpg",
+        "project-101.jpg",
+        "project-100.jpg",
+        "project-104.jpg",
+        "multi-unit-deck-repair-sequence.mp4",
+        "anonymous multi-unit property",
+    ):
+        if required.lower() not in deck_page.lower():
+            errors.append(f"Multi-unit deck page is missing required detail: {required}")
+    for prohibited in ("permit", "code compliant", "engineered", "full replacement"):
+        if prohibited.lower() in deck_page.lower():
+            errors.append(f"Multi-unit deck page makes an unsupported claim: {prohibited}")
+
+    numbered_markup = re.compile(r"<span>0([1-9])</span>")
+    for page in PRIMARY:
+        if not page.exists():
+            continue
+        count = len(numbered_markup.findall(page.read_text(encoding="utf-8")))
+        expected = 4 if page == ROOT / "index.html" else 0
+        if count != expected:
+            errors.append(f"{page.relative_to(ROOT)}: expected {expected} numbered process markers, found {count}")
+
+    for required in (
+        'id="hekman-promise"',
+        "Honest advice &amp; transparent pricing",
+        "Approval before additional work",
+        "two-year workmanship guarantee",
+        "25 years of construction experience",
+        "20 years of sales",
+        "Carson Dunlop",
+        "has not practised as a home inspector",
+        "does not provide home inspections or inspection reports",
+        "Horticultural Technician",
+        "gutted and renovated every space in their Hilltop home",
+        "registered real estate salesperson since 2010",
+    ):
+        if required.lower() not in about_page.lower():
+            errors.append(f"About page is missing Hekman Promise detail: {required}")
+
+    if "fix it. sell it. celebrate it." in about_page.lower():
+        errors.append("About page contains the retired hard-sell slogan")
+
     positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
         errors.append("Homepage is missing the required all-London positioning statement")
-    for neighbourhood in ("Sunningdale", "Old North", "Stoneybrook"):
-        if neighbourhood not in homepage:
-            errors.append(f"Homepage service area is missing {neighbourhood}")
-        if neighbourhood not in (ROOT / "llms.txt").read_text(encoding="utf-8"):
-            errors.append(f"llms.txt service area is missing {neighbourhood}")
+    popcorn_card = re.search(
+        r'<a class="service-card reveal" href="/services/popcorn-ceiling-removal/">\s*'
+        r'<img src="/project-016\.jpg" alt="Original popcorn-textured ceiling before removal and smooth-ceiling finishing"',
+        homepage,
+    )
+    if not popcorn_card:
+        errors.append("Homepage popcorn-ceiling card must lead with the verified textured-ceiling before image")
+    discovery_text = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    for service_area in ("Sunningdale", "Old North", "Stoneybrook", "St. Thomas"):
+        if service_area not in homepage:
+            errors.append(f"Homepage service area is missing {service_area}")
+        if service_area not in discovery_text:
+            errors.append(f"llms.txt service area is missing {service_area}")
+
+    for experience_fact in ("25 years of construction experience", "20 years of sales", "Carson Dunlop", "registered real estate salesperson since 2010"):
+        if experience_fact not in discovery_text:
+            errors.append(f"llms.txt is missing owner experience: {experience_fact}")
+
+    for retired_copy in (
+        "Recent work across West London",
+        "Anonymous Medway homeowner",
+        "Anonymous repeat Westmount homeowner",
+        "Repairs that disappear",
+    ):
+        if retired_copy.lower() in homepage.lower():
+            errors.append(f"Homepage contains retired copy: {retired_copy}")
+
+    for social_label in (
+        'aria-label="Visit Hekman Home Services on Instagram"',
+        'aria-label="Visit Hekman Home Services on Facebook"',
+    ):
+        if social_label not in homepage:
+            errors.append(f"Footer is missing accessible social link: {social_label}")
+
+    for handoff_detail in (
+        "This website does not send your information",
+        "Not sent yet",
+        "Open draft email",
+        "Copy project details",
+        f'href="sms:{PHONE_LINK}"',
+    ):
+        if handoff_detail not in contact_page:
+            errors.append(f"Contact page is missing transparent email handoff detail: {handoff_detail}")
+
+    main_javascript = (ROOT / "main.js").read_text(encoding="utf-8")
+    if "window.location.href = `mailto:" in main_javascript:
+        errors.append("Quote form must not imply a completed handoff by immediately navigating to mailto")
+    for handoff_hook in ("data-quote-handoff", "data-quote-email", "data-copy-quote"):
+        if handoff_hook not in contact_page:
+            errors.append(f"Contact page is missing quote handoff hook: {handoff_hook}")
 
     return errors
 

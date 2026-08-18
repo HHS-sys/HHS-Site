@@ -68,6 +68,7 @@ The primary audience is approximately age 30–80, with special emphasis on West
 
 ## Local search and AI-discovery standards
 - Write naturally for London and West London searches without keyword stuffing.
+- St. Thomas is part of the service area. Mention it naturally as a nearby city served from the Westmount home base; do not imply that Hekman has a St. Thomas office.
 - Use specific project pages with unique titles, descriptions, headings, alt text, captions, breadcrumbs and internal links.
 - Keep `sitemap.xml`, `robots.txt`, `llms.txt`, canonical URLs and structured data accurate.
 - Mention Westmount, Byron, Oakridge, Riverbend, Hyde Park, Medway and London only where relevant.
