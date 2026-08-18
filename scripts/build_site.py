@@ -18,7 +18,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260818-3"
+ASSET_VERSION = "20260818-4"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -41,6 +41,34 @@ AREAS = [
     "Old South",
     "St. Thomas, Ontario",
 ]
+
+# Full-bleed hero photography needs a different crop on a wide laptop than it
+# does on a phone. These are presentation-only focal points; every image stays
+# attached to its verified project or owner story.
+HERO_FOCAL_POINTS: dict[str, tuple[str, str]] = {
+    "project-129.jpg": ("50% 58%", "54% 52%"),
+    "project-148.jpg": ("50% 52%", "50% 48%"),
+    "hilltop-kitchen-wide.jpg": ("50% 52%", "55% 54%"),
+    "hilltop-lower-level.jpg": ("50% 60%", "55% 58%"),
+    "project-072.jpg": ("50% 60%", "50% 58%"),
+    "project-014.jpg": ("50% 57%", "50% 52%"),
+    "project-016.jpg": ("50% 37%", "50% 42%"),
+    "project-103.jpg": ("50% 48%", "50% 48%"),
+    "salon-restored-wall.jpg": ("50% 56%", "50% 50%"),
+    "project-027.jpg": ("50% 50%", "50% 50%"),
+    "westmount-transformation-demolition.jpg": ("50% 48%", "50% 50%"),
+    "melrose-bathroom-after.jpg": ("50% 54%", "50% 48%"),
+    "project-119.jpg": ("50% 55%", "50% 52%"),
+    "blackfriars-restored-room.jpg": ("50% 60%", "50% 52%"),
+    "medway-finished-room.jpg": ("50% 62%", "50% 58%"),
+    "westmount-porch-after-night.jpg": ("50% 58%", "50% 52%"),
+    "westmount-transformation-blue-wall-flooring.jpg": ("50% 52%", "50% 54%"),
+    "pond-mills-flooring-walkthrough.jpg": ("50% 68%", "50% 60%"),
+    "kitchenette-after-wide.jpg": ("50% 52%", "50% 52%"),
+    "project-017.jpg": ("50% 55%", "50% 46%"),
+    "bathroom-vanity-toilet-finish.jpg": ("50% 55%", "50% 58%"),
+    "rene-steph-owner-led.jpg": ("62% 8%", "62% 50%"),
+}
 
 _LOCAL_RASTER_SUFFIXES = {".jpg", ".jpeg", ".png"}
 _JPEG_START_OF_FRAME_MARKERS = {
@@ -496,12 +524,34 @@ def polish_editorial_markup(markup: str) -> str:
     for old, new in sentence_case_labels.items():
         markup = markup.replace(old, new)
     return markup
-def hero(image: str, alt: str, eyebrow: str, heading: str, lead: str, *, small: bool = False, position: str = "50% 50%", secondary: tuple[str, str] | None = None) -> str:
+def hero(
+    image: str,
+    alt: str,
+    eyebrow: str,
+    heading: str,
+    lead: str,
+    *,
+    small: bool = False,
+    position: str | None = None,
+    mobile_position: str | None = None,
+    secondary: tuple[str, str] | None = None,
+    story_banner: bool = False,
+) -> str:
+    mapped_desktop, mapped_mobile = HERO_FOCAL_POINTS.get(image, ("50% 50%", "50% 50%"))
+    desktop_focal = position or mapped_desktop
+    if image in HERO_FOCAL_POINTS:
+        phone_focal = mobile_position or mapped_mobile
+    else:
+        phone_focal = mobile_position or desktop_focal
     size_class = " page-hero" if small else ""
+    orientation_class = media_orientation_class(f"/{image}")
+    heading_length = len(re.sub(r"<[^>]+>", "", html.unescape(heading)))
+    title_class = "hero-title-xlong" if heading_length > 70 else "hero-title-long" if heading_length > 46 else "hero-title-standard"
+    banner_class = f" story-banner photo-banner {orientation_class} {title_class}" if story_banner else ""
     secondary_link = f'<a class="button button-ghost" href="{secondary[0]}">{secondary[1]}</a>' if secondary else ""
     return f"""
-    <section class="hero{size_class}">
-      <img class="hero-media" src="/{image}" alt="{html.escape(alt, quote=True)}" fetchpriority="high" decoding="async" style="object-position:{position}">
+    <section class="hero{size_class}{banner_class}" style="--hero-image:url('/{image}');--hero-position-desktop:{desktop_focal};--hero-position-mobile:{phone_focal}">
+      <img class="hero-media" src="/{image}" alt="{html.escape(alt, quote=True)}" fetchpriority="high" decoding="async">
       <div class="hero-shade"></div>
       <div class="wrap hero-content">
         <p class="eyebrow">{eyebrow}</p>
@@ -512,19 +562,7 @@ def hero(image: str, alt: str, eyebrow: str, heading: str, lead: str, *, small: 
     </section>
     """
 def project_story_hero(image: str, alt: str, eyebrow: str, heading: str, lead: str) -> str:
-    return f"""
-    <section class="project-story-hero">
-      <div class="wrap project-story-hero-grid">
-        <div class="project-story-hero-copy">
-          <p class="eyebrow">{eyebrow}</p>
-          <h1>{heading}</h1>
-          <p>{lead}</p>
-          <div class="button-row"><a class="button button-primary" href="/contact/#quote">Request a quote</a><a class="text-call" href="tel:{PHONE_LINK}">Call {PHONE_DISPLAY}</a></div>
-        </div>
-        <figure class="project-story-hero-media"><img src="/{image}" alt="{html.escape(alt, quote=True)}" fetchpriority="high" decoding="async"></figure>
-      </div>
-    </section>
-    """
+    return hero(image, alt, eyebrow, heading, lead, small=True, story_banner=True)
 def section_heading(eyebrow: str, title: str, text: str) -> str:
     return f"""
     <div class="section-heading reveal">
@@ -869,7 +907,7 @@ def service_page(slug: str) -> str:
       <section class="section section-stone"><div class="wrap">{section_heading("Details from real projects", "See what careful work looks like.", "Preparation, progress and finished spaces from Hekman Home Services work in London and nearby communities.")}<div class="gallery-grid">{gallery}</div><div class="section-actions reveal"><a class="button button-dark" href="/projects/">View More Projects</a></div></div></section>
     """
     body = f"""
-    {project_story_hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'])}
+    {hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'], small=True, position=item['position'], story_banner=True)}
     <main id="main">
       <section class="section section-paper"><div class="wrap service-intro"><div class="reveal"><p class="eyebrow">{planning_eyebrow}</p><h2>{planning_title}</h2><p>{item['intro']}</p><a class="text-link dark-link" href="/contact/#quote">Discuss your project <span aria-hidden="true">↗</span></a></div><ul class="scope-list reveal">{bullets}</ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("What the work can include", scope_title, scope_text)}<div class="proof-grid">{scope}</div></div></section>
@@ -1200,7 +1238,7 @@ def projects_page() -> str:
     return page("Renovation Projects London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
 def about_page() -> str:
     body = f"""
-    {project_story_hero("rene-steph-owner-led.jpg", "Rene and Steph Hekman together, with Rene wearing his tool belt", "About Hekman Home Services", "The people behind the work", "Together, Rene and Steph connect 25 years of construction experience with 20 years of sales and client service—and stay close to every project.")}
+    {project_story_hero("rene-steph-owner-led.jpg", "Steph and Rene Hekman together, with Rene wearing his tool belt", "About Hekman Home Services", "The people behind the work", "Together, Steph and Rene stay close to every project—bringing Rene’s 25 years of construction experience together with Steph’s 20 years of sales and client service.")}
     <main id="main">
       <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you call stay connected to the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Rene leads construction in the field. Steph leads customer communication, sales, project planning and design perspective, with close attention to the small details that matter to each customer. Together they connect what is discovered on site with the choices, scope and updates that keep the project moving.</p><p>Steph’s construction knowledge also comes from lived experience. She worked alongside Rene as they gutted and renovated every space in their Hilltop home, learning how design choices, sequencing, budget and day-to-day life connect during a whole-home transformation.</p><p>That direct involvement matters when one visible issue turns out to affect a wall, a floor or the room beside it. Decisions are explained in context, approved before extras proceed and carried through to the final details.</p></div><figure class="owner-photo-block {media_orientation_class('/rene-steph-london-ontario.jpg')} reveal"><img src="/rene-steph-london-ontario.jpg" alt="Steph and Rene Hekman standing together beside the London Canada sign" loading="lazy"><figcaption><strong>Steph &amp; Rene Hekman</strong><span>Owners · London, Ontario</span></figcaption></figure></div></section>
       <section class="section section-charcoal" id="hekman-promise"><div class="wrap">{section_heading("The Hekman Promise", "Clear expectations before the work. Direct accountability throughout it.", "This is the standard written into our project quotes—not a slogan added after the fact.")}<div class="values-grid"><article class="reveal"><h3>Honest advice &amp; transparent pricing</h3><p>The scope, allowances and assumptions are explained so you can make informed decisions.</p></article><article class="reveal"><h3>Respect for your property</h3><p>Protection, an organized job site, debris removal and final cleanup are part of professional workmanship.</p></article><article class="reveal"><h3>Approval before additional work</h3><p>If you request a change or a concealed condition affects the plan, the options are discussed and approved before work proceeds.</p></article><article class="reveal"><h3>A two-year workmanship guarantee</h3><p>Installation-related defects resulting from our workmanship are covered for two years from completion.</p></article></div></div></section>
@@ -1208,7 +1246,7 @@ def about_page() -> str:
       <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Serving London &amp; St. Thomas.</h2><p><strong>Westmount, Byron, Oakridge, Riverbend, Hyde Park and beyond.</strong> We work with homeowners and property managers throughout London, in St. Thomas and in nearby communities.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>25 years of construction experience</strong><span>Rene brings practical renovation and repair knowledge directly to the work.</span><strong>20 years of client service</strong><span>Steph brings careful listening, practical ideas and attention to customer details.</span></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a room or repair in mind?</p><h2>Start with a few photos.</h2><p>No detailed plans required. Show us the space and tell us what you want to change, repair or create.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, bringing 25 years of construction and 20 years of sales experience to renovations and repairs across London and St. Thomas.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Rene and Steph Hekman together, with Rene wearing his tool belt")
+    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, bringing 25 years of construction and 20 years of sales experience to renovations and repairs across London and St. Thomas.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Steph and Rene Hekman together, with Rene wearing his tool belt")
 def build() -> None:
     write("index.html", homepage())
     write("services/index.html", services_page())
