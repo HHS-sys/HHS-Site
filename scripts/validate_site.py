@@ -26,6 +26,12 @@ PRIMARY = [
     ROOT / "contact/index.html",
     ROOT / "404.html",
 ]
+BANNER_PAGES = [
+    ROOT / "services/index.html",
+    *sorted((ROOT / "services").glob("*/index.html")),
+    *sorted((ROOT / "projects").glob("*/index.html")),
+    ROOT / "about/index.html",
+]
 
 
 class PageParser(HTMLParser):
@@ -338,6 +344,8 @@ def check() -> list[str]:
 
     for page in PRIMARY:
         text = page.read_text(encoding="utf-8") if page.exists() else ""
+        if "project-story-hero" in text:
+            errors.append(f"{page.relative_to(ROOT)}: legacy split hero returned")
         if "/assets/" in text:
             errors.append(f"{page.relative_to(ROOT)}: legacy /assets/ reference remains")
         for phrase in (
@@ -358,6 +366,19 @@ def check() -> list[str]:
                 json.loads(match)
             except json.JSONDecodeError as exc:
                 errors.append(f"{page.relative_to(ROOT)}: invalid JSON-LD: {exc}")
+
+    for page in BANNER_PAGES:
+        text = page.read_text(encoding="utf-8") if page.exists() else ""
+        if 'class="hero page-hero story-banner photo-banner' not in text:
+            errors.append(f"{page.relative_to(ROOT)}: missing full-bleed photo banner")
+        banner_section = re.search(r'<section class="[^"]*\bphoto-banner\b[^"]*" style="([^"]+)"', text)
+        if not banner_section:
+            errors.append(f"{page.relative_to(ROOT)}: missing banner focal controls")
+        else:
+            style = banner_section.group(1)
+            for focal_property in ("--hero-position-desktop:", "--hero-position-mobile:"):
+                if focal_property not in style:
+                    errors.append(f"{page.relative_to(ROOT)}: banner is missing {focal_property}")
 
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     for page in PRIMARY:
