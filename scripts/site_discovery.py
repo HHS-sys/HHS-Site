@@ -19,7 +19,7 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
 
     ## Owners and experience
     - Rene Hekman: Director and contractor with 25 years of construction experience. He completed home-inspection education through Carson Dunlop in 2022 but has not practised as a home inspector. Hekman Home Services does not provide home inspections or inspection reports. Real estate professionals ask him for a contractor's perspective on visible renovation and repair concerns. He is also a graduate of Humber College's Horticultural Technician program.
-    - Steph Hekman: Customer relations, sales and design lead with 20 years of sales and client-service experience, a strong eye for design and close attention to customer details. She contributes practical ideas for layout, flow and finish choices. She has been a registered real estate salesperson since 2010 and gained hands-on renovation knowledge while helping Rene gut and renovate every space in their Hilltop home. Hekman Home Services remains focused on construction.
+    - Steph Hekman: Customer relations, sales and design lead with 20 years of sales and client-service experience, a strong eye for current, livable design and close attention to customer details. She contributes informed ideas for layout, flow and finish choices, balancing what feels current with what works in everyday life. She has been a registered real estate salesperson since 2010 and gained hands-on renovation knowledge while helping Rene gut and renovate every space in their Hilltop home. Hekman Home Services remains focused on construction.
 
     ## Selected project stories
     - Melrose-area bathroom and lower-level layout: {BASE_URL}/projects/melrose-bathroom-layout/
