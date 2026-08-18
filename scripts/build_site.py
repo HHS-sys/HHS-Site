@@ -8,15 +8,17 @@ from __future__ import annotations
 import html
 import json
 import re
+import struct
 from pathlib import Path
 from textwrap import dedent
+from urllib.parse import unquote, urlsplit
 from site_projects import PROJECT_DETAILS, PROJECT_GALLERY_PRIORITY, PROJECTS
 from site_services import SERVICES, SERVICE_CARD_VARIANTS, SERVICE_DISPLAY_ORDER
 from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260818-1"
+ASSET_VERSION = "20260818-2"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -39,6 +41,141 @@ AREAS = [
     "Old South",
     "St. Thomas, Ontario",
 ]
+
+_LOCAL_RASTER_SUFFIXES = {".jpg", ".jpeg", ".png"}
+_JPEG_START_OF_FRAME_MARKERS = {
+    0xC0,
+    0xC1,
+    0xC2,
+    0xC3,
+    0xC5,
+    0xC6,
+    0xC7,
+    0xC9,
+    0xCA,
+    0xCB,
+    0xCD,
+    0xCE,
+    0xCF,
+}
+_IMAGE_TAG = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
+_RASTER_DIMENSION_CACHE: dict[Path, tuple[int, int] | None] = {}
+
+
+def _attribute_value(tag: str, name: str) -> str | None:
+    match = re.search(
+        rf"(?<![\w:-]){re.escape(name)}\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s>]+))",
+        tag,
+        flags=re.IGNORECASE,
+    )
+    if not match:
+        return None
+    return next((value for value in match.groups() if value is not None), None)
+
+
+def _local_raster_path(source: str) -> Path | None:
+    parts = urlsplit(html.unescape(source))
+    if parts.scheme or parts.netloc or not parts.path.startswith("/") or parts.path.startswith("//"):
+        return None
+    relative = Path(unquote(parts.path).lstrip("/"))
+    if not relative.parts or ".." in relative.parts or relative.suffix.lower() not in _LOCAL_RASTER_SUFFIXES:
+        return None
+    return ROOT / relative
+
+
+def _read_jpeg_dimensions(path: Path) -> tuple[int, int] | None:
+    with path.open("rb") as stream:
+        if stream.read(2) != b"\xff\xd8":
+            return None
+        while True:
+            prefix = stream.read(1)
+            while prefix and prefix != b"\xff":
+                prefix = stream.read(1)
+            if not prefix:
+                return None
+
+            marker = stream.read(1)
+            while marker == b"\xff":
+                marker = stream.read(1)
+            if not marker:
+                return None
+            marker_code = marker[0]
+
+            if marker_code in {0x01, 0xD8, *range(0xD0, 0xD8)}:
+                continue
+            if marker_code in {0xD9, 0xDA}:
+                return None
+
+            length_bytes = stream.read(2)
+            if len(length_bytes) != 2:
+                return None
+            segment_length = int.from_bytes(length_bytes, "big")
+            if segment_length < 2:
+                return None
+
+            if marker_code in _JPEG_START_OF_FRAME_MARKERS:
+                frame = stream.read(5)
+                if len(frame) != 5:
+                    return None
+                height = int.from_bytes(frame[1:3], "big")
+                width = int.from_bytes(frame[3:5], "big")
+                return (width, height) if width > 0 and height > 0 else None
+
+            stream.seek(segment_length - 2, 1)
+
+
+def _read_raster_dimensions(path: Path) -> tuple[int, int] | None:
+    try:
+        with path.open("rb") as stream:
+            header = stream.read(24)
+        if header[:8] == b"\x89PNG\r\n\x1a\n" and header[12:16] == b"IHDR":
+            width, height = struct.unpack(">II", header[16:24])
+            return (width, height) if width > 0 and height > 0 else None
+        if header[:2] == b"\xff\xd8":
+            return _read_jpeg_dimensions(path)
+        return None
+    except (OSError, ValueError, struct.error):
+        return None
+
+
+def local_raster_dimensions(source: str) -> tuple[int, int] | None:
+    """Return dimensions for a supported same-site raster source, or None safely."""
+    path = _local_raster_path(source)
+    if path is None:
+        return None
+    if path not in _RASTER_DIMENSION_CACHE:
+        _RASTER_DIMENSION_CACHE[path] = _read_raster_dimensions(path)
+    return _RASTER_DIMENSION_CACHE[path]
+
+
+def add_intrinsic_image_attributes(markup: str) -> str:
+    """Add stable aspect-ratio and async decoding hints to local JPEG/PNG images."""
+    def enrich(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        source = _attribute_value(tag, "src")
+        dimensions = local_raster_dimensions(source) if source else None
+        if dimensions is None:
+            return tag
+
+        width, height = dimensions
+        additions: list[str] = []
+        if _attribute_value(tag, "width") is None:
+            additions.append(f'width="{width}"')
+        if _attribute_value(tag, "height") is None:
+            additions.append(f'height="{height}"')
+        if _attribute_value(tag, "decoding") is None:
+            additions.append('decoding="async"')
+        if not additions:
+            return tag
+
+        insertion = " " + " ".join(additions)
+        if tag.endswith("/>"):
+            return f"{tag[:-2]}{insertion}/>"
+        return f"{tag[:-1]}{insertion}>"
+
+    return _IMAGE_TAG.sub(enrich, markup)
+
+
 def write(path: str, content: str) -> None:
     target = ROOT / path
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -216,6 +353,7 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <meta name="twitter:image:alt" content="{html.escape(social_image_alt, quote=True)}">
       <link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
       <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css?v={ASSET_VERSION}">
+      <noscript><style>@media (max-width:860px){{.nav-shell{{flex-wrap:wrap}}.nav-toggle{{display:none!important}}.primary-nav{{position:static!important;display:grid!important;width:100%;max-height:none!important;padding:16px 0 20px!important;opacity:1!important;pointer-events:auto!important;transform:none!important;visibility:visible!important}}}}</style></noscript>
       {structured_data}
     </head>
     """
@@ -287,7 +425,7 @@ def footer() -> str:
     """
 def page(title: str, description: str, path: str, image: str, current: str, body: str, body_class: str = "", *, indexable: bool = True, image_alt: str | None = None) -> str:
     body = polish_editorial_markup(body)
-    return f"""<!doctype html>
+    document = f"""<!doctype html>
     <html lang="en">
     {head(title, description, path, image, indexable=indexable, image_alt=image_alt)}
     <body class="{body_class}">
@@ -296,6 +434,7 @@ def page(title: str, description: str, path: str, image: str, current: str, body
       {footer()}
     </body>
     </html>"""
+    return add_intrinsic_image_attributes(document)
 def polish_editorial_markup(markup: str) -> str:
     """Apply sitewide label rules after the substantive page copy is written."""
     markup = re.sub(r"(<h[1-6]\b[^>]*>)(.*?)(\.)(</h[1-6]>)", r"\1\2\4", markup, flags=re.DOTALL)

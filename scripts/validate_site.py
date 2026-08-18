@@ -11,6 +11,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from build_site import PHONE_LINK, local_raster_dimensions
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
@@ -42,6 +44,7 @@ class PageParser(HTMLParser):
         self.ids: set[str] = set()
         self.img_without_alt: list[str] = []
         self.meaningful_empty_alt: list[str] = []
+        self.images: list[dict[str, str | None]] = []
         self.buttons_without_type = 0
         self.heading_text: list[str] = []
         self.scope_items: list[str] = []
@@ -78,6 +81,7 @@ class PageParser(HTMLParser):
             self._heading_tag = tag
             self._heading_parts = []
         if tag == "img":
+            self.images.append(attrs)
             source = attrs.get("src", "<unknown>")
             if "alt" not in attrs:
                 self.img_without_alt.append(source)
@@ -207,6 +211,23 @@ def check() -> list[str]:
             errors.append(f"{page.relative_to(ROOT)}: images missing alt {parser.img_without_alt}")
         if parser.meaningful_empty_alt:
             errors.append(f"{page.relative_to(ROOT)}: meaningful images have empty alt {parser.meaningful_empty_alt}")
+        for image in parser.images:
+            source = image.get("src")
+            dimensions = local_raster_dimensions(source) if source else None
+            if dimensions is None:
+                continue
+            width = image.get("width")
+            height = image.get("height")
+            if not width or not height:
+                errors.append(f"{page.relative_to(ROOT)}: local raster image needs width and height: {source}")
+            elif not width.isdigit() or not height.isdigit() or int(width) <= 0 or int(height) <= 0:
+                errors.append(f"{page.relative_to(ROOT)}: local raster image has invalid dimensions: {source}")
+            else:
+                actual_width, actual_height = dimensions
+                if int(width) * actual_height != int(height) * actual_width:
+                    errors.append(f"{page.relative_to(ROOT)}: local raster image dimensions use the wrong aspect ratio: {source}")
+            if image.get("decoding") != "async":
+                errors.append(f"{page.relative_to(ROOT)}: local raster image must use decoding=async: {source}")
         if parser.buttons_without_type:
             errors.append(f"{page.relative_to(ROOT)}: {parser.buttons_without_type} button(s) missing type")
         for heading in parser.heading_text:
@@ -391,6 +412,7 @@ def check() -> list[str]:
     pond_mills_page = (ROOT / "projects/pond-mills-home-repairs/index.html").read_text(encoding="utf-8")
     deck_page = (ROOT / "projects/multi-unit-deck-renewal/index.html").read_text(encoding="utf-8")
     about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
+    contact_page = (ROOT / "contact/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 
     for required in (
@@ -556,6 +578,23 @@ def check() -> list[str]:
     ):
         if social_label not in homepage:
             errors.append(f"Footer is missing accessible social link: {social_label}")
+
+    for handoff_detail in (
+        "This website does not send your information",
+        "Not sent yet",
+        "Open draft email",
+        "Copy project details",
+        f'href="sms:{PHONE_LINK}"',
+    ):
+        if handoff_detail not in contact_page:
+            errors.append(f"Contact page is missing transparent email handoff detail: {handoff_detail}")
+
+    main_javascript = (ROOT / "main.js").read_text(encoding="utf-8")
+    if "window.location.href = `mailto:" in main_javascript:
+        errors.append("Quote form must not imply a completed handoff by immediately navigating to mailto")
+    for handoff_hook in ("data-quote-handoff", "data-quote-email", "data-copy-quote"):
+        if handoff_hook not in contact_page:
+            errors.append(f"Contact page is missing quote handoff hook: {handoff_hook}")
 
     return errors
 
