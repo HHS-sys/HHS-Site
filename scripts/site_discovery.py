@@ -5,7 +5,7 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     return f"""
     # Hekman Home Services Inc.
 
-    > Husband-and-wife-led renovation, repair and property improvement company based in Westmount and serving homeowners throughout London and nearby communities.
+    > Husband-and-wife-led renovation, repair and property improvement company based in Westmount and serving homeowners throughout London, St. Thomas and nearby communities.
 
     Canonical website: {BASE_URL}/
     Phone: {PHONE_DISPLAY}
@@ -15,7 +15,11 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     {chr(10).join(f'- {item["name"]}: {BASE_URL}{service_url(slug)}' for slug, item in SERVICES.items())}
 
     ## Service area
-    Based in Westmount. Working throughout London and nearby communities—north, south, east and west. This includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Pond Mills, Old South and other London neighbourhoods.
+    Based in Westmount. Working throughout London—north, south, east and west—and in nearby St. Thomas. London communities served include Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Pond Mills, Old South and more.
+
+    ## Owners and experience
+    - Rene Hekman: Director and contractor with 25 years of construction experience. He completed home-inspection education through Carson Dunlop in 2022 but has not practised as a home inspector. Hekman Home Services does not provide home inspections or inspection reports. Real estate professionals ask him for a contractor's perspective on visible renovation and repair concerns. He is also a graduate of Humber College's Horticultural Technician program.
+    - Steph Hekman: Customer relations, sales and design lead with 20 years of sales and client-service experience, a strong eye for design and close attention to customer details. She contributes practical ideas for layout, flow and finish choices. She has been a registered real estate salesperson since 2010 and gained hands-on renovation knowledge while helping Rene gut and renovate every space in their Hilltop home. Hekman Home Services remains focused on construction.
 
     ## Selected project stories
     - Melrose-area bathroom and lower-level layout: {BASE_URL}/projects/melrose-bathroom-layout/

@@ -505,6 +505,14 @@ def check() -> list[str]:
         "Honest advice &amp; transparent pricing",
         "Approval before additional work",
         "two-year workmanship guarantee",
+        "25 years of construction experience",
+        "20 years of sales",
+        "Carson Dunlop",
+        "has not practised as a home inspector",
+        "does not provide home inspections or inspection reports",
+        "Horticultural Technician",
+        "gutted and renovated every space in their Hilltop home",
+        "registered real estate salesperson since 2010",
     ):
         if required.lower() not in about_page.lower():
             errors.append(f"About page is missing Hekman Promise detail: {required}")
@@ -522,11 +530,32 @@ def check() -> list[str]:
     )
     if not popcorn_card:
         errors.append("Homepage popcorn-ceiling card must lead with the verified textured-ceiling before image")
-    for neighbourhood in ("Sunningdale", "Old North", "Stoneybrook"):
-        if neighbourhood not in homepage:
-            errors.append(f"Homepage service area is missing {neighbourhood}")
-        if neighbourhood not in (ROOT / "llms.txt").read_text(encoding="utf-8"):
-            errors.append(f"llms.txt service area is missing {neighbourhood}")
+    discovery_text = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    for service_area in ("Sunningdale", "Old North", "Stoneybrook", "St. Thomas"):
+        if service_area not in homepage:
+            errors.append(f"Homepage service area is missing {service_area}")
+        if service_area not in discovery_text:
+            errors.append(f"llms.txt service area is missing {service_area}")
+
+    for experience_fact in ("25 years of construction experience", "20 years of sales", "Carson Dunlop", "registered real estate salesperson since 2010"):
+        if experience_fact not in discovery_text:
+            errors.append(f"llms.txt is missing owner experience: {experience_fact}")
+
+    for retired_copy in (
+        "Recent work across West London",
+        "Anonymous Medway homeowner",
+        "Anonymous repeat Westmount homeowner",
+        "Repairs that disappear",
+    ):
+        if retired_copy.lower() in homepage.lower():
+            errors.append(f"Homepage contains retired copy: {retired_copy}")
+
+    for social_label in (
+        'aria-label="Visit Hekman Home Services on Instagram"',
+        'aria-label="Visit Hekman Home Services on Facebook"',
+    ):
+        if social_label not in homepage:
+            errors.append(f"Footer is missing accessible social link: {social_label}")
 
     return errors
 

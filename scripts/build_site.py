@@ -16,7 +16,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260817-2"
+ASSET_VERSION = "20260818-1"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -37,7 +37,7 @@ AREAS = [
     "Pond Mills",
     "Masonville",
     "Old South",
-    "St. Thomas",
+    "St. Thomas, Ontario",
 ]
 def write(path: str, content: str) -> None:
     target = ROOT / path
@@ -52,7 +52,7 @@ def schema(path: str, image: str) -> str:
         "url": BASE_URL,
         "logo": f"{BASE_URL}/hekman-logo.jpg",
         "image": f"{BASE_URL}/{image}",
-        "description": "Family-run renovation, repair and property improvement company based in Westmount and serving homeowners throughout London and nearby communities.",
+        "description": "Family-run renovation, repair and property improvement company based in Westmount and serving homeowners throughout London, St. Thomas and nearby communities.",
         "telephone": PHONE_LINK,
         "email": EMAIL,
         "sameAs": [FACEBOOK, INSTAGRAM],
@@ -227,7 +227,7 @@ def header(current: str) -> str:
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="utility-bar">
       <div class="utility-inner">
-        <span>Based in Westmount · Serving London &amp; area</span>
+        <span>Based in Westmount · Serving London &amp; St. Thomas</span>
         <span><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><i aria-hidden="true"></i><a href="mailto:{EMAIL}">{EMAIL}</a></span>
       </div>
     </div>
@@ -259,13 +259,23 @@ def footer() -> str:
             <img class="brand-logo" src="/hekman-logo.jpg" alt="" width="64" height="64" loading="lazy" decoding="async">
             <span><strong>Hekman Home Services Inc.</strong><small>London, Ontario</small></span>
           </a>
-          <p>Based in Westmount. Working throughout London and nearby communities.</p>
+          <p class="footer-location">Based in Westmount,<span> serving London, St. Thomas and nearby communities.</span></p>
           <p><a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a><br><a href="mailto:{EMAIL}">{EMAIL}</a></p>
-          <p class="social-links"><a href="{INSTAGRAM}" rel="me noopener" target="_blank">Instagram</a><a href="{FACEBOOK}" rel="me noopener" target="_blank">Facebook</a></p>
+          <div class="footer-social">
+            <span class="footer-social-label">Connect with us</span>
+            <div class="social-links">
+              <a class="social-icon" href="{INSTAGRAM}" rel="me noopener noreferrer" target="_blank" aria-label="Visit Hekman Home Services on Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" class="social-icon-dot"></circle></svg>
+              </a>
+              <a class="social-icon" href="{FACEBOOK}" rel="me noopener noreferrer" target="_blank" aria-label="Visit Hekman Home Services on Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+            </div>
+          </div>
         </div>
         <div><h2>Explore</h2><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Our Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
         <div><h2>Popular services</h2><ul><li><a href="/services/bathrooms/">Bathrooms</a></li><li><a href="/services/kitchens/">Kitchens</a></li><li><a href="/services/basements/">Basements</a></li><li><a href="/services/decks-exterior/">Decks &amp; Exterior</a></li><li><a href="/services/handyman-repairs/">Handyman &amp; Repairs</a></li><li><a href="/services/commercial/">Commercial Work</a></li></ul></div>
-        <div><h2>Service area</h2><p>Westmount, Byron, Hyde Park and communities throughout London and area.</p></div>
+        <div><h2>Service area</h2><p>London, St. Thomas and nearby communities.</p></div>
       </div>
       <div class="wrap footer-fine"><span>© <span data-year></span> Hekman Home Services Inc. All rights reserved.</span><a href="/contact/">Start a project</a></div>
     </footer>
@@ -469,28 +479,28 @@ def homepage() -> str:
     local_proof = f"""
       <section class="section section-stone local-proof-section">
         <div class="wrap">
-          {section_heading("Recent work across West London", "Finished results, backed by the story behind them", "A Medway upper level, a Westmount porch and a reworked Melrose-area bathroom—three different projects with a clear challenge, documented work and a finished result.")}
+          {section_heading("Recent work across London", "Finished results, backed by the story behind them", "A Medway upper level, a Westmount porch and a reworked Melrose-area bathroom—three different projects with a clear challenge, documented work and a finished result.")}
           <div class="story-card-grid local-proof-grid">
             <a class="story-card story-card-large reveal" href="/projects/medway-flooring-storage/"><img src="/medway-finished-room.jpg" alt="Completed Medway room with cool gray-brown plank flooring and finished baseboards" loading="lazy"><span><small>Medway · completed upper level</small><strong>More storage. Better flow. One seamless finish</strong><b>Three rooms, relocated closets, plank flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
             <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · completed porch and entry</small><strong>A more modern welcome, built for a neighbour</strong><b>Exterior repairs, cleaner lines, finish work and lighting <i aria-hidden="true">↗</i></b></span></a>
             <a class="story-card reveal" href="/projects/melrose-bathroom-layout/"><img src="/melrose-bathroom-after.jpg" alt="Completed Melrose-area bathroom with tiled shower, wall-hung toilet and illuminated mirror" loading="lazy"><span><small>Melrose area · finished bathroom</small><strong>A new layout for three connected spaces</strong><b>Moved bathroom, dedicated utility room and a finished exercise space <i aria-hidden="true">↗</i></b></span></a>
           </div>
           <div class="testimonial-grid" aria-label="Homeowner feedback connected to documented projects">
-            <blockquote class="testimonial-card reveal"><p>“This team is amazing—so meticulous and detail-oriented. Love their work.”</p><footer><strong>Anonymous Medway homeowner</strong><span>Flooring &amp; storage transformation</span><a href="/projects/medway-flooring-storage/">See the documented work <i aria-hidden="true">↗</i></a></footer></blockquote>
-            <blockquote class="testimonial-card reveal"><p>“Efficient, professional and fantastic work. Rene modernized the front of our home, and I would recommend him for home repair and remodelling.”</p><footer><strong>Anonymous repeat Westmount homeowner</strong><span>Porch &amp; entry revitalization</span><a href="/projects/westmount-porch-entry/">See the documented work <i aria-hidden="true">↗</i></a></footer></blockquote>
+            <blockquote class="testimonial-card reveal"><p>“This team is amazing—so meticulous and detail-oriented. Love their work.”</p><footer><strong>Medway homeowner</strong><span>Flooring &amp; storage transformation</span><a href="/projects/medway-flooring-storage/">See the documented work <i aria-hidden="true">↗</i></a></footer></blockquote>
+            <blockquote class="testimonial-card reveal"><p>“Efficient, professional and fantastic work. Rene modernized the front of our home, and I would recommend him for home repair and remodelling.”</p><footer><strong>Repeat Westmount homeowner</strong><span>Porch &amp; entry revitalization</span><a href="/projects/westmount-porch-entry/">See the documented work <i aria-hidden="true">↗</i></a></footer></blockquote>
           </div>
           <div class="section-actions reveal"><a class="button button-dark" href="/projects/">Explore More Real Projects</a></div>
         </div>
       </section>
     """
     body = f"""
-    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Repairs that disappear. Renovations that belong", "From the repair list to a full renovation, we solve the connected work and finish the details so the result fits the home.", secondary=("/projects/", "View our work"), position="50% 54%")}
+    {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen renovation by Hekman Home Services", "Renovations, repairs & restoration · London, Ontario", "Repairs that feel resolved. Renovations that belong", "We address what caused the problem, complete the connected work and finish the details so the result fits your home.", secondary=("/projects/", "View our work"), position="50% 54%")}
     <main id="main">
       <section class="trust-band" aria-label="Business assurances">
         <div class="wrap trust-grid">
           <div><strong>Fully insured &amp; bondable</strong><small>Professional protection for your project</small></div>
-          <div><strong>20+ years of hands-on experience</strong><small>Renovation and repair knowledge from the field</small></div>
-          <div><strong>Family-run &amp; local</strong><small>Led by Rene and Steph Hekman</small></div>
+          <div><strong>25 years in construction</strong><small>Rene’s hands-on renovation and repair experience</small></div>
+          <div><strong>Family-run &amp; local</strong><small>Led directly by Rene and Steph Hekman</small></div>
           <div><strong>Defined project scope</strong><small>Understand the work before it begins</small></div>
         </div>
       </section>
@@ -521,14 +531,14 @@ def homepage() -> str:
       </section>
       <section class="section section-paper">
         <div class="wrap area-layout">
-          <div class="reveal"><p class="eyebrow">Service area</p><h2>Based in Westmount. Working across London.</h2><p><strong>Based in Westmount and working across London, we serve the city from north to south and east to west.</strong> That includes Byron, Hyde Park, Old North, Sunningdale and Stoneybrook—and communities throughout London and area.</p></div>
+          <div class="reveal"><p class="eyebrow">Service area</p><h2>Based in Westmount. Serving London &amp; St. Thomas.</h2><p><strong>Based in Westmount and working across London, we serve the city from north to south and east to west.</strong> That includes Byron, Hyde Park, Old North, Sunningdale and Stoneybrook. We also take on projects in St. Thomas and nearby communities.</p></div>
           <div class="photo-stack reveal"><img src="/project-070.jpg" alt="Hekman Home Services team" loading="lazy"><div class="photo-note"><strong>Hands-on, local service</strong><span>Respect for your home and direct updates as the work moves forward.</span></div></div>
         </div>
       </section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture what could work better?</p><h2>Start with the room—or repair—you keep thinking about.</h2><p>Send a few photos—no detailed plans required. A short note about the room, repair or result you have in mind is enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>
     """
-    return page("Renovations & Repairs London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
+    return page("Renovations & Repairs London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout London, St. Thomas and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
 def services_page() -> str:
     cards = "".join(service_card(slug, compact=True, variant=1) for slug in SERVICE_DISPLAY_ORDER)
     body = f"""
@@ -1014,15 +1024,15 @@ def projects_page() -> str:
     return page("Renovation Projects London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
 def about_page() -> str:
     body = f"""
-    {hero("rene-steph-owner-led.jpg", "Rene and Steph Hekman together, with Rene wearing his tool belt", "About Hekman Home Services", "A husband-and-wife team, close to every project.", "Rene and Steph Hekman connect field experience, planning and client decisions for renovations and repairs across London, Ontario.", small=True, position="62% 18%")}
+    {hero("rene-steph-owner-led.jpg", "Rene and Steph Hekman together, with Rene wearing his tool belt", "About Hekman Home Services", "The people behind the work.", "Together, Rene and Steph connect 25 years of construction experience with 20 years of sales and client service—and stay close to every project.", small=True, position="62% 18%")}
     <main id="main">
-      <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you call stay connected to the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Rene leads construction in the field. Steph guides client communication, planning and design decisions. Together they connect what is discovered on site with the choices, scope and updates that keep the project moving.</p><p>That direct involvement matters when one visible issue turns out to affect a wall, a floor or the room beside it. Decisions are explained in context, approved before extras proceed and carried through to the final details.</p></div><div class="editorial-media reveal"><img src="/rene-steph-london-ontario.jpg" alt="Rene and Steph Hekman standing together beside the London Canada sign" loading="lazy"><span>Rene &amp; Steph Hekman · London, Ontario</span></div></div></section>
+      <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you call stay connected to the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Rene leads construction in the field. Steph leads customer communication, sales, project planning and design ideas, with close attention to the small details that matter to each customer. Together they connect what is discovered on site with the choices, scope and updates that keep the project moving.</p><p>Steph’s construction knowledge also comes from lived experience. She worked alongside Rene as they gutted and renovated every space in their Hilltop home, learning how design choices, sequencing, budget and day-to-day life connect during a whole-home transformation.</p><p>That direct involvement matters when one visible issue turns out to affect a wall, a floor or the room beside it. Decisions are explained in context, approved before extras proceed and carried through to the final details.</p></div><div class="editorial-media reveal"><img src="/rene-steph-london-ontario.jpg" alt="Rene and Steph Hekman standing together beside the London Canada sign" loading="lazy"><span>Rene &amp; Steph Hekman · London, Ontario</span></div></div></section>
       <section class="section section-charcoal" id="hekman-promise"><div class="wrap">{section_heading("The Hekman Promise", "Clear expectations before the work. Direct accountability throughout it.", "This is the standard written into our project quotes—not a slogan added after the fact.")}<div class="values-grid"><article class="reveal"><h3>Honest advice &amp; transparent pricing</h3><p>The scope, allowances and assumptions are explained so you can make informed decisions.</p></article><article class="reveal"><h3>Respect for your property</h3><p>Protection, an organized job site, debris removal and final cleanup are part of professional workmanship.</p></article><article class="reveal"><h3>Approval before additional work</h3><p>If you request a change or a concealed condition affects the plan, the options are discussed and approved before work proceeds.</p></article><article class="reveal"><h3>A two-year workmanship guarantee</h3><p>Installation-related defects resulting from our workmanship are covered for two years from completion.</p></article></div></div></section>
-      <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene leads construction in the field—from opening walls and solving repair conditions to the practical preparation and finish work that make a renovation hold together. His role stays hands-on throughout the project.</p></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph guides client communication, project planning and design decisions. Her eye for how rooms connect shaped transformations such as the 1970s Westmount project, where layout, flooring, trim, doors and finishes had to read as one home.</p></div></article></div></section>
-      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Working across London.</h2><p><strong>Westmount, Byron, Oakridge, Riverbend, Hyde Park and beyond.</strong> We work with homeowners and property managers in communities throughout London and area.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
+      <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene brings 25 years of construction experience and leads the work in the field—from opening walls and understanding repair conditions to the preparation and finish details that make a renovation hold together.</p><ul class="person-facts"><li><strong>25 years in construction</strong><span>Hands-on renovation, repair and problem-solving experience.</span></li><li><strong>Home-inspection education</strong><span>Completed home-inspection education through Carson Dunlop in 2022. Rene has not practised as a home inspector, and Hekman Home Services does not provide home inspections or inspection reports. Real estate professionals ask him for a contractor’s perspective on visible renovation and repair concerns.</span></li><li><strong>Horticultural Technician</strong><span>Graduate of Humber College’s Horticultural Technician program, bringing added knowledge to exterior and landscape-related work.</span></li></ul></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph brings 20 years of sales and client-service experience, a strong eye for design and genuine attention to the small details that matter to each customer. She listens for what people are trying to achieve, offers practical ideas and keeps goals, scope and next steps connected.</p><ul class="person-facts"><li><strong>20 years in sales</strong><span>Careful listening, clear communication and a strong instinct for the customer experience.</span></li><li><strong>Hands-on renovation learning</strong><span>Steph worked alongside Rene as they gutted and renovated every space in their Hilltop home, gaining a practical understanding of construction sequencing and design decisions.</span></li><li><strong>Design perspective</strong><span>She contributes ideas for layout, flow, finish choices and the small details that help a space feel intentional and personal to the customer.</span></li><li><strong>Real estate background</strong><span>Steph has been a registered real estate salesperson since 2010. That experience adds another practical perspective on how homeowners weigh function, investment and future plans, while Hekman Home Services remains focused on construction.</span></li></ul></div></article></div></section>
+      <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Serving London &amp; St. Thomas.</h2><p><strong>Westmount, Byron, Oakridge, Riverbend, Hyde Park and beyond.</strong> We work with homeowners and property managers throughout London, in St. Thomas and in nearby communities.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>25 years of construction experience</strong><span>Rene brings practical renovation and repair knowledge directly to the work.</span><strong>20 years of client service</strong><span>Steph brings careful listening, practical ideas and attention to customer details.</span></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a room or repair in mind?</p><h2>Start with a few photos.</h2><p>No detailed plans required. Show us the space and tell us what you want to change, repair or create.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Rene and Steph Hekman together, with Rene wearing his tool belt")
+    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, bringing 25 years of construction and 20 years of sales experience to renovations and repairs across London and St. Thomas.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Rene and Steph Hekman together, with Rene wearing his tool belt")
 def build() -> None:
     write("index.html", homepage())
     write("services/index.html", services_page())
