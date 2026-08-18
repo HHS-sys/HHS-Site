@@ -509,6 +509,9 @@ def check() -> list[str]:
         if required.lower() not in about_page.lower():
             errors.append(f"About page is missing Hekman Promise detail: {required}")
 
+    if "fix it. sell it. celebrate it." in about_page.lower():
+        errors.append("About page contains the retired hard-sell slogan")
+
     positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
         errors.append("Homepage is missing the required all-London positioning statement")
