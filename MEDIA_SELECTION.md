@@ -3,15 +3,15 @@
 The actual optimized image files are provided separately in `Hekman_10x_Curated_Media.zip` for the Codex task. Do not substitute random photographs from the repository without checking the project continuity.
 
 ## Medway flooring and storage transformation
-The ZIP currently retains `winding-woods-...` technical filenames, but the public project name must use `Medway`, not the street name.
+The public project name must use `Medway`, never the former street-based label.
 
-- `winding-woods-closet-before.jpg`
-- `winding-woods-closet-relocation-progress.jpg`
-- `winding-woods-underlayment-prep.jpg`
-- `winding-woods-floor-installation.jpg`
-- `winding-woods-floor-door-transition.jpg`
+- `medway-closet-before.jpg`
+- `medway-closet-relocation-progress.jpg`
+- `medway-floor-door-transition.jpg`
+- `medway-finished-room.jpg`
+- `medway-finished-floor-detail.jpg`
 
-Use the transition image as the exact colour/material reference for any visual reconstruction. Do not use the current warm-brown reconstruction as final.
+These five files are the verified Medway set. `medway-underlayment-prep.jpg` and `medway-floor-installation.jpg` belong to a separate hardwood-installation project and must never be presented as Medway. Use the transition image as the exact colour/material reference; do not substitute or reconstruct an installation stage.
 
 ## Westmount porch and entry
 - `westmount-porch-work-in-progress.jpg`
@@ -45,18 +45,21 @@ Public location: **Melrose area, London, Ontario**. Do not publish a street addr
 - `melrose-exercise-room-finishing.jpg` — Rene completing ceiling and paint work
 - `melrose-exercise-room-after.jpg` — completed exercise room
 - `melrose-bathroom-tour.mp4` — 6.9-second, muted-on-load walkthrough; no autoplay and `preload="none"`
+- `melrose-bathroom-tour-poster.jpg` — person-free shower frame derived from the verified walkthrough, used only as the video poster
 
 The story must connect the moved bathroom, new utility room and exercise-room finish as one multi-space layout solution. It must not imply that every supplied progress image belongs in the public gallery.
 
 ### Hyde Park kitchen renewal
 
+- `project-119.jpg` — completed overview across the peninsula, used as the story hero
 - `hyde-park-kitchen-after.jpg` — strongest completed kitchen view
 - `hyde-park-pantry-and-appliance-layout.jpg` — pantry and reworked appliance arrangement
 - `hyde-park-sink-and-dishwasher.jpg` — sink, counter and added dishwasher
 - `hyde-park-kitchen-preparation.jpg` — selected room-protection proof
+- `project-122.jpg` — cabinet and layout stage before the counters and final surfaces
 - `hyde-park-backsplash-installation.jpg` — selected tile-progress proof
 
-The documented under-$20,000 result belongs only to this project. It is not a package price or guarantee. Other near-duplicate appliance and floor-protection photographs remain in the source set and were intentionally not published.
+The owner confirmed that the matching Hyde Park views belong to this project. Cabinetry, wall geometry, window placement and the peninsula align across the preparation, cabinet/layout and completed stages. The documented under-$20,000 result belongs only to this project. It is not a package price or guarantee. Other near-duplicate appliance and floor-protection photographs remain in the source set and were intentionally not published.
 
 ### Blackfriars investigation and restoration
 
@@ -109,7 +112,7 @@ Selected originals are preserved in the private task workspace rather than the p
 
 Keep Pond Mills separate from both the salon and the Medway flooring/storage story. The identical kitchen doorway, oak cabinetry, white range, threshold and adjoining-room details verify the supplied flooring sequence. Lead with `pond-mills-kitchen-floor-after.jpg`, pair it with `pond-mills-kitchen-floor-before.jpg`, and use `pond-mills-basement-floor-after.jpg` as the second completed payoff.
 
-The progress order is materials staged, old-floor removal, prepared substrate, plank installation and near-completion. `pond-mills-basement-floor-nearing-completion.jpg` must remain labelled as progress because edge, threshold and baseboard details were not yet finished. The clean `pond-mills-flooring-finished-tour.mp4` is silent, compressed and tied to the same rooms. Do not publish the watermarked social edit.
+The progress order is materials staged, old-floor removal, prepared substrate, plank installation and near-completion. `pond-mills-basement-floor-nearing-completion.jpg` must remain labelled as progress because edge, threshold and baseboard details were not yet finished. The clean `pond-mills-flooring-finished-tour.mp4` is silent, compressed and tied to the same rooms. `pond-mills-flooring-walkthrough.jpg` and `pond-mills-flooring-tour-poster.jpg` are verified stills derived from that video for the hero and player poster. Do not publish the watermarked social edit.
 
 The homeowner also confirmed wet window-well, window-trim and surrounding frame-assembly concerns, removal of a problem exterior weeping pipe, localized grading and downspout work. No supplied image documents the completed exterior response. Describe that work accurately in copy, but never caption the flooring photographs as drainage proof or imply a photographed exterior before-and-after sequence.
 
@@ -117,7 +120,7 @@ The homeowner also confirmed wet window-well, window-trim and surrounding frame-
 
 `multi-unit-decks-before.jpg` documents the weathered connected rear decks. Existing project assets `project-101.jpg`, `project-100.jpg`, `project-103.jpg` and `project-104.jpg` document open construction and completed deck-and-guard surfaces at the same brick row. The building geometry, bay projections and deck spacing support continuity.
 
-Use the silent `multi-unit-deck-repair-sequence.mp4` only with an intentional completed-deck poster. Keep the property anonymous and do not add permit, engineering, code-compliance or full-replacement claims that the media does not prove.
+Use the silent `multi-unit-deck-repair-sequence.mp4` only with the project-specific `multi-unit-deck-tour-poster.jpg` derived from that video. Keep the property anonymous and do not add permit, engineering, code-compliance or full-replacement claims that the media does not prove.
 
 ### Fence-post installation in progress
 

@@ -294,6 +294,9 @@ def check() -> list[str]:
             for video in collection.get("videos", []):
                 if not (ROOT / video).is_file():
                     errors.append(f"media-catalog.json: missing collection video {video}")
+            for still in collection.get("derivedStills", []):
+                if not (ROOT / still).is_file():
+                    errors.append(f"media-catalog.json: missing derived still {still}")
     except (OSError, json.JSONDecodeError) as exc:
         errors.append(f"invalid media-catalog.json: {exc}")
 
@@ -315,7 +318,7 @@ def check() -> list[str]:
         errors.append("unexpected image entries found")
 
     projects_html = (ROOT / "projects/index.html").read_text(encoding="utf-8")
-    gallery_count = projects_html.count('class="project-card reveal"')
+    gallery_count = len(re.findall(r'<figure\b[^>]*class="[^"]*\bproject-card\b[^"]*"', projects_html))
     expected_gallery_count = media_catalog.get("displayStrategy", {}).get("projectGalleryPhotographs") if "media_catalog" in locals() else None
     if expected_gallery_count is not None and gallery_count != expected_gallery_count:
         errors.append(f"projects/index.html: expected {expected_gallery_count} gallery photographs, found {gallery_count}")
@@ -323,7 +326,7 @@ def check() -> list[str]:
     visible_card_copy: list[tuple[str, str]] = []
     for page, markup in (("index.html", (ROOT / "index.html").read_text(encoding="utf-8")), ("projects/index.html", projects_html)):
         blocks = re.findall(r'<a class="[^"]*\bstory-card\b[^"]*"[^>]*>(.*?)</a>', markup, re.DOTALL)
-        blocks += re.findall(r'<figure class="project-card reveal"[^>]*>(.*?)</figure>', markup, re.DOTALL)
+        blocks += re.findall(r'<figure\b[^>]*class="[^"]*\bproject-card\b[^"]*"[^>]*>(.*?)</figure>', markup, re.DOTALL)
         for block in blocks:
             copy = re.sub(r"<[^>]+>", " ", block)
             copy = " ".join(copy.split())
@@ -394,6 +397,30 @@ def check() -> list[str]:
         if private_reference.lower() in public_html.lower():
             errors.append(f"public HTML exposes private salon reference: {private_reference}")
 
+    for page in PRIMARY:
+        if not page.exists():
+            continue
+        markup = page.read_text(encoding="utf-8")
+        main_match = re.search(r"<main\b[^>]*>(.*?)</main>", markup, re.DOTALL)
+        main_markup = main_match.group(1) if main_match else markup
+        main_sources = re.findall(r'<img\b[^>]*\bsrc="([^"]+)"', main_markup)
+        repeated_main_sources = [source for source, count in Counter(main_sources).items() if count > 1]
+        if repeated_main_sources:
+            errors.append(f"{page.relative_to(ROOT)}: main content repeats image sources {repeated_main_sources}")
+        image_sources = {image.get("src") for image in parsed[page].images if image.get("src")}
+        repeated_posters = [
+            video.get("poster")
+            for video in parsed[page].videos
+            if video.get("poster") and video.get("poster") in image_sources
+        ]
+        if repeated_posters:
+            errors.append(f"{page.relative_to(ROOT)}: video poster repeats a page image {repeated_posters}")
+        for related_block in re.findall(r'<div class="service-grid related-grid">(.*?)</div>', markup, re.DOTALL):
+            sources = re.findall(r'<img src="([^"]+)"', related_block)
+            duplicates = [source for source, count in Counter(sources).items() if count > 1]
+            if duplicates:
+                errors.append(f"{page.relative_to(ROOT)}: related service cards repeat image sources {duplicates}")
+
     optimized_videos = media_catalog.get("videoDelivery", {}).get("optimizedFiles", []) if "media_catalog" in locals() else []
     for video in optimized_videos:
         path = ROOT / video
@@ -403,6 +430,7 @@ def check() -> list[str]:
             errors.append(f"optimized video exceeds 2 MB: {video}")
 
     medway_page = (ROOT / "projects/medway-flooring-storage/index.html").read_text(encoding="utf-8")
+    bathroom_page = (ROOT / "projects/glass-block-bathroom-conversion/index.html").read_text(encoding="utf-8")
     porch_page = (ROOT / "projects/westmount-porch-entry/index.html").read_text(encoding="utf-8")
     westmount_page = (ROOT / "projects/westmount-1970s-transformation/index.html").read_text(encoding="utf-8")
     melrose_page = (ROOT / "projects/melrose-bathroom-layout/index.html").read_text(encoding="utf-8")
@@ -414,6 +442,9 @@ def check() -> list[str]:
     about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
     contact_page = (ROOT / "contact/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+    kitchens_page = (ROOT / "services/kitchens/index.html").read_text(encoding="utf-8")
+    basements_page = (ROOT / "services/basements/index.html").read_text(encoding="utf-8")
+    flooring_page = (ROOT / "services/flooring/index.html").read_text(encoding="utf-8")
 
     for required in (
         "Carpet was removed from three rooms",
@@ -425,6 +456,54 @@ def check() -> list[str]:
             errors.append(f"Medway project page is missing required detail: {required}")
     if "winding" in medway_page.lower():
         errors.append("Medway project page exposes the former street-based project label")
+    for wrong_asset in ("medway-underlayment-prep.jpg", "medway-floor-installation.jpg"):
+        if wrong_asset in medway_page or wrong_asset in flooring_page:
+            errors.append(f"Medway or flooring page uses misattributed separate-project asset: {wrong_asset}")
+    medway_collection = next(
+        (item for item in media_catalog.get("verifiedCollections", []) if item.get("id") == "medway-flooring-storage"),
+        {},
+    )
+    for wrong_asset in ("medway-underlayment-prep.jpg", "medway-floor-installation.jpg"):
+        if wrong_asset in medway_collection.get("assets", []):
+            errors.append(f"media-catalog.json still lists misattributed Medway asset: {wrong_asset}")
+
+    for duplicate_alias, service_markup in (
+        ("project-132.jpg", kitchens_page),
+        ("project-067.jpg", basements_page),
+    ):
+        if duplicate_alias in service_markup:
+            errors.append(f"service gallery still presents a duplicate image alias: {duplicate_alias}")
+
+    popcorn_page = (ROOT / "projects/popcorn-ceiling-transformation/index.html").read_text(encoding="utf-8")
+    if "project-014.jpg" in popcorn_page:
+        errors.append("Popcorn story misattributes the Blackfriars restoration image project-014.jpg")
+    if "project-138.jpg" in westmount_page:
+        errors.append("Phased Westmount story repeats a demolition image through the project-138.jpg alias")
+    handyman_page = (ROOT / "services/handyman-repairs/index.html").read_text(encoding="utf-8")
+    if "Painting and finishing work in a bathroom" in handyman_page:
+        errors.append("Handyman gallery mislabels closet installation as bathroom painting")
+
+    for required in (
+        "Westmount · completed bathroom",
+        "These conditions were unusual and are not what every bathroom renovation uncovers",
+        "Hidden junction boxes and wiring",
+        "missing backing and support",
+        "areas without insulation",
+        "paper-wasp nest",
+        "pest-control specialist",
+        "appropriate licensed electrical trade",
+        "blended drywall",
+        "Anonymous Westmount homeowner",
+        "Love! Thank you so much!",
+        "You guys deserve it!",
+    ):
+        if required.lower() not in bathroom_page.lower():
+            errors.append(f"Westmount bathroom page is missing required detail: {required}")
+    for private_reference in ("dunsmoor", "brett"):
+        if private_reference in bathroom_page.lower():
+            errors.append(f"Westmount bathroom page exposes a private reference: {private_reference}")
+    if '/projects/glass-block-bathroom-conversion/' not in (ROOT / "projects/index.html").read_text(encoding="utf-8"):
+        errors.append("Projects page does not feature or link to the Westmount bathroom story")
 
     for required in (
         "repeat Westmount customer",
@@ -541,12 +620,17 @@ def check() -> list[str]:
 
     if "fix it. sell it. celebrate it." in about_page.lower():
         errors.append("About page contains the retired hard-sell slogan")
+    if "Steph &amp; Rene Hekman" not in about_page or "owner-photo-block" not in about_page:
+        errors.append("About page owner section must show the full portrait with Steph and Rene named in visual order")
+    if "Rene &amp; Steph Hekman · London, Ontario" in about_page:
+        errors.append("About page still uses the old owner-photo overlay caption")
 
     positioning = "Based in Westmount and working across London"
     if positioning not in homepage:
         errors.append("Homepage is missing the required all-London positioning statement")
     popcorn_card = re.search(
         r'<a class="service-card reveal" href="/services/popcorn-ceiling-removal/">\s*'
+        r'<span class="service-card-media"[^>]*>\s*'
         r'<img src="/project-016\.jpg" alt="Original popcorn-textured ceiling before removal and smooth-ceiling finishing"',
         homepage,
     )

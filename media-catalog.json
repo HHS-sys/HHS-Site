@@ -1,5 +1,5 @@
 {
-  "catalogVersion": "2026-08-17",
+  "catalogVersion": "2026-08-18",
   "purpose": "A maintainable map of verified Hekman Home Services project media used by the rebuilt website.",
   "preservation": {
     "numberedProjectSeries": {
@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 59,
+    "projectGalleryPhotographs": 55,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
@@ -167,13 +167,15 @@
       "assets": [
         "medway-closet-before.jpg",
         "medway-closet-relocation-progress.jpg",
-        "medway-underlayment-prep.jpg",
-        "medway-floor-installation.jpg",
         "medway-floor-door-transition.jpg",
         "medway-finished-room.jpg",
         "medway-finished-floor-detail.jpg"
       ],
-      "continuityNote": "Anonymous Medway project. The real doorway, flooring and transition photograph is the exact installed flooring reference. No reconstructed room image is used on the public project page."
+      "continuityNote": "Anonymous Medway project. The five listed assets are the verified public set. The doorway, flooring and transition photograph is the exact installed flooring reference. No reconstructed room image is used on the public project page.",
+      "excludedMisattributedAssets": {
+        "medway-underlayment-prep.jpg": "Separate hardwood-installation project; never present as Medway.",
+        "medway-floor-installation.jpg": "Separate hardwood-installation project; never present as Medway."
+      }
     },
     {
       "id": "westmount-porch-entry",
@@ -273,7 +275,9 @@
         "pond-mills-basement-subfloor-prep.jpg",
         "pond-mills-basement-floor-installation.jpg",
         "pond-mills-basement-floor-nearing-completion.jpg",
-        "pond-mills-basement-floor-after.jpg"
+        "pond-mills-basement-floor-after.jpg",
+        "pond-mills-flooring-walkthrough.jpg",
+        "pond-mills-flooring-tour-poster.jpg"
       ],
       "sequences": [
         {
@@ -291,7 +295,7 @@
         }
       ],
       "video": "pond-mills-flooring-finished-tour.mp4",
-      "continuityNote": "The doorway, oak-cabinet layout, white range, kitchen threshold and adjoining-room details confirm the flooring sequence. The photographs document the interior flooring only. The owner-confirmed exterior scope is described in copy and is not presented as a photographed before-and-after sequence."
+      "continuityNote": "The doorway, oak-cabinet layout, white range, kitchen threshold and adjoining-room details confirm the flooring sequence. The walkthrough and poster stills are derived from the verified silent project video. The photographs document the interior flooring only. The owner-confirmed exterior scope is described in copy and is not presented as a photographed before-and-after sequence."
     },
     {
       "id": "multi-unit-deck-renewal",
@@ -322,6 +326,9 @@
         }
       ],
       "video": "multi-unit-deck-repair-sequence.mp4",
+      "derivedStills": [
+        "multi-unit-deck-tour-poster.jpg"
+      ],
       "continuityNote": "The brick row, bay projections, deck spacing and rear elevations anchor the documented stages to the same anonymous multi-unit property. No exact location, street, permit, engineering or full-replacement claim is published."
     },
     {
@@ -417,7 +424,10 @@
         "kitchenette-after-detail.jpg",
         "kitchenette-after-wide.jpg"
       ],
-      "video": "kitchenette-finish-tour.mp4"
+      "video": "kitchenette-finish-tour.mp4",
+      "derivedStills": [
+        "kitchenette-tour-poster.jpg"
+      ]
     },
     {
       "id": "popcorn-ceiling-transformation",
@@ -481,11 +491,15 @@
         "melrose-exercise-room-after.jpg"
       ],
       "video": "melrose-bathroom-tour.mp4",
-      "privacyNote": "No homeowner name or location more precise than the Melrose area is published."
+      "derivedStills": [
+        "melrose-bathroom-tour-poster.jpg"
+      ],
+      "privacyNote": "No homeowner name or location more precise than the Melrose area is published. The video poster is a project-specific shower frame with no identifiable person."
     },
     {
       "id": "hyde-park-kitchen-renewal",
       "route": "/projects/hyde-park-kitchen-renewal/",
+      "publicLocation": "Hyde Park, London, Ontario",
       "subjects": [
         "cabinet refacing",
         "new pantry",
@@ -495,12 +509,15 @@
         "sourced counters and sink"
       ],
       "assets": [
+        "project-119.jpg",
         "hyde-park-kitchen-after.jpg",
         "hyde-park-pantry-and-appliance-layout.jpg",
         "hyde-park-sink-and-dishwasher.jpg",
         "hyde-park-kitchen-preparation.jpg",
+        "project-122.jpg",
         "hyde-park-backsplash-installation.jpg"
       ],
+      "continuityNote": "Owner-confirmed Hyde Park sequence. Matching cabinetry, wall geometry, window placement and peninsula alignment show preparation, cabinet/layout progress and the completed room. Project-119 is a separate completed overview; no identifiable client is shown.",
       "budgetNote": "This project was completed for under $20,000. It is not a fixed package or guarantee."
     },
     {
@@ -528,11 +545,15 @@
       "route": "/projects/glass-block-bathroom-conversion/",
       "subjects": [
         "jetted-tub removal",
-        "wall and floor access",
-        "insulation",
+        "unusual concealed electrical conditions",
+        "missing backing and support around part of the window assembly",
+        "missing insulation in opened areas",
+        "paper-wasp nest handled by a pest-control specialist",
         "shower preparation",
         "tile",
-        "sliding glass enclosure"
+        "sliding glass enclosure",
+        "vanity and toilet",
+        "blended drywall, trim and paint"
       ],
       "sequence": [
         "bathroom-glass-block-before.jpg",
@@ -540,10 +561,17 @@
         "bathroom-glass-block-open-wall.jpg",
         "bathroom-walnut-vanity-after.jpg"
       ],
+      "derivedStills": [
+        "bathroom-vanity-toilet-finish.jpg",
+        "bathroom-transformation-poster.jpg"
+      ],
       "videos": [
         "bathroom-glass-block-transformation.mp4",
         "bathroom-finish-details.mp4"
-      ]
+      ],
+      "roleNote": "Hekman documented the concealed conditions, coordinated access and completed the surrounding bathroom rebuild. A pest-control specialist handled the paper-wasp nest, and the electrical condition was referred to the appropriate licensed electrical trade before the assembly was closed.",
+      "privacyNote": "Public location is Westmount, London, Ontario. Do not publish the street name, the client's name or private message screenshot. The transformation video is trimmed before identifiable bystanders appear. The vanity-and-toilet hero still is derived from the verified finish video and contains no identifiable person.",
+      "testimonialNote": "The client approved an anonymized excerpt of the supplied feedback for publication."
     }
   ],
   "serviceCoverage": {
