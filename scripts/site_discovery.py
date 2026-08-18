@@ -15,7 +15,7 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     {chr(10).join(f'- {item["name"]}: {BASE_URL}{service_url(slug)}' for slug, item in SERVICES.items())}
 
     ## Service area
-    Based in Westmount. Working throughout London and nearby communities—north, south, east and west. This includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Old South and other London neighbourhoods.
+    Based in Westmount. Working throughout London and nearby communities—north, south, east and west. This includes Westmount, Sunningdale, Old North, Stoneybrook, Byron, Oakridge, Riverbend, Medway, Hyde Park, Pond Mills, Old South and other London neighbourhoods.
 
     ## Selected project stories
     - Melrose-area bathroom and lower-level layout: {BASE_URL}/projects/melrose-bathroom-layout/
@@ -33,6 +33,10 @@ def llms_text(BASE_URL, PHONE_DISPLAY, EMAIL, SERVICES, service_url, INSTAGRAM, 
     - Hilltop whole-home transformation: {BASE_URL}/projects/hilltop-home-transformation/
     - Anonymous London salon moisture investigation and interior restoration: {BASE_URL}/projects/commercial-salon-repair/
       Moisture at the trim was documented before affected wall material was removed. The connected wall and ceiling surfaces were rebuilt and finished, returning the working salon to a bright client-ready result.
+    - Pond Mills connected home repairs and flooring: {BASE_URL}/projects/pond-mills-home-repairs/
+      When the home had not sold, the homeowner asked Hekman Home Services to take a closer look. The documented interior sequence follows old-floor removal, preparation, plank installation and completed rooms. The confirmed exterior scope included removing a problem weeping pipe, localized grading and downspout work; those exterior items are described but not presented as a photographed sequence.
+    - Anonymous London-area multi-unit deck renewal: {BASE_URL}/projects/multi-unit-deck-renewal/
+      Weathered connected rear decks were documented before coordinated construction work. Open construction, board fitting and completed deck and guard surfaces are shown without naming the property.
     - Office kitchen renewal, before through completion: {BASE_URL}/projects/kitchen-renewal/
     - Popcorn ceiling transformation: {BASE_URL}/projects/popcorn-ceiling-transformation/
     - Jetted-tub to glass-shower bathroom conversion: {BASE_URL}/projects/glass-block-bathroom-conversion/

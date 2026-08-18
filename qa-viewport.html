@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Responsive QA harness</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; color: #eef3f8; background: #101820; font: 14px/1.4 system-ui, sans-serif; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 18px; max-width: 980px; margin: 0 auto 20px; }
+    label { display: flex; align-items: center; gap: 10px; }
+    select { min-height: 42px; padding: 0 12px; border: 1px solid #6c7b88; border-radius: 8px; color: #101820; background: #fff; }
+    main { display: flex; align-items: flex-start; justify-content: center; gap: 28px; overflow: auto; }
+    figure { margin: 0; }
+    figcaption { margin-bottom: 8px; color: #a8d9ee; font-weight: 700; }
+    iframe { display: block; border: 1px solid #6c7b88; background: #fff; box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+    .iphone-390 { width: 390px; height: 844px; }
+    .iphone-430 { width: 430px; height: 932px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Hekman responsive QA</strong>
+    <label>Route
+      <select id="route">
+        <option value="/">Homepage</option>
+        <option value="/projects/">Our Work</option>
+        <option value="/projects/pond-mills-home-repairs/">Pond Mills</option>
+        <option value="/projects/multi-unit-deck-renewal/">Multi-unit decks</option>
+        <option value="/projects/commercial-salon-repair/">Salon restoration</option>
+        <option value="/about/">About</option>
+        <option value="/services/decks-exterior/">Decks service</option>
+      </select>
+    </label>
+  </header>
+  <main>
+    <figure><figcaption>390 × 844</figcaption><iframe class="iphone-390" title="390 pixel responsive preview"></iframe></figure>
+    <figure><figcaption>430 × 932</figcaption><iframe class="iphone-430" title="430 pixel responsive preview"></iframe></figure>
+  </main>
+  <script>
+    const picker = document.querySelector('#route');
+    const frames = [...document.querySelectorAll('iframe')];
+    const requested = new URLSearchParams(location.search).get('path');
+    if ([...picker.options].some(option => option.value === requested)) picker.value = requested;
+    const load = () => frames.forEach(frame => { frame.src = picker.value; });
+    picker.addEventListener('change', load);
+    load();
+  </script>
+</body>
+</html>

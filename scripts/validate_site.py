@@ -212,6 +212,9 @@ def check() -> list[str]:
                 errors.append(f"{page.relative_to(ROOT)}: video must use preload=none")
             if "autoplay" in video:
                 errors.append(f"{page.relative_to(ROOT)}: video must not autoplay")
+            for required_attribute in ("controls", "playsinline", "poster", "aria-label"):
+                if required_attribute not in video:
+                    errors.append(f"{page.relative_to(ROOT)}: video is missing {required_attribute}")
 
     for value, count in Counter(titles).items():
         if count > 1:
@@ -244,7 +247,10 @@ def check() -> list[str]:
                 if not (ROOT / filename).is_file():
                     errors.append(f"media-catalog.json: missing collection asset {filename}")
             for sequence in collection.get("sequences", []):
-                for stage in sequence.get("stages", []):
+                stages = sequence.get("stages", sequence.get("assets", []))
+                if not stages:
+                    errors.append(f"media-catalog.json: sequence has no stages or assets in {collection.get('id', '<unknown>')}")
+                for stage in stages:
                     filename = stage if isinstance(stage, str) else stage.get("asset")
                     if filename and not (ROOT / filename).is_file():
                         errors.append(f"media-catalog.json: missing sequence asset {filename}")
@@ -327,6 +333,13 @@ def check() -> list[str]:
 
     for project_page in sorted((ROOT / "projects").glob("*/index.html")):
         route = f"/{project_page.relative_to(ROOT).parent.as_posix()}/"
+        project_markup = project_page.read_text(encoding="utf-8")
+        if '"@type":"Article"' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story is missing Article structured data")
+        if '"@type":"BreadcrumbList"' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story is missing BreadcrumbList structured data")
+        if '<meta property="og:type" content="article">' not in project_markup:
+            errors.append(f"{project_page.relative_to(ROOT)}: project story must use og:type article")
         inbound_pages = {
             source_page
             for source_page, parser in parsed.items()
@@ -347,13 +360,8 @@ def check() -> list[str]:
         if private_reference.lower() in public_html.lower():
             errors.append(f"public HTML exposes private salon reference: {private_reference}")
 
-    for video in (
-        "kitchenette-finish-tour.mp4",
-        "drywall-potlight-progress.mp4",
-        "bathroom-glass-block-transformation.mp4",
-        "bathroom-finish-details.mp4",
-        "melrose-bathroom-tour.mp4",
-    ):
+    optimized_videos = media_catalog.get("videoDelivery", {}).get("optimizedFiles", []) if "media_catalog" in locals() else []
+    for video in optimized_videos:
         path = ROOT / video
         if not path.is_file():
             errors.append(f"missing optimized video {video}")
@@ -367,6 +375,8 @@ def check() -> list[str]:
     hyde_park_page = (ROOT / "projects/hyde-park-kitchen-renewal/index.html").read_text(encoding="utf-8")
     blackfriars_page = (ROOT / "projects/blackfriars-leak-restoration/index.html").read_text(encoding="utf-8")
     salon_page = (ROOT / "projects/commercial-salon-repair/index.html").read_text(encoding="utf-8")
+    pond_mills_page = (ROOT / "projects/pond-mills-home-repairs/index.html").read_text(encoding="utf-8")
+    deck_page = (ROOT / "projects/multi-unit-deck-renewal/index.html").read_text(encoding="utf-8")
     about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
 
@@ -426,7 +436,7 @@ def check() -> list[str]:
         "salon-affected-wallboard.jpg",
         "salon-wall-ceiling-rebuild.jpg",
         "salon-restored-wall.jpg",
-        "salon-after-1.jpg",
+        "salon-restored-wall-detail.jpg",
         '"@type":"Article"',
     ):
         if required.lower() not in salon_page.lower():
@@ -434,6 +444,48 @@ def check() -> list[str]:
     for prohibited in ("pixie", "paige", "salon-after-2.jpg", "mould", "mold"):
         if prohibited.lower() in salon_page.lower():
             errors.append(f"Salon project page exposes an unsupported or private reference: {prohibited}")
+
+    for required in (
+        "home had not sold",
+        "wet conditions around window wells",
+        "problem weeping pipe",
+        "localized grading",
+        "downspout",
+        "pond-mills-kitchen-floor-before.jpg",
+        "pond-mills-kitchen-floor-after.jpg",
+        "pond-mills-basement-subfloor-prep.jpg",
+        "pond-mills-basement-floor-installation.jpg",
+        "pond-mills-basement-floor-after.jpg",
+        "pond-mills-flooring-finished-tour.mp4",
+    ):
+        if required.lower() not in pond_mills_page.lower():
+            errors.append(f"Pond Mills project page is missing required detail: {required}")
+    for prohibited in ("sold after", "then sold", "helped the home sell", "salon-"):
+        if prohibited.lower() in pond_mills_page.lower():
+            errors.append(f"Pond Mills project page contains an unsupported or mixed-job reference: {prohibited}")
+
+    for required in (
+        "multi-unit-decks-before.jpg",
+        "project-101.jpg",
+        "project-100.jpg",
+        "project-104.jpg",
+        "multi-unit-deck-repair-sequence.mp4",
+        "anonymous multi-unit property",
+    ):
+        if required.lower() not in deck_page.lower():
+            errors.append(f"Multi-unit deck page is missing required detail: {required}")
+    for prohibited in ("permit", "code compliant", "engineered", "full replacement"):
+        if prohibited.lower() in deck_page.lower():
+            errors.append(f"Multi-unit deck page makes an unsupported claim: {prohibited}")
+
+    numbered_markup = re.compile(r"<span>0([1-9])</span>")
+    for page in PRIMARY:
+        if not page.exists():
+            continue
+        count = len(numbered_markup.findall(page.read_text(encoding="utf-8")))
+        expected = 4 if page == ROOT / "index.html" else 0
+        if count != expected:
+            errors.append(f"{page.relative_to(ROOT)}: expected {expected} numbered process markers, found {count}")
 
     for required in (
         'id="hekman-promise"',

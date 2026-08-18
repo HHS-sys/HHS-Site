@@ -16,7 +16,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260817-1"
+ASSET_VERSION = "20260817-2"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -34,6 +34,7 @@ AREAS = [
     "Medway",
     "Hyde Park",
     "Old East Village",
+    "Pond Mills",
     "Masonville",
     "Old South",
     "St. Thomas",
@@ -183,11 +184,11 @@ def schema(path: str, image: str) -> str:
             }
         )
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, separators=(",", ":"))
-def head(title: str, description: str, path: str, image: str, *, indexable: bool = True) -> str:
+def head(title: str, description: str, path: str, image: str, *, indexable: bool = True, image_alt: str | None = None) -> str:
     canonical = f"{BASE_URL}{path}"
     robots = "index,follow,max-image-preview:large" if indexable else "noindex,follow"
     structured_data = f'<script type="application/ld+json">{schema(path, image)}</script>' if indexable else ""
-    social_image_alt = PROJECT_DETAILS.get(path, {}).get("image_alt", "Completed work by Hekman Home Services Inc.")
+    social_image_alt = image_alt or PROJECT_DETAILS.get(path, {}).get("image_alt", "Hekman Home Services Inc.")
     return f"""
     <head>
       <meta charset="utf-8">
@@ -200,7 +201,7 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <link rel="preload" href="/{image}" as="image" fetchpriority="high">
       <link rel="icon" href="/hekman-logo.jpg" type="image/jpeg">
       <link rel="apple-touch-icon" href="/hekman-logo.jpg">
-      <meta property="og:type" content="website">
+      <meta property="og:type" content="{'article' if path in PROJECT_DETAILS else 'website'}">
       <meta property="og:locale" content="en_CA">
       <meta property="og:site_name" content="Hekman Home Services Inc.">
       <meta property="og:title" content="{title}">
@@ -212,6 +213,7 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <meta name="twitter:title" content="{title}">
       <meta name="twitter:description" content="{html.escape(description, quote=True)}">
       <meta name="twitter:image" content="{BASE_URL}/{image}">
+      <meta name="twitter:image:alt" content="{html.escape(social_image_alt, quote=True)}">
       <link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
       <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css?v={ASSET_VERSION}">
       {structured_data}
@@ -273,11 +275,11 @@ def footer() -> str:
     </nav>
     <script src="/main.js?v={ASSET_VERSION}" defer></script>
     """
-def page(title: str, description: str, path: str, image: str, current: str, body: str, body_class: str = "", *, indexable: bool = True) -> str:
+def page(title: str, description: str, path: str, image: str, current: str, body: str, body_class: str = "", *, indexable: bool = True, image_alt: str | None = None) -> str:
     body = polish_editorial_markup(body)
     return f"""<!doctype html>
     <html lang="en">
-    {head(title, description, path, image, indexable=indexable)}
+    {head(title, description, path, image, indexable=indexable, image_alt=image_alt)}
     <body class="{body_class}">
       {header(current)}
       {body}
@@ -376,13 +378,22 @@ def project_spotlight(slug: str) -> str:
             "See the Westmount porch and entry",
         ),
         "decks-exterior": (
-            "Westmount exterior proof",
-            "A cleaner porch, a brighter entry and a more modern welcome",
-            "Careful progress work, refreshed exterior lines and lighting changed how this repeat customer’s home feels from the street—during the day and after dark.",
-            "westmount-porch-after-night.jpg",
-            "Finished Westmount porch and entry illuminated at night",
-            "/projects/westmount-porch-entry/",
-            "See the porch revitalization",
+            "Multi-unit exterior proof",
+            "A connected deck renewal, documented from weathered wood to finished row",
+            "The repeated rear decks were treated as one coordinated exterior scope. The story follows the existing condition, open construction work and the completed deck and guard surfaces.",
+            "project-104.jpg",
+            "Completed row of renewed rear decks at an anonymous multi-unit property",
+            "/projects/multi-unit-deck-renewal/",
+            "See the multi-unit deck renewal",
+        ),
+        "basements": (
+            "Pond Mills project proof",
+            "A repair list that became a connected plan",
+            "A closer inspection connected interior flooring work with several moisture-related concerns. The documented floor sequence shows the same rooms from removal and preparation to their completed finish.",
+            "pond-mills-basement-floor-after.jpg",
+            "Completed light plank flooring and baseboards in a Pond Mills lower-level room",
+            "/projects/pond-mills-home-repairs/",
+            "See the Pond Mills repair story",
         ),
         "kitchens": (
             "Hyde Park project proof",
@@ -517,7 +528,7 @@ def homepage() -> str:
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture what could work better?</p><h2>Start with the room—or repair—you keep thinking about.</h2><p>Send a few photos—no detailed plans required. A short note about the room, repair or result you have in mind is enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>
     """
-    return page("Renovations & Repairs London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home")
+    return page("Renovations & Repairs London ON | Hekman", "Based in Westmount, Hekman Home Services provides thoughtful renovations, flooring, drywall, handyman work and restorative repairs throughout London and nearby communities.", "/", "hilltop-kitchen-wide.jpg", "home", body, "home", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
 def services_page() -> str:
     cards = "".join(service_card(slug, compact=True, variant=1) for slug in SERVICE_DISPLAY_ORDER)
     body = f"""
@@ -526,7 +537,7 @@ def services_page() -> str:
       <section class="section section-paper"><div class="wrap">{section_heading("Explore services", "From one repair to a complete transformation.", "Some projects fit one category. Others connect several. Explore the main services below, or send the whole scope and we will review it together.")}<div class="service-grid service-grid-compact">{cards}</div></div></section>
       <section class="section section-charcoal"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/project-011.jpg" alt="Drywall preparation and finishing in progress" loading="lazy"><span>The work behind the finish</span></div><div class="editorial-copy reveal"><p class="eyebrow">Not sure where it fits?</p><h2>Describe the complete project.</h2><p>Send a few photos—no detailed plans required. Tell us what you want to change or repair, and we will help connect the scope.</p><a class="button button-primary" href="/contact/#quote">Tell Us About It</a></div></div></section>
     </main>"""
-    return page("Renovation & Handyman Services London ON | Hekman", "Explore renovations, flooring, drywall, painting, pot lights, plumbing fixtures, handyman repairs, decks, fences and commercial maintenance in London, Ontario.", "/services/", "project-129.jpg", "services", body)
+    return page("Renovation & Handyman Services London ON | Hekman", "Explore renovations, flooring, drywall, painting, pot lights, plumbing fixtures, handyman repairs, decks, fences and commercial maintenance in London, Ontario.", "/services/", "project-129.jpg", "services", body, image_alt="Completed London kitchen renovation with an island and pendant lighting")
 def bathroom_showcase() -> str:
     return f"""
     <section class="section section-paper bathroom-showcase">
@@ -644,7 +655,11 @@ def commercial_showcase() -> str:
     """
 def service_page(slug: str) -> str:
     item = SERVICES[slug]
-    scope = "".join(f'<article class="proof-card reveal"><span>0{i}</span><h3>{title}</h3><p>{text}</p></article>' for i, (title, text) in enumerate(item["scope"], 1))
+    planning_eyebrow = item.get("planning_eyebrow", "Thoughtful project planning")
+    planning_title = item.get("planning_title", "Built around what the space needs.")
+    scope_title = item.get("scope_title", "A complete scope, not disconnected pieces.")
+    scope_text = item.get("scope_text", "The exact work depends on existing conditions, selected materials and the result you want.")
+    scope = "".join(f'<article class="proof-card reveal"><h3>{title}</h3><p>{text}</p></article>' for title, text in item["scope"])
     bullets = "".join(f"<li>{bullet}</li>" for bullet in item["bullets"])
     gallery = "".join(f'<figure class="reveal"><img src="/{src}" alt="{html.escape(alt, quote=True)}" loading="lazy" decoding="async"><figcaption>{caption}</figcaption></figure>' for src, alt, caption in item["gallery"])
     faqs = "".join(f'<details class="reveal"><summary>{question}</summary><p>{answer}</p></details>' for question, answer in item["faq"])
@@ -667,8 +682,8 @@ def service_page(slug: str) -> str:
     body = f"""
     {hero(item['hero'], item['hero_alt'], "London, Ontario", item['name'], item['lead'], small=True, position=item['position'])}
     <main id="main">
-      <section class="section section-paper"><div class="wrap service-intro"><div class="reveal"><p class="eyebrow">Thoughtful project planning</p><h2>Built around what the space needs.</h2><p>{item['intro']}</p><a class="text-link dark-link" href="/contact/#quote">Discuss your project <span aria-hidden="true">↗</span></a></div><ul class="scope-list reveal">{bullets}</ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("What the work can include", "A complete scope, not disconnected pieces.", "The exact work depends on existing conditions, selected materials and the result you want.")}<div class="proof-grid">{scope}</div></div></section>
+      <section class="section section-paper"><div class="wrap service-intro"><div class="reveal"><p class="eyebrow">{planning_eyebrow}</p><h2>{planning_title}</h2><p>{item['intro']}</p><a class="text-link dark-link" href="/contact/#quote">Discuss your project <span aria-hidden="true">↗</span></a></div><ul class="scope-list reveal">{bullets}</ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("What the work can include", scope_title, scope_text)}<div class="proof-grid">{scope}</div></div></section>
       {showcase}
       {gallery_section}
       {spotlight}
@@ -676,7 +691,7 @@ def service_page(slug: str) -> str:
       <section class="section section-charcoal"><div class="wrap">{section_heading("Related services", "The connected work matters too.", "Many renovations involve more than one surface or room. These services are often part of the same conversation.")}<div class="service-grid related-grid">{related}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Thinking about this project?</p><h2>Show us what you’re working with.</h2><p>You do not need a finished design or every decision made. A few photos and a clear description are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page(item["title"], item["description"], service_url(slug), item["hero"], "services", body, "service-page")
+    return page(item["title"], item["description"], service_url(slug), item["hero"], "services", body, "service-page", image_alt=item["hero_alt"])
 def melrose_project_page() -> str:
     project_name = "Melrose: A Bathroom Reworked From the Layout Out"
     body = f"""
@@ -735,9 +750,11 @@ def blackfriars_project_page() -> str:
     </main>"""
     return page("Blackfriars Leak Restoration | Hekman Home Services", PROJECT_DETAILS["/projects/blackfriars-leak-restoration/"]["description"], "/projects/blackfriars-leak-restoration/", "blackfriars-restored-room.jpg", "projects", body, "project-story-page")
 def hilltop_project_page() -> str:
+    project_name = "Hilltop: One Home, One Clear Point of View"
     body = f"""
     {hero("hilltop-kitchen-wide.jpg", "Completed Hilltop kitchen and island", "Hekman project story · London, Ontario", "Hilltop: one home, one clear point of view.", "A whole-home transformation connecting the kitchen, bathroom, lower level, entry, stairs, flooring and finish details into a cohesive result.", small=True, position="50% 52%")}
     <main id="main">
+      {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Whole-home transformation</p><h2>More than a collection of renovated rooms.</h2><p>Hilltop is the kind of project where every choice affects the next. The bright kitchen became an anchor, while flooring, stairs, the lower level, two bathrooms and the entry were carried through with a consistent balance of warm wood, crisp white finishes and dark architectural details.</p><p>The project photography follows those decisions from one space to the next, including two bathroom renovations with very different starting points.</p></div><ul class="scope-list reveal"><li>Kitchen cabinetry, island and finish details</li><li>Upstairs tub surround and basement shower</li><li>Lower-level living space</li><li>Flooring, stairs and transitions</li><li>Entry and interior finish work</li><li>Whole-home visual continuity</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Inside Hilltop", "A complete home, viewed room by room.", "The kitchen leads the story, but the strength of the transformation is how the finished spaces belong together.")}<div class="story-mosaic story-mosaic-hilltop">
         <figure class="story-feature"><img src="/hilltop-kitchen-angle.jpg" alt="Angled view of the completed Hilltop kitchen" loading="lazy"><figcaption>The kitchen anchors the transformation</figcaption></figure>
@@ -841,12 +858,13 @@ def westmount_project_page() -> str:
 def salon_project_page() -> str:
     project_name = "London Salon: Moisture Investigation and Interior Restoration"
     body = f"""
-    {hero("salon-after-1.jpg", "Anonymous London salon restored after wall and ceiling repairs", "Commercial restoration · London, Ontario", "The repair disappears. The salon gets its room back.", "Moisture investigation, affected-material removal and wall-and-ceiling rebuilding returned this working salon to a bright, client-ready finish.", small=True, position="50% 56%")}
+    {project_story_hero("salon-restored-wall.jpg", "Completed wall and ceiling restoration in an anonymous London salon", "Commercial restoration · London, Ontario", "The repair disappears. The salon gets its room back.", "Moisture investigation, affected-material removal and wall-and-ceiling rebuilding returned this working salon to a bright, client-ready finish.")}
     <main id="main">
       {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Commercial moisture repair &amp; restoration</p><h2>A visible problem called for a closer look.</h2><p>Moisture readings at the trim helped document the affected area before damaged wall material was removed. From there, the repair became a connected wall-and-ceiling scope—not a cosmetic patch over an unresolved condition.</p><p>The goal was to rebuild the affected surfaces cleanly and return the salon to the bright, polished environment its staff and clients already knew.</p></div><ul class="scope-list reveal"><li>Moisture investigation and documentation</li><li>Affected wall-material removal</li><li>Wall and ceiling rebuilding</li><li>Drywall compound and surface preparation</li><li>Primer, paint and connected finish work</li><li>Planning around an operating business</li></ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("Completed result first", "A bright working salon—and the repair sequence behind it", "The finished room leads the story. Three supporting photographs document the investigation, what was found and the rebuilding work that made the result possible.")}<div class="story-mosaic story-mosaic-salon">
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Completed result first", "A bright working salon—and the repair sequence behind it", "The finished wall leads the story. Supporting photographs document the investigation, what was found and the rebuilding work that made the result possible.")}<div class="story-mosaic story-mosaic-salon">
         <figure class="story-feature"><img src="/salon-restored-wall.jpg" alt="Completed wall repair in the anonymous London salon" loading="lazy"><figcaption>Completed result: repaired wall restored</figcaption></figure>
+        <figure><img src="/salon-restored-wall-detail.jpg" alt="Completed repaired salon wall with the original alarm and ceiling details retained" loading="lazy"><figcaption>Completed finish detail</figcaption></figure>
         <figure><img src="/salon-moisture-investigation.jpg" alt="Moisture meter documenting an affected trim area in an anonymous London salon" loading="lazy"><figcaption>Investigation: moisture documented</figcaption></figure>
         <figure class="story-wide"><img src="/salon-affected-wallboard.jpg" alt="Removed salon wallboard showing the affected backing during repair work" loading="lazy"><figcaption>Affected material removed</figcaption></figure>
         <figure class="story-wide"><img src="/salon-wall-ceiling-rebuild.jpg" alt="Wall and ceiling surfaces being rebuilt in the anonymous London salon" loading="lazy"><figcaption>Wall and ceiling rebuilding</figcaption></figure>
@@ -855,11 +873,56 @@ def salon_project_page() -> str:
       <section class="section section-charcoal"><div class="wrap">{section_heading("Related expertise", "Investigation, rebuilding and finish work in one clear story", "Commercial access, restoration sequencing and precise drywall finishing all mattered to this result.")}<div class="service-grid related-grid">{service_card("commercial", compact=True, variant=0)}{service_card("water-damage", compact=True, variant=0)}{service_card("drywall-ceiling-repair", compact=True, variant=0)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Damage interrupting your business?</p><h2>Show us what happened—and what needs to be working again.</h2><p>Send a few photos, the property location and any access or operating-hour details. We will help you understand the construction work that may come next.</p></div><div><a class="button button-primary" href="/contact/#quote">Start the Conversation</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("Salon Moisture & Drywall Restoration London ON | Hekman", PROJECT_DETAILS["/projects/commercial-salon-repair/"]["description"], "/projects/commercial-salon-repair/", "salon-after-1.jpg", "projects", body, "project-story-page")
+    return page("Salon Moisture & Drywall Restoration London ON | Hekman", PROJECT_DETAILS["/projects/commercial-salon-repair/"]["description"], "/projects/commercial-salon-repair/", "salon-restored-wall.jpg", "projects", body, "project-story-page")
+
+def pond_mills_project_page() -> str:
+    project_name = "Pond Mills: One Repair List, A Much Closer Look"
+    body = f"""
+    {project_story_hero("pond-mills-kitchen-floor-after.jpg", "Completed light plank flooring carried into a Pond Mills kitchen", "Pond Mills · London, Ontario", "One repair list. A much closer look.", "When a London home had not sold, the homeowner asked for help. A closer inspection connected the visible interior work with moisture concerns and an exterior water-management plan.")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Residential repairs · completed</p><h2>The first list did not tell the whole story</h2><p>The flooring and finish work were only part of what the home needed. During the inspection, Hekman also found wet conditions around window wells, window trim and surrounding frame assemblies that called for a broader repair plan.</p><p>The completed exterior scope included removing a problem weeping pipe, adjusting localized grading and improving the downspout arrangement. Indoors, worn floor surfaces were removed and light plank flooring was carried through the adjoining rooms and kitchen for a cleaner, more consistent result.</p></div><ul class="scope-list reveal"><li>Whole-home repair-list review</li><li>Existing flooring removal and preparation</li><li>Light plank flooring through connected rooms</li><li>Window wells, trim and frame assemblies reviewed</li><li>Problem exterior weeping pipe removed</li><li>Localized grading and downspout work</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Same kitchen, clear result", "The floor now carries cleanly into the room", "The doorway, oak cabinetry, white range and threshold make the change easy to compare.")}<div class="comparison-grid comparison-grid-two">
+        <article class="comparison-card reveal"><div class="comparison-images"><figure><img src="/pond-mills-kitchen-floor-before.jpg" alt="Pond Mills kitchen with the original narrow warm-toned flooring before work" loading="lazy"><figcaption>Before renovation</figcaption></figure><figure><img src="/pond-mills-kitchen-floor-after.jpg" alt="Same Pond Mills kitchen with completed light plank flooring" loading="lazy"><figcaption>Completed result</figcaption></figure></div><h3>A lighter, continuous floor</h3><p>The new plank colour gives the kitchen and adjoining space one calmer visual line without changing the room’s established cabinetry.</p></article>
+        <article class="comparison-card reveal"><div class="comparison-images"><figure><img src="/pond-mills-basement-subfloor-prep.jpg" alt="Pond Mills lower-level room prepared after the old floor was removed" loading="lazy"><figcaption>Subfloor preparation</figcaption></figure><figure><img src="/pond-mills-basement-floor-after.jpg" alt="Same Pond Mills lower-level room with completed light plank flooring and baseboards" loading="lazy"><figcaption>Completed result</figcaption></figure></div><h3>Preparation that supports the finish</h3><p>Removal and substrate preparation came first; the final view shows the flooring, perimeter and baseboards resolved together.</p></article>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in sequence", "Real progress between removal and completion", "Selected photographs show materials on site, the old floor coming out and new planks being fitted. The near-complete view remains labelled as progress because its threshold and baseboard details were not yet finished.")}<div class="story-mosaic story-mosaic-pond-mills">
+        <figure class="story-feature"><img src="/pond-mills-flooring-materials.jpg" alt="New flooring materials staged beside the existing Pond Mills floor" loading="lazy"><figcaption>Materials staged</figcaption></figure>
+        <figure><img src="/pond-mills-basement-floor-removal.jpg" alt="Old Pond Mills lower-level flooring being removed" loading="lazy"><figcaption>Floor removal in progress</figcaption></figure>
+        <figure><img src="/pond-mills-basement-floor-installation.jpg" alt="Light plank flooring being installed in the Pond Mills lower level" loading="lazy"><figcaption>Installation in progress</figcaption></figure>
+        <figure class="story-wide"><img src="/pond-mills-basement-floor-nearing-completion.jpg" alt="Pond Mills lower-level flooring nearly complete before threshold and baseboard finishing" loading="lazy"><figcaption>Nearly complete: final edge details still ahead</figcaption></figure>
+      </div></div></section>
+      <section class="section section-paper"><div class="wrap editorial-grid reverse"><div class="editorial-media reveal"><img src="/pond-mills-kitchen-floor-after.jpg" alt="Completed Pond Mills flooring flowing from the adjoining room into the kitchen" loading="lazy"><span>Interior flooring result</span></div><div class="editorial-copy reveal"><p class="eyebrow">Inside and outside</p><h2>A cleaner interior, with the exterior water path addressed too</h2><p>The project photographs follow the flooring transformation. The exterior scope addressed a different part of the repair list: window-well and trim concerns, removal of the problem pipe, localized grading and a better downspout arrangement.</p><a class="text-link dark-link" href="/services/water-damage/">Explore restoration and damage repairs <span aria-hidden="true">↗</span></a></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Finished walkthrough", "Follow the new floor into the kitchen", "This short, silent walkthrough shows how the completed flooring connects the adjoining room and kitchen.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/pond-mills-kitchen-floor-after.jpg" aria-label="Short walkthrough of completed light plank flooring in the Pond Mills home"><source src="/pond-mills-flooring-finished-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed flooring walkthrough</strong><span>New light plank flooring carries from the adjoining room into the kitchen</span></figcaption></figure></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "The floor, repair list and moisture concerns needed one plan", "Interior finishing, focused repairs and exterior water management were considered together.")}<div class="service-grid related-grid">{service_card("flooring", compact=True, variant=1)}{service_card("handyman-repairs", compact=True, variant=1)}{service_card("water-damage", compact=True, variant=1)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Does one visible issue suggest there may be more?</p><h2>Start with the whole repair list.</h2><p>Send a few photos—no detailed plans required. We will look at how the work connects before the scope is set.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Pond Mills Home Repairs & Flooring | Hekman", PROJECT_DETAILS["/projects/pond-mills-home-repairs/"]["description"], "/projects/pond-mills-home-repairs/", "pond-mills-kitchen-floor-after.jpg", "projects", body, "project-story-page")
+
+def multi_unit_deck_project_page() -> str:
+    project_name = "London Multi-Unit Deck Renewal"
+    body = f"""
+    {project_story_hero("project-103.jpg", "Completed elevated rear deck at an anonymous multi-unit property", "Exterior project · London area", "One exterior rhythm, renewed across the row.", "A coordinated deck-and-guard renewal documented from the weathered existing wood through open construction work and the completed rear elevations.")}
+    <main id="main">
+      {breadcrumbs(project_name)}
+      <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Anonymous multi-unit property · completed</p><h2>Repeated decks called for one consistent finish</h2><p>The existing wood showed its age across connected rear elevations. Treating the deck and guard work as a coordinated exterior scope helped the completed row read as one property again.</p><p>Open construction and board fitting moved into renewed deck and guard surfaces across the repeated elevations. The finished work belongs to the building’s original rhythm, while the property itself remains unnamed.</p></div><ul class="scope-list reveal"><li>Existing deck and guard condition documented</li><li>Open construction and framing work</li><li>Board fitting and exterior finish work</li><li>Repeated rear elevations coordinated</li><li>Completed deck and guard surfaces</li><li>Anonymous multi-unit property</li></ul></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Before, during and complete", "The same brick row through the work", "The building, bay projections, deck spacing and rear elevations anchor every stage to the same anonymous property.")}<div class="story-mosaic story-mosaic-decks">
+        <figure class="story-feature"><img src="/multi-unit-decks-before.jpg" alt="Weathered connected rear decks before the renewal work" loading="lazy"><figcaption>Before: weathered deck and guards</figcaption></figure>
+        <figure><img src="/project-101.jpg" alt="Rear deck opened during construction work at the same multi-unit property" loading="lazy"><figcaption>During: open construction</figcaption></figure>
+        <figure><img src="/project-100.jpg" alt="Completed renewed rear deck and guard at the multi-unit property" loading="lazy"><figcaption>Completed deck and guard</figcaption></figure>
+        <figure class="story-wide"><img src="/project-104.jpg" alt="Completed row of renewed rear decks behind the brick multi-unit property" loading="lazy"><figcaption>Completed row</figcaption></figure>
+      </div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Open framing, fitted boards and the completed row", "This silent sequence moves from open framing and board fitting to the renewed rear elevations.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/project-103.jpg" aria-label="Short sequence showing work and completed rear decks at an anonymous multi-unit property"><source src="/multi-unit-deck-repair-sequence.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Deck renewal sequence</strong><span>Open framing, custom-fit boards and the completed row of rear decks</span></figcaption></figure></div></div></section>
+      <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Exterior work meets structure, access and finish details", "Deck, repair and layout decisions have to make sense together at the property.")}<div class="service-grid related-grid">{service_card("decks-exterior", compact=True, variant=1)}{service_card("handyman-repairs", compact=True, variant=2)}{service_card("structural-layout", compact=True, variant=2)}</div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have an exterior that needs a closer look?</p><h2>Show us the full run, not only the worst board.</h2><p>Wide photos and a few close details help us understand how the repair or renewal should connect.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
+    </main>"""
+    return page("Multi-Unit Deck Renewal | Hekman Home Services", PROJECT_DETAILS["/projects/multi-unit-deck-renewal/"]["description"], "/projects/multi-unit-deck-renewal/", "project-103.jpg", "projects", body, "project-story-page")
 def kitchen_renewal_project_page() -> str:
+    project_name = "London Office Kitchen: A Compact Staff Space Rebuilt"
     body = f"""
     {hero("kitchenette-after-wide.jpg", "Completed office kitchen with walnut-look cabinetry and gray counter", "Commercial kitchen project · London, Ontario", "A compact office kitchen, rebuilt around the work it needs to do.", "Old cabinetry came out, wall and plumbing access were addressed, and the staff space was rebuilt with clean-lined storage, a new counter, sink and finish details.", small=True, position="50% 52%")}
     <main id="main">
+      {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Office kitchen · before · during · after</p><h2>A complete transformation without changing the room’s footprint.</h2><p>The original office kitchen had dark, aging cabinets, a worn counter and visible ceiling damage. Once the cabinetry was removed, the wall could be opened where needed for plumbing and repair access. New cabinet boxes and fronts were installed before the counter, sink, hardware, wall finish and ceiling were brought together.</p><p>The finished staff space keeps the practical appliances and familiar layout while giving the room more usable storage and a much cleaner working surface.</p></div><ul class="scope-list reveal"><li>Existing cabinetry and counter removal</li><li>Wall opening and plumbing access</li><li>Drywall patching and painting</li><li>New upper and lower cabinets</li><li>Counter, sink and hardware</li><li>Ceiling and final finish work</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("The kitchen sequence", "The same wall, through every stage.", "A genuine before, build and completed series shows exactly how the old kitchen became the finished space.")}<div class="story-mosaic story-mosaic-kitchenette">
         <figure class="story-feature"><img src="/kitchenette-before-wide.jpg" alt="Wide view of the kitchen before renovation" loading="lazy"><figcaption>Before: existing kitchen</figcaption></figure>
@@ -869,15 +932,17 @@ def kitchen_renewal_project_page() -> str:
         <figure class="story-wide"><img src="/kitchenette-after-detail.jpg" alt="Completed kitchen cabinetry, counter, sink and hardware" loading="lazy"><figcaption>After: cabinetry and counter complete</figcaption></figure>
         <figure class="story-wide"><img src="/kitchenette-after-wide.jpg" alt="Wide view of the completed compact kitchen" loading="lazy"><figcaption>The finished kitchen</figcaption></figure>
       </div></div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("A closer look", "Walk through the completed cabinetry and counter.", "This short, compressed video waits until you press play, so it adds detail without slowing the first page load.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of completed kitchen cabinetry, sink and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen walkthrough</strong><span>Cabinet fronts, hardware, sink, counter and finished wall details.</span></figcaption></figure></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("A closer look", "Walk through the completed cabinetry and counter.", "The walkthrough brings the cabinet fronts, hardware, sink, counter and finished wall details into view.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/kitchenette-after-detail.jpg" aria-label="Video walkthrough of completed kitchen cabinetry, sink and counter"><source src="/kitchenette-finish-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Completed kitchen walkthrough</strong><span>Cabinet fronts, hardware, sink, counter and finished wall details.</span></figcaption></figure></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Cabinets are only one part of a kitchen.", "Plumbing access, drywall, paint, trim and repair work all affect the finished result.")}<div class="service-grid related-grid">{service_card("commercial", compact=True, variant=2)}{service_card("kitchens", compact=True, variant=3)}{service_card("drywall-ceiling-repair", compact=True, variant=2)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a kitchen that needs to work harder?</p><h2>Show us the room and the existing conditions.</h2><p>Wide photos and a short list of what you want to keep or change are enough to begin.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("Office Kitchen Renewal Before & After | Hekman", "See a genuine London office kitchen before, during and after renovation by Hekman Home Services, including cabinetry, plumbing access, drywall, counter and sink.", "/projects/kitchen-renewal/", "kitchenette-after-wide.jpg", "projects", body, "project-story-page")
 def popcorn_project_page() -> str:
+    project_name = "London Popcorn Ceiling Transformation"
     body = f"""
     {hero("project-016.jpg", "Original textured ceiling before smoothing and finishing", "Ceiling transformation · London, Ontario", "From popcorn texture to a clean, modern ceiling.", "A preparation-heavy process documented from the original texture through sanding, skim coats, surface checks and primer.", small=True, position="50% 35%")}
     <main id="main">
+      {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Popcorn ceiling removal</p><h2>The smooth finish is earned before the paint goes on.</h2><p>This London ceiling project moved through multiple rooms and multiple coats. The original texture and an existing ceiling patch were assessed first. The ceiling was sanded, coated and checked in stages, with the dining room and living space progressing at different points before final sanding and primer.</p><p>The dedicated ceiling sander helped control the surface work, while drop cloths and room protection kept the process contained.</p></div><ul class="scope-list reveal"><li>Existing texture and patch assessment</li><li>Floor, wall and opening protection</li><li>Mechanical ceiling sanding</li><li>Skim coating in controlled stages</li><li>Drying and surface checks</li><li>Final sanding, primer and paint preparation</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("The ceiling process", "Before, during and finish stage.", "These images follow the same ceiling work from the original textured surface to the coated and primed stages.")}<div class="story-mosaic story-mosaic-popcorn">
         <figure class="story-feature"><img src="/project-016.jpg" alt="Textured ceiling and existing patch before smooth-ceiling work" loading="lazy"><figcaption>Before: texture and previous patch</figcaption></figure>
@@ -892,9 +957,11 @@ def popcorn_project_page() -> str:
     </main>"""
     return page("Popcorn Ceiling Transformation London ON | Hekman Home Services", "See a Hekman Home Services popcorn ceiling project in London, Ontario, from the original textured ceiling through sanding, skim coating and primer.", "/projects/popcorn-ceiling-transformation/", "project-016.jpg", "projects", body, "project-story-page")
 def glass_block_bathroom_project_page() -> str:
+    project_name = "Jetted Tub to Glass Shower Bathroom Conversion"
     body = f"""
     {hero("bathroom-walnut-vanity-after.jpg", "Completed glass shower conversion beside the original glass-block window", "Bathroom transformation", "From jetted tub to glass shower.", "One genuine bathroom sequence—from the original tub platform through demolition and open-wall work to the completed tiled shower.", small=True, position="50% 52%")}
     <main id="main">
+      {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Before · during · after</p><h2>A focused conversion that changed how the room works.</h2><p>The original jetted tub and deep tiled platform filled the window end of the bathroom. The renovation removed that assembly, opened the surrounding wall and floor where access was required, and rebuilt the area as a tiled shower with a sliding glass enclosure.</p><p>The glass-block window, walnut vanity and gray floor give the sequence clear visual anchors. They make it possible to follow the same room through every stage without borrowing photographs from another job.</p></div><ul class="scope-list reveal"><li>Jetted tub and tiled-platform removal</li><li>Wall, insulation and floor access</li><li>Shower preparation and waterproofing stages</li><li>Wall tile and shower base</li><li>Sliding glass enclosure</li><li>Trim, plumbing fixtures and final details</li></ul></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("The conversion sequence", "The same window. A completely different wet area.", "Four views follow the room from the existing jetted tub to the finished shower.")}<div class="story-mosaic story-mosaic-bathroom">
         <figure class="story-feature"><img src="/bathroom-glass-block-before.jpg" alt="Bathroom with jetted tub, tiled platform and glass-block window before conversion" loading="lazy"><figcaption>Before: jetted-tub layout</figcaption></figure>
@@ -927,27 +994,35 @@ def projects_page() -> str:
           <a class="story-card reveal" href="/projects/medway-flooring-storage/"><img src="/medway-finished-room.jpg" alt="Completed Medway room with cool gray-brown plank flooring and finished baseboards" loading="lazy"><span><small>Medway · completed</small><strong>More storage and better flow</strong><b>Three rooms, relocated closets, flooring, doors and trim <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/hilltop-home-transformation/"><img src="/hilltop-kitchen-angle.jpg" alt="Completed Hilltop kitchen" loading="lazy"><span><small>Hilltop · completed</small><strong>A home transformed room by room</strong><b>Kitchen, bathrooms, lower level, stairs and connected details <i aria-hidden="true">↗</i></b></span></a>
           <a class="story-card reveal" href="/projects/westmount-porch-entry/"><img src="/westmount-porch-after-night.jpg" alt="Finished Westmount porch and entry illuminated at night" loading="lazy"><span><small>Westmount · completed</small><strong>A modernized porch for a repeat neighbour</strong><b>Exterior repairs, finish work, cleaner lines and lighting <i aria-hidden="true">↗</i></b></span></a>
-          <a class="story-card story-card-wide reveal" href="/projects/commercial-salon-repair/"><img src="/salon-after-1.jpg" alt="Restored anonymous London salon interior" loading="lazy"><span><small>London · completed commercial restoration</small><strong>A working salon restored from the construction out</strong><b>Moisture investigation, affected-material removal, wall and ceiling repairs <i aria-hidden="true">↗</i></b></span></a>
+          <a class="story-card story-card-wide reveal" href="/projects/commercial-salon-repair/"><img src="/salon-restored-wall.jpg" alt="Completed wall and ceiling restoration in an anonymous London salon" loading="lazy"><span><small>London · completed commercial restoration</small><strong>A working salon restored from the construction out</strong><b>Moisture investigation, affected-material removal, wall and ceiling repairs <i aria-hidden="true">↗</i></b></span></a>
         </div>
-        <div class="section-actions reveal"><a class="button button-dark" href="/projects/westmount-1970s-transformation/">Follow the ongoing Westmount story</a><a class="text-link dark-link" href="/projects/popcorn-ceiling-transformation/">See a popcorn ceiling transformation <span aria-hidden="true">↗</span></a></div>
+        <div class="project-archive reveal">
+          <div><p class="eyebrow">More documented work</p><h3>More ways a project can take shape</h3></div>
+          <div class="project-archive-grid">
+            <a href="/projects/pond-mills-home-repairs/"><span>Pond Mills · completed</span><strong>A repair list, re-examined</strong><b>Flooring, interior repairs and connected exterior water management <i aria-hidden="true">↗</i></b></a>
+            <a href="/projects/multi-unit-deck-renewal/"><span>London area · completed exterior</span><strong>Deck renewal across the row</strong><b>Weathered starting point, open construction and completed elevations <i aria-hidden="true">↗</i></b></a>
+            <a href="/projects/westmount-1970s-transformation/"><span>Westmount · project in progress</span><strong>A home transformed in phases</strong><b>Layout, lighting, flooring and kitchen work completed in thoughtful stages <i aria-hidden="true">↗</i></b></a>
+            <a href="/projects/popcorn-ceiling-transformation/"><span>London · ceiling transformation</span><strong>Texture removed, surface rebuilt</strong><b>Protection, sanding, skim coating and primer <i aria-hidden="true">↗</i></b></a>
+          </div>
+        </div>
       </div></section>
       <section class="section section-stone"><div class="wrap">{section_heading("Short project walkthroughs", "See the work in motion", "Two brief walkthroughs show how the spaces changed, from work underway to the completed result.")}<div class="video-grid"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/melrose-bathroom-after.jpg" aria-label="Short walkthrough of the completed Melrose-area bathroom"><source src="/melrose-bathroom-tour.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Melrose bathroom walkthrough</strong><span>A six-second look at the finished vanity, shower and wall-hung toilet</span></figcaption></figure><figure class="work-video reveal"><video controls playsinline preload="none" poster="/bathroom-walnut-vanity-after.jpg" aria-label="Video of a jetted-tub bathroom being converted into a glass shower"><source src="/bathroom-glass-block-transformation.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Tub-to-shower transformation</strong><span>Demolition, open-wall work and the completed glass shower</span></figcaption></figure></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Project gallery", "Start with the strongest results, then explore the work behind them", "Choose a project type or load more photographs to browse renovations, restorative repairs, exterior work and commercial projects across London.")}<div class="filter-bar" aria-label="Filter project photographs">{buttons}</div><div class="projects-grid" id="projects-grid" aria-live="polite">{cards}</div><p class="filter-status" data-filter-status>Showing 18 of {len(PROJECTS)} photographs.</p><div class="gallery-actions"><button type="button" class="button button-primary" data-load-more>Load more photographs</button></div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Picture your own project?</p><h2>Bring us the room, repair or result you have in mind.</h2><p>Send a few photos—no detailed plans required. Tell us what you want to change or restore, and we will help connect the scope.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
       <dialog class="lightbox" data-lightbox-dialog><button type="button" class="lightbox-close" data-lightbox-close aria-label="Close image">×</button><img src="" alt=""><p></p></dialog>
     </main>"""
-    return page("Renovation Projects London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page")
+    return page("Renovation Projects London ON | Hekman", "Explore genuine, carefully curated renovation, flooring, storage, porch, restoration and commercial project stories by Hekman Home Services in London, Ontario.", "/projects/", "hilltop-kitchen-wide.jpg", "projects", body, "projects-page", image_alt="Completed Hilltop kitchen renovation by Hekman Home Services")
 def about_page() -> str:
     body = f"""
-    {hero("project-070.jpg", "Hekman Home Services team gathered around project plans", "About Hekman Home Services", "A husband-and-wife team, close to every project.", "Rene and Steph Hekman connect field experience, planning and client decisions for renovations and repairs across London, Ontario.", small=True, position="50% 42%")}
+    {hero("rene-steph-owner-led.jpg", "Rene and Steph Hekman together, with Rene wearing his tool belt", "About Hekman Home Services", "A husband-and-wife team, close to every project.", "Rene and Steph Hekman connect field experience, planning and client decisions for renovations and repairs across London, Ontario.", small=True, position="62% 18%")}
     <main id="main">
       <section class="section section-paper"><div class="wrap editorial-grid about-story"><div class="editorial-copy reveal"><p class="eyebrow">The Hekman approach</p><h2>The people you call stay connected to the work.</h2><p>Hekman Home Services is owned and operated by Rene and Steph Hekman. Rene leads construction in the field. Steph guides client communication, planning and design decisions. Together they connect what is discovered on site with the choices, scope and updates that keep the project moving.</p><p>That direct involvement matters when one visible issue turns out to affect a wall, a floor or the room beside it. Decisions are explained in context, approved before extras proceed and carried through to the final details.</p></div><div class="editorial-media reveal"><img src="/rene-steph-london-ontario.jpg" alt="Rene and Steph Hekman standing together beside the London Canada sign" loading="lazy"><span>Rene &amp; Steph Hekman · London, Ontario</span></div></div></section>
       <section class="section section-charcoal" id="hekman-promise"><div class="wrap">{section_heading("The Hekman Promise", "Clear expectations before the work. Direct accountability throughout it.", "This is the standard written into our project quotes—not a slogan added after the fact.")}<div class="values-grid"><article class="reveal"><h3>Honest advice &amp; transparent pricing</h3><p>The scope, allowances and assumptions are explained so you can make informed decisions.</p></article><article class="reveal"><h3>Respect for your property</h3><p>Protection, an organized job site, debris removal and final cleanup are part of professional workmanship.</p></article><article class="reveal"><h3>Approval before additional work</h3><p>If you request a change or a concealed condition affects the plan, the options are discussed and approved before work proceeds.</p></article><article class="reveal"><h3>A two-year workmanship guarantee</h3><p>Installation-related defects resulting from our workmanship are covered for two years from completion.</p></article></div></div></section>
       <section class="section section-stone"><div class="wrap people-grid"><article class="person-card reveal"><img src="/project-075.jpg" alt="Rene Hekman, Director and Contractor at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Director · Contractor</p><h2>Rene Hekman</h2><p>Rene leads construction in the field—from opening walls and solving repair conditions to the practical preparation and finish work that make a renovation hold together. His role stays hands-on throughout the project.</p></div></article><article class="person-card reveal"><img src="/project-076.jpg" alt="Steph Hekman, Customer Relations, Sales and Design at Hekman Home Services" loading="lazy"><div><p class="eyebrow">Customer Relations · Sales &amp; Design</p><h2>Steph Hekman</h2><p>Steph guides client communication, project planning and design decisions. Her eye for how rooms connect shaped transformations such as the 1970s Westmount project, where layout, flooring, trim, doors and finishes had to read as one home.</p></div></article></div></section>
       <section class="section section-paper"><div class="wrap area-layout"><div class="reveal"><p class="eyebrow">Local service</p><h2>Based in Westmount. Working across London.</h2><p><strong>Westmount, Byron, Oakridge, Riverbend, Hyde Park and beyond.</strong> We work with homeowners and property managers in communities throughout London and area.</p><a class="button button-dark" href="/contact/">Contact Rene &amp; Steph</a></div><div class="assurance-panel reveal"><strong>Fully insured &amp; bondable</strong><span>Professional protection for residential and commercial projects.</span><strong>20+ years of hands-on experience</strong><span>Practical renovation and repair knowledge brought directly to the work.</span><strong>Real project proof</strong><span>Explore completed spaces and the work behind them.</span></div></div></section>
-      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a room or repair in mind?</p><h2>Start with a few photos.</h2><p>No detailed plans required. Show us the space and tell us what you want working better.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
+      <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a room or repair in mind?</p><h2>Start with a few photos.</h2><p>No detailed plans required. Show us the space and tell us what you want to change, repair or create.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "project-070.jpg", "about", body, "about-page")
+    return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, the husband-and-wife team behind Hekman Home Services, providing hands-on renovations and repairs in London, Ontario.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Rene and Steph Hekman together, with Rene wearing his tool belt")
 def build() -> None:
     write("index.html", homepage())
     write("services/index.html", services_page())
@@ -962,6 +1037,8 @@ def build() -> None:
     write("projects/westmount-porch-entry/index.html", westmount_porch_project_page())
     write("projects/westmount-1970s-transformation/index.html", westmount_project_page())
     write("projects/commercial-salon-repair/index.html", salon_project_page())
+    write("projects/pond-mills-home-repairs/index.html", pond_mills_project_page())
+    write("projects/multi-unit-deck-renewal/index.html", multi_unit_deck_project_page())
     write("projects/kitchen-renewal/index.html", kitchen_renewal_project_page())
     write("projects/popcorn-ceiling-transformation/index.html", popcorn_project_page())
     write("projects/glass-block-bathroom-conversion/index.html", glass_block_bathroom_project_page())
@@ -987,19 +1064,7 @@ def build() -> None:
     for filename, (destination, title) in legacy.items():
         write(filename, redirect_stub(destination, title, BASE_URL=BASE_URL))
     write("reviews/index.html", redirect_stub("/projects/", "Our Work | Hekman Home Services", BASE_URL=BASE_URL))
-    project_urls = [
-        "/projects/melrose-bathroom-layout/",
-        "/projects/hyde-park-kitchen-renewal/",
-        "/projects/blackfriars-leak-restoration/",
-        "/projects/hilltop-home-transformation/",
-        "/projects/medway-flooring-storage/",
-        "/projects/westmount-porch-entry/",
-        "/projects/westmount-1970s-transformation/",
-        "/projects/commercial-salon-repair/",
-        "/projects/kitchen-renewal/",
-        "/projects/popcorn-ceiling-transformation/",
-        "/projects/glass-block-bathroom-conversion/",
-    ]
+    project_urls = list(PROJECT_DETAILS)
     urls = ["/", "/services/", *[service_url(slug) for slug in SERVICES], "/projects/", *project_urls, "/about/", "/contact/"]
     sitemap_urls = "\n".join(f"  <url><loc>{BASE_URL}{url}</loc></url>" for url in urls)
     write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sitemap_urls}\n</urlset>')

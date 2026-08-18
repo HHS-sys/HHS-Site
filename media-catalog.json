@@ -13,15 +13,15 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 54,
+    "projectGalleryPhotographs": 59,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
-    "rootJpgFiles": 538,
-    "exactUniqueBinaries": 512,
+    "rootJpgFiles": 573,
+    "exactUniqueBinaries": 547,
     "numberedProjectSeries": 169,
     "namedSourcePhotoFiles": 308,
-    "descriptiveAndBrandFiles": 61,
+    "descriptiveAndBrandFiles": 96,
     "continuityMethod": [
       "window geometry and glass pattern",
       "ceiling slope, grid and permanent lines",
@@ -235,14 +235,16 @@
         "salon-affected-wallboard.jpg",
         "salon-wall-ceiling-rebuild.jpg",
         "salon-restored-wall.jpg",
+        "salon-restored-wall-detail.jpg",
         "salon-after-1.jpg"
       ],
       "sequences": [
         {
           "name": "verified salon moisture-repair sequence",
           "status": "completed",
-          "assets": [
+          "stages": [
             "salon-restored-wall.jpg",
+            "salon-restored-wall-detail.jpg",
             "salon-moisture-investigation.jpg",
             "salon-affected-wallboard.jpg",
             "salon-wall-ceiling-rebuild.jpg",
@@ -251,6 +253,90 @@
         }
       ],
       "continuityNote": "The newly supplied moisture, affected-wallboard, rebuilding and restored-wall photographs were confirmed as one salon project. The public site keeps the business anonymous. The exact repaired wall leads the documented sequence; the wider room view provides context. Older unrelated ceiling examples remain outside this sequence."
+    },
+    {
+      "id": "pond-mills-home-repairs",
+      "route": "/projects/pond-mills-home-repairs/",
+      "subjects": [
+        "connected home repair list",
+        "flooring removal and preparation",
+        "light plank flooring",
+        "wet window-well and trim conditions",
+        "exterior weeping-pipe removal",
+        "localized grading and downspout work"
+      ],
+      "assets": [
+        "pond-mills-kitchen-floor-before.jpg",
+        "pond-mills-kitchen-floor-after.jpg",
+        "pond-mills-flooring-materials.jpg",
+        "pond-mills-basement-floor-removal.jpg",
+        "pond-mills-basement-subfloor-prep.jpg",
+        "pond-mills-basement-floor-installation.jpg",
+        "pond-mills-basement-floor-nearing-completion.jpg",
+        "pond-mills-basement-floor-after.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "verified Pond Mills flooring sequence",
+          "status": "completed",
+          "stages": [
+            "pond-mills-kitchen-floor-before.jpg",
+            "pond-mills-basement-floor-removal.jpg",
+            "pond-mills-basement-subfloor-prep.jpg",
+            "pond-mills-basement-floor-installation.jpg",
+            "pond-mills-basement-floor-nearing-completion.jpg",
+            "pond-mills-basement-floor-after.jpg",
+            "pond-mills-kitchen-floor-after.jpg"
+          ]
+        }
+      ],
+      "video": "pond-mills-flooring-finished-tour.mp4",
+      "continuityNote": "The doorway, oak-cabinet layout, white range, kitchen threshold and adjoining-room details confirm the flooring sequence. The photographs document the interior flooring only. The owner-confirmed exterior scope is described in copy and is not presented as a photographed before-and-after sequence."
+    },
+    {
+      "id": "multi-unit-deck-renewal",
+      "route": "/projects/multi-unit-deck-renewal/",
+      "subjects": [
+        "weathered connected rear decks",
+        "open construction work",
+        "board fitting",
+        "completed deck and guard surfaces"
+      ],
+      "assets": [
+        "multi-unit-decks-before.jpg",
+        "project-101.jpg",
+        "project-100.jpg",
+        "project-103.jpg",
+        "project-104.jpg"
+      ],
+      "sequences": [
+        {
+          "name": "anonymous multi-unit rear-deck renewal",
+          "status": "completed",
+          "stages": [
+            "multi-unit-decks-before.jpg",
+            "project-101.jpg",
+            "project-100.jpg",
+            "project-104.jpg"
+          ]
+        }
+      ],
+      "video": "multi-unit-deck-repair-sequence.mp4",
+      "continuityNote": "The brick row, bay projections, deck spacing and rear elevations anchor the documented stages to the same anonymous multi-unit property. No exact location, street, permit, engineering or full-replacement claim is published."
+    },
+    {
+      "id": "fence-post-installation-progress",
+      "route": "/services/decks-exterior/",
+      "subjects": [
+        "post layout",
+        "powered auger work",
+        "fence installation in progress"
+      ],
+      "assets": [
+        "fence-post-layout-progress.jpg",
+        "fence-post-auger-installation.jpg"
+      ],
+      "continuityNote": "These photographs show the same bungalow-yard post-setting job. No matching finished fence was supplied, so the public site labels both images as work in progress."
     },
     {
       "id": "team-london-portrait",
@@ -262,7 +348,8 @@
         "local team"
       ],
       "assets": [
-        "rene-steph-london-ontario.jpg"
+        "rene-steph-london-ontario.jpg",
+        "rene-steph-owner-led.jpg"
       ],
       "continuityNote": "Authentic Rene and Steph portrait at the London Canada sign. Use as local team photography, not project evidence."
     },
@@ -527,7 +614,9 @@
       "drywall-potlight-progress.mp4",
       "bathroom-glass-block-transformation.mp4",
       "bathroom-finish-details.mp4",
-      "melrose-bathroom-tour.mp4"
+      "melrose-bathroom-tour.mp4",
+      "pond-mills-flooring-finished-tour.mp4",
+      "multi-unit-deck-repair-sequence.mp4"
     ]
   }
 }
