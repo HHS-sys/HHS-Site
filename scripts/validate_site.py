@@ -11,7 +11,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-from build_site import PHONE_LINK, local_raster_dimensions
+from build_site import EMAIL, PHONE_LINK, local_raster_dimensions
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +24,7 @@ PRIMARY = [
     *sorted((ROOT / "projects").glob("*/index.html")),
     ROOT / "about/index.html",
     ROOT / "contact/index.html",
+    ROOT / "privacy/index.html",
     ROOT / "404.html",
 ]
 BANNER_PAGES = [
@@ -143,6 +144,8 @@ def local_target(value: str) -> Path | None:
     if parts.scheme or parts.netloc:
         return None
     path = unquote(parts.path)
+    if path.startswith("/_vercel/"):
+        return None
     if not path:
         return None
     target = ROOT / path.lstrip("/")
@@ -684,22 +687,63 @@ def check() -> list[str]:
         if social_label not in homepage:
             errors.append(f"Footer is missing accessible social link: {social_label}")
 
-    for handoff_detail in (
-        "This website does not send your information",
-        "Not sent yet",
+    for direct_submit_detail in (
+        'action="/api/quote/"',
+        'data-quote-submit',
+        'data-submission-id',
+        'data-quote-success',
+        "Your enquiry will be sent directly to Hekman Home Services",
+        "Thank you—your enquiry is sent",
+        'aria-labelledby="quote-form-title"',
+        'href="/privacy/"',
         "Open draft email",
         "Copy project details",
         f'href="sms:{PHONE_LINK}"',
     ):
-        if handoff_detail not in contact_page:
-            errors.append(f"Contact page is missing transparent email handoff detail: {handoff_detail}")
+        if direct_submit_detail not in contact_page:
+            errors.append(f"Contact page is missing direct enquiry detail: {direct_submit_detail}")
+
+    if 'action="mailto:' in contact_page:
+        errors.append("Quote form must submit to the server instead of using mailto as its action")
+
+    if '/_vercel/insights/script.js' not in homepage:
+        errors.append("Homepage is missing Vercel Web Analytics")
 
     main_javascript = (ROOT / "main.js").read_text(encoding="utf-8")
-    if "window.location.href = `mailto:" in main_javascript:
-        errors.append("Quote form must not imply a completed handoff by immediately navigating to mailto")
-    for handoff_hook in ("data-quote-handoff", "data-quote-email", "data-copy-quote"):
-        if handoff_hook not in contact_page:
-            errors.append(f"Contact page is missing quote handoff hook: {handoff_hook}")
+    for submission_hook in (
+        'fetch(quoteForm.action',
+        '"Content-Type": "application/json"',
+        'window.va("event", { name: "Quote Enquiry Sent" })',
+    ):
+        if submission_hook not in main_javascript:
+            errors.append(f"Quote form is missing direct submission behavior: {submission_hook}")
+
+    quote_api = ROOT / "api" / "quote.js"
+    if not quote_api.is_file():
+        errors.append("Direct enquiry API function is missing")
+    else:
+        quote_api_text = quote_api.read_text(encoding="utf-8")
+        for safety_hook in (
+            "RESEND_API_KEY",
+            "Idempotency-Key",
+            "reply_to",
+            "ALLOWED_SERVICES",
+            "isAllowedOrigin",
+            "parseRequestBody",
+        ):
+            if safety_hook not in quote_api_text:
+                errors.append(f"Direct enquiry API is missing safety behavior: {safety_hook}")
+
+    privacy_page = (ROOT / "privacy/index.html").read_text(encoding="utf-8")
+    for privacy_detail in (
+        "Information you choose to send",
+        "Vercel Web Analytics",
+        "Resend",
+        "We do not sell enquiry information",
+        EMAIL,
+    ):
+        if privacy_detail not in privacy_page:
+            errors.append(f"Privacy page is missing required detail: {privacy_detail}")
 
     return errors
 

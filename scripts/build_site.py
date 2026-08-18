@@ -18,7 +18,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260818-4"
+ASSET_VERSION = "20260818-5"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -422,6 +422,8 @@ def head(title: str, description: str, path: str, image: str, *, indexable: bool
       <meta name="twitter:image:alt" content="{html.escape(social_image_alt, quote=True)}">
       <link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
       <link id="mobile-layout-fixes" rel="stylesheet" href="/mobile-fixes.css?v={ASSET_VERSION}">
+      <script>window.va=window.va||function(){{(window.vaq=window.vaq||[]).push(arguments)}};window.va("beforeSend",function(event){{try{{var url=new URL(event.url);url.search="";url.hash="";return Object.assign({{}},event,{{url:url.toString()}})}}catch(error){{return event}}}});</script>
+      <script defer src="/_vercel/insights/script.js"></script>
       <noscript><style>@media (max-width:860px){{.nav-shell{{flex-wrap:wrap}}.nav-toggle{{display:none!important}}.primary-nav{{position:static!important;display:grid!important;width:100%;max-height:none!important;padding:16px 0 20px!important;opacity:1!important;pointer-events:auto!important;transform:none!important;visibility:visible!important}}}}</style></noscript>
       {structured_data}
     </head>
@@ -484,7 +486,7 @@ def footer() -> str:
         <div><h2>Popular services</h2><ul><li><a href="/services/bathrooms/">Bathrooms</a></li><li><a href="/services/kitchens/">Kitchens</a></li><li><a href="/services/basements/">Basements</a></li><li><a href="/services/decks-exterior/">Decks &amp; Exterior</a></li><li><a href="/services/handyman-repairs/">Handyman &amp; Repairs</a></li><li><a href="/services/commercial/">Commercial Work</a></li></ul></div>
         <div><h2>Service area</h2><p>London, St. Thomas and nearby communities.</p></div>
       </div>
-      <div class="wrap footer-fine"><span>© <span data-year></span> Hekman Home Services Inc. All rights reserved.</span><a href="/contact/">Start a project</a></div>
+      <div class="wrap footer-fine"><span>© <span data-year></span> Hekman Home Services Inc. All rights reserved.</span><span class="footer-fine-links"><a href="/privacy/">Privacy</a><a href="/contact/">Start a project</a></span></div>
     </footer>
     <nav class="mobile-actions" aria-label="Quick contact">
       <a href="tel:{PHONE_LINK}"><span aria-hidden="true">☎</span> Call</a>
@@ -1247,6 +1249,13 @@ def about_page() -> str:
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have a room or repair in mind?</p><h2>Start with a few photos.</h2><p>No detailed plans required. Show us the space and tell us what you want to change, repair or create.</p></div><div><a class="button button-primary" href="/contact/#quote">Tell Us About Your Project</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
     return page("About Rene & Steph Hekman | Hekman Home Services", "Meet Rene and Steph Hekman, bringing 25 years of construction and 20 years of sales experience to renovations and repairs across London and St. Thomas.", "/about/", "rene-steph-owner-led.jpg", "about", body, "about-page", image_alt="Steph and Rene Hekman together, with Rene wearing his tool belt")
+def privacy_page() -> str:
+    body = f"""
+    {hero("project-129.jpg", "Completed London kitchen renovation", "Privacy at Hekman Home Services", "Your project details stay focused on your enquiry.", "This notice explains what we collect through the website, why we use it and how to reach us about your information.", small=True, position="50% 58%")}
+    <main id="main">
+      <section class="section section-paper"><div class="wrap legal-copy"><p class="eyebrow">Privacy notice</p><h2>Clear, practical handling of your information.</h2><p class="legal-intro">When you contact Hekman Home Services, you are trusting us with details about you and your property. We use that information to respond to your enquiry, understand the possible project and communicate about any work that follows.</p><div class="legal-grid"><section><h3>Information you choose to send</h3><p>The quote form may collect your name, project location, phone number, email address, preferred timing, project type and the description you provide. Please do not send financial, health or other sensitive information through the website.</p></section><section><h3>How we use it</h3><p>We use enquiry details to reply, assess whether the project may be a fit, plan the next conversation and maintain appropriate business records if work proceeds. We do not sell enquiry information or use it to enrol you in marketing.</p></section><section><h3>Website measurement</h3><p>We use Vercel Web Analytics to understand aggregate page visits and whether the quote form was successfully completed. We do not send the contents of your form to analytics, and we remove query strings and page fragments before analytics events are recorded.</p></section><section><h3>Service providers</h3><p>Vercel hosts the website and runs the secure form, Resend transmits the enquiry email, and Google Gmail receives it for Hekman Home Services. These providers may process information outside Canada under their own safeguards and applicable laws.</p></section><section><h3>Retention and safeguards</h3><p>We keep enquiries only as long as reasonably needed for the conversation, any resulting project and applicable legal or business-record obligations, then delete or anonymize them when appropriate. We use reasonable technical and administrative safeguards, but no online service can promise absolute security.</p></section><section><h3>Your choices and questions</h3><p>You may ask to access or correct the personal information you sent, or ask a privacy question, by emailing <a href="mailto:{EMAIL}">{EMAIL}</a> or calling <a href="tel:{PHONE_LINK}">{PHONE_DISPLAY}</a>.</p></section></div><p class="legal-updated">Last updated August 18, 2026.</p></div></section>
+    </main>"""
+    return page("Privacy | Hekman Home Services", "Learn how Hekman Home Services handles project enquiries and limited website analytics information.", "/privacy/", "project-129.jpg", "", body, "privacy-page", image_alt="Completed London kitchen renovation by Hekman Home Services")
 def build() -> None:
     write("index.html", homepage())
     write("services/index.html", services_page())
@@ -1268,6 +1277,7 @@ def build() -> None:
     write("projects/glass-block-bathroom-conversion/index.html", glass_block_bathroom_project_page())
     write("about/index.html", about_page())
     write("contact/index.html", contact_page(SERVICES=SERVICES, SERVICE_DISPLAY_ORDER=SERVICE_DISPLAY_ORDER, hero=hero, PHONE_LINK=PHONE_LINK, PHONE_DISPLAY=PHONE_DISPLAY, EMAIL=EMAIL, section_heading=section_heading, page=page))
+    write("privacy/index.html", privacy_page())
     write("404.html", not_found_page(page=page))
     legacy = {
         "services.html": ("/services/", "Services | Hekman Home Services"),
@@ -1289,7 +1299,7 @@ def build() -> None:
         write(filename, redirect_stub(destination, title, BASE_URL=BASE_URL))
     write("reviews/index.html", redirect_stub("/projects/", "Our Work | Hekman Home Services", BASE_URL=BASE_URL))
     project_urls = list(PROJECT_DETAILS)
-    urls = ["/", "/services/", *[service_url(slug) for slug in SERVICES], "/projects/", *project_urls, "/about/", "/contact/"]
+    urls = ["/", "/services/", *[service_url(slug) for slug in SERVICES], "/projects/", *project_urls, "/about/", "/contact/", "/privacy/"]
     sitemap_urls = "\n".join(f"  <url><loc>{BASE_URL}{url}</loc></url>" for url in urls)
     write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{sitemap_urls}\n</urlset>')
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {BASE_URL}/sitemap.xml")

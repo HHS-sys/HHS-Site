@@ -15,10 +15,10 @@ document.documentElement.classList.add("js");
     .trim();
 
   if (!coreStylesLoaded) {
-    addStylesheet("/styles.css?v=20260818-2", "core-style-fallback");
+    addStylesheet("/styles.css?v=20260818-5", "core-style-fallback");
   }
 
-  addStylesheet("/mobile-fixes.css?v=20260818-2", "mobile-layout-fixes");
+  addStylesheet("/mobile-fixes.css?v=20260818-5", "mobile-layout-fixes");
 })();
 
 document.querySelectorAll("[data-year]").forEach((element) => {
@@ -96,14 +96,17 @@ if ("IntersectionObserver" in window && revealElements.length) {
 
 const mobileActions = document.querySelector(".mobile-actions");
 const siteFooter = document.querySelector(".site-footer");
+const quoteForm = document.querySelector("#quote-form");
 
-if (mobileActions && siteFooter && "IntersectionObserver" in window) {
+if (mobileActions && "IntersectionObserver" in window) {
   const mobileActionsMedia = window.matchMedia("(max-width: 620px)");
   let footerIsNearViewport = false;
+  let quoteFormIsVisible = false;
 
   const updateMobileActionsVisibility = () => {
-    const shouldHide = mobileActionsMedia.matches && footerIsNearViewport;
-    mobileActions.classList.toggle("is-footer-hidden", shouldHide);
+    const shouldHide =
+      mobileActionsMedia.matches && (footerIsNearViewport || quoteFormIsVisible);
+    mobileActions.classList.toggle("is-context-hidden", shouldHide);
     mobileActions.toggleAttribute("inert", shouldHide);
     if (shouldHide) {
       mobileActions.setAttribute("aria-hidden", "true");
@@ -112,15 +115,27 @@ if (mobileActions && siteFooter && "IntersectionObserver" in window) {
     }
   };
 
-  const footerObserver = new IntersectionObserver(
-    ([entry]) => {
-      footerIsNearViewport = entry.isIntersecting;
-      updateMobileActionsVisibility();
-    },
-    { rootMargin: "0px 0px 72px 0px", threshold: 0 },
-  );
+  if (siteFooter) {
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => {
+        footerIsNearViewport = entry.isIntersecting;
+        updateMobileActionsVisibility();
+      },
+      { rootMargin: "0px 0px 72px 0px", threshold: 0 },
+    );
+    footerObserver.observe(siteFooter);
+  }
 
-  footerObserver.observe(siteFooter);
+  if (quoteForm) {
+    const quoteFormObserver = new IntersectionObserver(
+      ([entry]) => {
+        quoteFormIsVisible = entry.isIntersecting;
+        updateMobileActionsVisibility();
+      },
+      { rootMargin: "0px 0px -12% 0px", threshold: 0 },
+    );
+    quoteFormObserver.observe(quoteForm);
+  }
   if (typeof mobileActionsMedia.addEventListener === "function") {
     mobileActionsMedia.addEventListener("change", updateMobileActionsVisibility);
   } else if (typeof mobileActionsMedia.addListener === "function") {
@@ -237,25 +252,68 @@ lightbox?.addEventListener("click", (event) => {
   if (event.target === lightbox) closeLightbox();
 });
 
-const quoteForm = document.querySelector("#quote-form");
 const formError = quoteForm?.querySelector("[data-form-error]");
 const quoteHandoff = quoteForm?.querySelector("[data-quote-handoff]");
+const quoteSuccess = quoteForm?.querySelector("[data-quote-success]");
 const quoteEmailLink = quoteForm?.querySelector("[data-quote-email]");
 const quoteCopyButton = quoteForm?.querySelector("[data-copy-quote]");
 const quoteCopyStatus = quoteForm?.querySelector("[data-copy-status]");
+const quoteSubmitButton = quoteForm?.querySelector("[data-quote-submit]");
+const quoteSubmitLabel = quoteForm?.querySelector("[data-submit-label]");
+const quoteSubmissionId = quoteForm?.querySelector("[data-submission-id]");
 let preparedQuoteText = "";
+let quoteIsSubmitting = false;
+
+function createSubmissionId() {
+  if (typeof globalThis.crypto?.randomUUID === "function") {
+    return globalThis.crypto.randomUUID();
+  }
+
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map((byte) => byte.toString(16).padStart(2, "0"));
+  return `${hex.slice(0, 4).join("")}-${hex.slice(4, 6).join("")}-${hex.slice(6, 8).join("")}-${hex.slice(8, 10).join("")}-${hex.slice(10).join("")}`;
+}
+
+function refreshSubmissionId() {
+  if (quoteSubmissionId) quoteSubmissionId.value = createSubmissionId();
+}
+
+function setQuoteSubmitting(isSubmitting) {
+  quoteIsSubmitting = isSubmitting;
+  quoteForm?.toggleAttribute("aria-busy", isSubmitting);
+  quoteForm
+    ?.querySelectorAll("input, select, textarea")
+    .forEach((control) => {
+      control.disabled = isSubmitting;
+    });
+  if (quoteSubmitButton) quoteSubmitButton.disabled = isSubmitting;
+  if (quoteSubmitLabel) {
+    quoteSubmitLabel.textContent = isSubmitting ? "Sending…" : "Send enquiry";
+  }
+}
+
+refreshSubmissionId();
 
 function hideQuoteHandoff() {
-  if (!quoteHandoff || quoteHandoff.hidden) return;
-  quoteHandoff.hidden = true;
+  if (quoteHandoff) quoteHandoff.hidden = true;
+  if (quoteSuccess) quoteSuccess.hidden = true;
   preparedQuoteText = "";
   if (quoteCopyStatus) quoteCopyStatus.textContent = "";
 }
 
-quoteForm?.addEventListener("input", hideQuoteHandoff);
+quoteForm?.addEventListener("input", () => {
+  if (quoteIsSubmitting) return;
+  hideQuoteHandoff();
+  if (formError) formError.textContent = "";
+  refreshSubmissionId();
+});
 
-quoteForm?.addEventListener("submit", (event) => {
+quoteForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (quoteIsSubmitting) return;
   if (!quoteForm.checkValidity()) {
     quoteForm.reportValidity();
     return;
@@ -274,7 +332,17 @@ quoteForm?.addEventListener("submit", (event) => {
     return;
   }
 
+  if (phone && phone.replace(/\D/g, "").length < 7) {
+    if (formError) {
+      formError.textContent = "Please enter a complete phone number, or leave it blank and use your email address.";
+    }
+    quoteForm.elements.phone.focus();
+    return;
+  }
+
   if (formError) formError.textContent = "";
+  if (quoteHandoff) quoteHandoff.hidden = true;
+  if (quoteSuccess) quoteSuccess.hidden = true;
 
   preparedQuoteText = `Name: ${data.get("name") || ""}
 Phone: ${phone}
@@ -295,10 +363,64 @@ ${data.get("message") || ""}`;
     quoteEmailLink.href = `mailto:hekmanhomeservices@gmail.com?subject=${subject}&body=${body}`;
   }
   if (quoteCopyStatus) quoteCopyStatus.textContent = "";
-  if (quoteHandoff) {
-    quoteHandoff.hidden = false;
-    quoteHandoff.focus({ preventScroll: true });
-    quoteHandoff.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+  setQuoteSubmitting(true);
+
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const response = await fetch(quoteForm.action, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(data.entries())),
+      credentials: "same-origin",
+      signal: controller.signal,
+    });
+
+    let result = null;
+    try {
+      result = await response.json();
+    } catch {
+      // A non-JSON response is never accepted as a successful enquiry.
+    }
+    if (!response.ok || result?.ok !== true) {
+      const error = new Error(
+        result?.error || "We could not confirm that your enquiry was sent.",
+      );
+      error.status = response.status;
+      throw error;
+    }
+
+    quoteForm.reset();
+    refreshSubmissionId();
+    preparedQuoteText = "";
+    if (quoteSuccess) {
+      quoteSuccess.hidden = false;
+      quoteSuccess.focus({ preventScroll: true });
+      quoteSuccess.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    if (typeof window.va === "function") {
+      window.va("event", { name: "Quote Enquiry Sent" });
+    }
+  } catch (error) {
+    if (formError) {
+      formError.textContent =
+        error?.status >= 400 && error.status < 500
+          ? error.message
+          : "We could not send your enquiry online. Your details are still here—please try again or use a direct contact option below.";
+    }
+    if (quoteHandoff) {
+      quoteHandoff.hidden = false;
+      quoteHandoff.focus({ preventScroll: true });
+      quoteHandoff.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  } finally {
+    window.clearTimeout(timeout);
+    setQuoteSubmitting(false);
   }
 });
 
