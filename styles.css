@@ -721,6 +721,8 @@ button.button { cursor: pointer; }
 .footer-brand .social-icon:hover { border-color: var(--brand-blue); color: var(--cream); background: rgba(53, 185, 234, 0.12); transform: translateY(-2px); }
 .social-icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .social-icon .social-icon-dot { fill: currentColor; stroke: none; }
+.footer-review-link { display: inline-flex; min-height: 44px; margin-top: 8px; align-items: center; gap: 6px; color: #ddd7ce; font-size: 0.84rem; font-weight: 800; text-underline-offset: 4px; }
+.footer-review-link:hover { color: var(--cream); }
 .footer-grid h2 { margin: 0 0 16px; color: var(--cream); font-family: var(--sans); font-size: 0.82rem; font-weight: 850; letter-spacing: 0.07em; text-transform: uppercase; }
 .footer-grid ul { padding: 0; margin: 0; list-style: none; }
 .footer-grid li { margin: 8px 0; }

@@ -18,12 +18,13 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260818-5"
+ASSET_VERSION = "20260818-6"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
 FACEBOOK = "https://www.facebook.com/p/Hekman-Home-Services-100066576836967/"
 INSTAGRAM = "https://www.instagram.com/hekman_home_services_inc/"
+GOOGLE_REVIEW = "https://g.page/r/CcnmVi64lK-iEBM/review"
 AREAS = [
     "London, Ontario",
     "Westmount",
@@ -480,6 +481,7 @@ def footer() -> str:
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
               </a>
             </div>
+            <a class="footer-review-link" href="{GOOGLE_REVIEW}" rel="noopener noreferrer" target="_blank" aria-label="Leave Hekman Home Services a review on Google (opens in a new tab)">Leave a Google review <span aria-hidden="true">↗</span></a>
           </div>
         </div>
         <div><h2>Explore</h2><ul><li><a href="/services/">Services</a></li><li><a href="/projects/">Our Work</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li></ul></div>
@@ -1276,7 +1278,7 @@ def build() -> None:
     write("projects/popcorn-ceiling-transformation/index.html", popcorn_project_page())
     write("projects/glass-block-bathroom-conversion/index.html", glass_block_bathroom_project_page())
     write("about/index.html", about_page())
-    write("contact/index.html", contact_page(SERVICES=SERVICES, SERVICE_DISPLAY_ORDER=SERVICE_DISPLAY_ORDER, hero=hero, PHONE_LINK=PHONE_LINK, PHONE_DISPLAY=PHONE_DISPLAY, EMAIL=EMAIL, section_heading=section_heading, page=page))
+    write("contact/index.html", contact_page(SERVICES=SERVICES, SERVICE_DISPLAY_ORDER=SERVICE_DISPLAY_ORDER, hero=hero, PHONE_LINK=PHONE_LINK, PHONE_DISPLAY=PHONE_DISPLAY, EMAIL=EMAIL, GOOGLE_REVIEW=GOOGLE_REVIEW, section_heading=section_heading, page=page))
     write("privacy/index.html", privacy_page())
     write("404.html", not_found_page(page=page))
     legacy = {

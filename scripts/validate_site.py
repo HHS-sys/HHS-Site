@@ -11,7 +11,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
-from build_site import EMAIL, PHONE_LINK, local_raster_dimensions
+from build_site import EMAIL, GOOGLE_REVIEW, PHONE_LINK, local_raster_dimensions
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -683,6 +683,7 @@ def check() -> list[str]:
     for social_label in (
         'aria-label="Visit Hekman Home Services on Instagram"',
         'aria-label="Visit Hekman Home Services on Facebook"',
+        'aria-label="Leave Hekman Home Services a review on Google (opens in a new tab)"',
     ):
         if social_label not in homepage:
             errors.append(f"Footer is missing accessible social link: {social_label}")
@@ -699,9 +700,17 @@ def check() -> list[str]:
         "Open draft email",
         "Copy project details",
         f'href="sms:{PHONE_LINK}"',
+        f'href="{GOOGLE_REVIEW}"',
+        "Leave a Google review",
     ):
         if direct_submit_detail not in contact_page:
             errors.append(f"Contact page is missing direct enquiry detail: {direct_submit_detail}")
+
+    schema_blocks = re.findall(
+        r'<script type="application/ld\+json">(.*?)</script>', homepage, re.DOTALL
+    )
+    if any(GOOGLE_REVIEW in block for block in schema_blocks):
+        errors.append("Google leave-review action must not be used as a LocalBusiness identity URL")
 
     if 'action="mailto:' in contact_page:
         errors.append("Quote form must submit to the server instead of using mailto as its action")
