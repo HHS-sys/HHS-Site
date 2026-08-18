@@ -35,6 +35,7 @@ class PageParser(HTMLParser):
         self.descriptions: list[str] = []
         self.canonicals: list[str] = []
         self.robots: list[str] = []
+        self.social_image_alts: dict[str, list[str]] = {}
         self.stylesheets: list[str] = []
         self.scripts: list[str] = []
         self.h1_count = 0
@@ -62,6 +63,9 @@ class PageParser(HTMLParser):
             self.descriptions.append(attrs.get("content", ""))
         if tag == "meta" and attrs.get("name") == "robots":
             self.robots.append(attrs.get("content", ""))
+        social_key = attrs.get("property") or attrs.get("name")
+        if tag == "meta" and social_key in ("og:image:alt", "twitter:image:alt"):
+            self.social_image_alts.setdefault(social_key, []).append(attrs.get("content", ""))
         if tag == "link" and attrs.get("rel") == "canonical":
             self.canonicals.append(attrs.get("href", ""))
         if tag == "link" and attrs.get("rel") == "stylesheet":
@@ -184,6 +188,15 @@ def check() -> list[str]:
         expected_robots = "noindex,follow" if page.name == "404.html" else "index,follow,max-image-preview:large"
         if parser.robots != [expected_robots]:
             errors.append(f"{page.relative_to(ROOT)}: expected robots value {expected_robots}")
+        if page.name != "404.html":
+            for social_key in ("og:image:alt", "twitter:image:alt"):
+                values = parser.social_image_alts.get(social_key, [])
+                if len(values) != 1 or not values[0].strip():
+                    errors.append(f"{page.relative_to(ROOT)}: needs one descriptive {social_key}")
+            og_alt = parser.social_image_alts.get("og:image:alt", [""])[0]
+            twitter_alt = parser.social_image_alts.get("twitter:image:alt", [""])[0]
+            if og_alt and twitter_alt and og_alt != twitter_alt:
+                errors.append(f"{page.relative_to(ROOT)}: social image alts do not match")
         if parser.h1_count != 1:
             errors.append(f"{page.relative_to(ROOT)}: expected one h1, found {parser.h1_count}")
         if not any(urlsplit(value).path == "/styles.css" for value in parser.stylesheets):
