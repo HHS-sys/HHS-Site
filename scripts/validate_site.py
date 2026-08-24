@@ -466,9 +466,15 @@ def check() -> list[str]:
     about_page = (ROOT / "about/index.html").read_text(encoding="utf-8")
     contact_page = (ROOT / "contact/index.html").read_text(encoding="utf-8")
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+    projects_page = (ROOT / "projects/index.html").read_text(encoding="utf-8")
     kitchens_page = (ROOT / "services/kitchens/index.html").read_text(encoding="utf-8")
     basements_page = (ROOT / "services/basements/index.html").read_text(encoding="utf-8")
     flooring_page = (ROOT / "services/flooring/index.html").read_text(encoding="utf-8")
+    drywall_page = (ROOT / "services/drywall-ceiling-repair/index.html").read_text(encoding="utf-8")
+
+    for required in ("drywall-potlight-progress.mp4", "work in progress", "Ceiling finishing in progress"):
+        if required.lower() not in drywall_page.lower():
+            errors.append(f"Drywall service page is missing required progress-video detail: {required}")
 
     for required in (
         "Carpet was removed from three rooms",
@@ -490,6 +496,15 @@ def check() -> list[str]:
     for wrong_asset in ("medway-underlayment-prep.jpg", "medway-floor-installation.jpg"):
         if wrong_asset in medway_collection.get("assets", []):
             errors.append(f"media-catalog.json still lists misattributed Medway asset: {wrong_asset}")
+
+    hyde_collection = next(
+        (item for item in media_catalog.get("verifiedCollections", []) if item.get("id") == "hyde-park-kitchen-renewal"),
+        {},
+    )
+    if "project-122.jpg" in hyde_collection.get("assets", []):
+        errors.append("media-catalog.json still lists project-122.jpg as Hyde Park media")
+    if "project-122.jpg" in hyde_park_page or "project-122.jpg" in projects_page:
+        errors.append("Mismatched project-122.jpg must not be published as Hyde Park kitchen media")
 
     for duplicate_alias, service_markup in (
         ("project-132.jpg", kitchens_page),
@@ -520,6 +535,8 @@ def check() -> list[str]:
         "Anonymous Westmount homeowner",
         "Love! Thank you so much!",
         "You guys deserve it!",
+        "bathroom-glass-block-transformation.mp4",
+        "Tub-to-shower transformation",
     ):
         if required.lower() not in bathroom_page.lower():
             errors.append(f"Westmount bathroom page is missing required detail: {required}")
@@ -607,6 +624,7 @@ def check() -> list[str]:
         "project-101.jpg",
         "project-100.jpg",
         "project-104.jpg",
+        "multi-unit-deck-completed-row.jpg",
         "multi-unit-deck-repair-sequence.mp4",
         "anonymous multi-unit property",
     ):

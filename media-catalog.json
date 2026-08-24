@@ -13,7 +13,7 @@
     "policy": "Original project-photo files remain in place. Descriptive web filenames are additional copies or newly supplied media, not replacements for the source library."
   },
   "displayStrategy": {
-    "projectGalleryPhotographs": 55,
+    "projectGalleryPhotographs": 54,
     "rule": "Only a continuous, verified sequence is presented as before, during and after. Other photographs appear as individual project evidence and are never implied to be the same job."
   },
   "inventoryAudit": {
@@ -327,7 +327,8 @@
       ],
       "video": "multi-unit-deck-repair-sequence.mp4",
       "derivedStills": [
-        "multi-unit-deck-tour-poster.jpg"
+        "multi-unit-deck-tour-poster.jpg",
+        "multi-unit-deck-completed-row.jpg"
       ],
       "continuityNote": "The brick row, bay projections, deck spacing and rear elevations anchor the documented stages to the same anonymous multi-unit property. No exact location, street, permit, engineering or full-replacement claim is published."
     },
@@ -514,10 +515,9 @@
         "hyde-park-pantry-and-appliance-layout.jpg",
         "hyde-park-sink-and-dishwasher.jpg",
         "hyde-park-kitchen-preparation.jpg",
-        "project-122.jpg",
         "hyde-park-backsplash-installation.jpg"
       ],
-      "continuityNote": "Owner-confirmed Hyde Park sequence. Matching cabinetry, wall geometry, window placement and peninsula alignment show preparation, cabinet/layout progress and the completed room. Project-119 is a separate completed overview; no identifiable client is shown.",
+      "continuityNote": "Owner-corrected Hyde Park set. Selected angles show verified preparation, backsplash installation and the completed room. Project-122 belongs to a different kitchen and is intentionally excluded. Project-119 is the completed overview; no identifiable client is shown.",
       "budgetNote": "This project was completed for under $20,000. It is not a fixed package or guarantee."
     },
     {

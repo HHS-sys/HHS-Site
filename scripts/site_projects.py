@@ -112,8 +112,8 @@ PROJECT_DETAILS: dict[str, dict] = {
     "/projects/multi-unit-deck-renewal/": {
         "name": "Multi-Unit Deck Renewal",
         "description": "An anonymous London-area multi-unit deck project documented from weathered existing structures through framing and guard work to the completed exterior.",
-        "image": "project-103.jpg",
-        "image_alt": "Completed elevated wood decks behind an anonymous multi-unit property",
+        "image": "project-104.jpg",
+        "image_alt": "Completed elevated wood deck behind an anonymous multi-unit property",
         "neighbourhood": "London area, Ontario",
         "status": "Completed",
         "services": ["Deck renewal", "Framing and support work", "Guards, railings and exterior carpentry"],
@@ -131,7 +131,6 @@ PROJECTS = [
     ("hyde-park-pantry-and-appliance-layout.jpg", "kitchens handyman", "New pantry and reconfigured appliance wall in the Hyde Park kitchen", "Hyde Park pantry", "Storage and layout"),
     ("hyde-park-sink-and-dishwasher.jpg", "kitchens handyman", "New sink, counter and dishwasher in the Hyde Park kitchen", "Hyde Park sink wall", "Kitchen finish"),
     ("hyde-park-kitchen-preparation.jpg", "kitchens handyman", "Hyde Park kitchen protected during the update", "Hyde Park preparation", "Room protection"),
-    ("project-122.jpg", "kitchens handyman", "Hyde Park kitchen during cabinet and layout work before counters and final surfaces", "Hyde Park cabinet stage", "Installation in progress"),
     ("hyde-park-backsplash-installation.jpg", "kitchens", "Backsplash tile being installed in the Hyde Park kitchen", "Hyde Park backsplash", "Tile installation"),
     ("blackfriars-first-opening.jpg", "restoration drywall", "Small initial ceiling opening during the Blackfriars leak investigation", "Blackfriars first opening", "Investigation"),
     ("blackfriars-investigation.jpg", "restoration drywall", "Protected investigation work after the Blackfriars ceiling was opened further", "Blackfriars investigation", "Investigation in progress"),
