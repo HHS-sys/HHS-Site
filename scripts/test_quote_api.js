@@ -58,11 +58,15 @@ async function main() {
   const originalFetch = global.fetch;
   const originalKey = process.env.RESEND_API_KEY;
   const originalLog = console.log;
+  const originalWarn = console.warn;
   const originalError = console.error;
   const calls = [];
+  const warnings = [];
+  const errors = [];
 
   console.log = () => {};
-  console.error = () => {};
+  console.warn = (entry) => warnings.push(JSON.parse(entry));
+  console.error = (entry) => errors.push(JSON.parse(entry));
   process.env.RESEND_API_KEY = "re_test_only";
   global.fetch = async (url, options) => {
     calls.push({ url, options });
@@ -128,6 +132,10 @@ async function main() {
       request({ body: { phone: "", email: "" } }),
     );
     assert.equal(missingContact.statusCode, 400);
+    assert.equal(warnings.at(-1).message, "quote_rejected");
+    assert.equal(warnings.at(-1).reason, "invalid_form_fields");
+    assert.deepEqual(warnings.at(-1).invalidFields, ["contact"]);
+    assert.equal(errors.length, 0);
 
     const badOrigin = await run(
       request({ headers: { origin: "https://example.com" } }),
@@ -218,12 +226,17 @@ async function main() {
 
     process.env.RESEND_API_KEY = "re_test_only";
     global.fetch = async () => ({ ok: false, status: 422 });
+    errors.length = 0;
     const providerFailure = await run(request());
     assert.equal(providerFailure.statusCode, 502);
     assert.match(providerFailure.payload.error, /could not send/i);
+    assert.equal(errors.at(-1).message, "quote_failed");
+    assert.equal(errors.at(-1).status, 502);
+    assert.equal(errors.at(-1).providerStatus, 422);
   } finally {
     global.fetch = originalFetch;
     console.log = originalLog;
+    console.warn = originalWarn;
     console.error = originalError;
     if (originalKey === undefined) delete process.env.RESEND_API_KEY;
     else process.env.RESEND_API_KEY = originalKey;

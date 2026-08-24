@@ -48,6 +48,7 @@ function parseRequestBody(request) {
   ) {
     const error = new Error("Unsupported content type");
     error.status = 415;
+    error.reason = "unsupported_content_type";
     throw error;
   }
 
@@ -55,6 +56,7 @@ function parseRequestBody(request) {
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
     const error = new Error("Request is too large");
     error.status = 413;
+    error.reason = "request_too_large";
     throw error;
   }
 
@@ -64,6 +66,7 @@ function parseRequestBody(request) {
     if (Buffer.byteLength(body, "utf8") > MAX_BODY_BYTES) {
       const error = new Error("Request is too large");
       error.status = 413;
+      error.reason = "request_too_large";
       throw error;
     }
     if (contentType === "application/json") {
@@ -72,6 +75,7 @@ function parseRequestBody(request) {
       } catch {
         const error = new Error("Invalid JSON");
         error.status = 400;
+        error.reason = "invalid_json";
         throw error;
       }
     } else {
@@ -82,11 +86,13 @@ function parseRequestBody(request) {
   if (!body || typeof body !== "object" || Array.isArray(body)) {
     const error = new Error("Invalid request body");
     error.status = 400;
+    error.reason = "invalid_request_body";
     throw error;
   }
   if (Buffer.byteLength(JSON.stringify(body), "utf8") > MAX_BODY_BYTES) {
     const error = new Error("Request is too large");
     error.status = 413;
+    error.reason = "request_too_large";
     throw error;
   }
   return body;
@@ -153,6 +159,7 @@ function enforceRateLimit(request, now = Date.now()) {
       1,
       Math.ceil((RATE_LIMIT_WINDOW_MS - (now - bucket.startedAt)) / 1000),
     );
+    error.reason = "rate_limited";
     throw error;
   }
 }
@@ -163,6 +170,8 @@ function value(body, key) {
   if (typeof field !== "string") {
     const error = new Error(`Invalid ${key}`);
     error.status = 400;
+    error.reason = "invalid_field_type";
+    error.invalidFields = [key];
     throw error;
   }
   return field.trim();
@@ -194,6 +203,7 @@ function validate(body) {
   if (Object.keys(body).some((key) => !allowedKeys.has(key))) {
     const error = new Error("Unexpected field");
     error.status = 400;
+    error.reason = "unexpected_field";
     throw error;
   }
 
@@ -209,25 +219,36 @@ function validate(body) {
     website: singleLine(value(body, "website")),
   };
 
-  const invalid =
-    !UUID_PATTERN.test(fields.submissionId) ||
-    fields.name.length < 2 ||
-    fields.name.length > 100 ||
-    fields.location.length < 2 ||
-    fields.location.length > 160 ||
+  const invalidFields = [];
+  if (!UUID_PATTERN.test(fields.submissionId)) invalidFields.push("submissionId");
+  if (fields.name.length < 2 || fields.name.length > 100) invalidFields.push("name");
+  if (fields.location.length < 2 || fields.location.length > 160) {
+    invalidFields.push("location");
+  }
+  if (
     fields.phone.length > 40 ||
+    (fields.phone && fields.phone.replace(/\D/g, "").length < 7)
+  ) {
+    invalidFields.push("phone");
+  }
+  if (
     fields.email.length > 254 ||
-    fields.timing.length > 120 ||
-    fields.message.length < 10 ||
-    fields.message.length > 4000 ||
-    !ALLOWED_SERVICES.has(fields.service) ||
-    (!fields.phone && !fields.email) ||
-    (fields.phone && fields.phone.replace(/\D/g, "").length < 7) ||
-    (fields.email && !EMAIL_PATTERN.test(fields.email));
+    (fields.email && !EMAIL_PATTERN.test(fields.email))
+  ) {
+    invalidFields.push("email");
+  }
+  if (fields.timing.length > 120) invalidFields.push("timing");
+  if (fields.message.length < 10 || fields.message.length > 4000) {
+    invalidFields.push("message");
+  }
+  if (!ALLOWED_SERVICES.has(fields.service)) invalidFields.push("service");
+  if (!fields.phone && !fields.email) invalidFields.push("contact");
 
-  if (invalid) {
+  if (invalidFields.length) {
     const error = new Error("Please review the form fields and try again");
     error.status = 400;
+    error.reason = "invalid_form_fields";
+    error.invalidFields = invalidFields;
     throw error;
   }
   return fields;
@@ -358,22 +379,27 @@ module.exports = async function quoteHandler(request, response) {
       : redirectToContact(response, "sent");
   } catch (error) {
     const status = Number(error.status) || 500;
+    const isServerFailure = status >= 500;
     if (status === 429) {
       response.setHeader("Retry-After", String(error.retryAfter || 600));
     }
-    console.error(
-      JSON.stringify({
-        level: "error",
-        message: "quote_failed",
-        route: "/api/quote",
-        requestId,
-        status,
-        providerStatus: error.providerStatus,
-        durationMs: Date.now() - started,
-      }),
-    );
+    const logEntry = JSON.stringify({
+      level: isServerFailure ? "error" : "warn",
+      message: isServerFailure ? "quote_failed" : "quote_rejected",
+      route: "/api/quote",
+      requestId,
+      status,
+      reason: error.reason || (isServerFailure ? "server_failure" : "client_request_rejected"),
+      invalidFields: Array.isArray(error.invalidFields)
+        ? error.invalidFields
+        : undefined,
+      providerStatus: isServerFailure ? error.providerStatus : undefined,
+      durationMs: Date.now() - started,
+    });
+    if (isServerFailure) console.error(logEntry);
+    else console.warn(logEntry);
     const publicMessage =
-      status >= 500
+      isServerFailure
         ? "We could not send your enquiry right now. Please try again or contact us directly."
         : error.message;
     return wantsJson(request)
