@@ -480,7 +480,8 @@ def check() -> list[str]:
         "Carpet was removed from three rooms",
         "new double closet",
         "medway-floor-door-transition.jpg",
-        "Anonymous Medway homeowner",
+        "I absolutely love their work",
+        "Verified Google review · Anonymous Medway homeowner",
     ):
         if required not in medway_page:
             errors.append(f"Medway project page is missing required detail: {required}")
@@ -612,12 +613,19 @@ def check() -> list[str]:
         "pond-mills-basement-floor-installation.jpg",
         "pond-mills-basement-floor-after.jpg",
         "pond-mills-flooring-finished-tour.mp4",
+        "VERY easy to work with, excellent customer service, very responsive, met our needs 100%.",
+        "Verified Google review · Anonymous Pond Mills homeowner",
     ):
         if required.lower() not in pond_mills_page.lower():
             errors.append(f"Pond Mills project page is missing required detail: {required}")
     for prohibited in ("sold after", "then sold", "helped the home sell", "salon-"):
         if prohibited.lower() in pond_mills_page.lower():
             errors.append(f"Pond Mills project page contains an unsupported or mixed-job reference: {prohibited}")
+
+    public_review_pages = homepage + medway_page + pond_mills_page
+    for private_client_name in ("Lesley", "Oliver", "Stephanie", "Romano"):
+        if private_client_name.lower() in public_review_pages.lower():
+            errors.append(f"Public project feedback exposes a private client name: {private_client_name}")
 
     for required in (
         "multi-unit-decks-before.jpg",
@@ -678,6 +686,16 @@ def check() -> list[str]:
     )
     if not popcorn_card:
         errors.append("Homepage popcorn-ceiling card must lead with the verified textured-ceiling before image")
+    for required_review_detail in (
+        "I absolutely love their work",
+        "Verified Google review · flooring &amp; storage transformation",
+        'href="/projects/medway-flooring-storage/"',
+        "VERY easy to work with, excellent customer service, very responsive, met our needs 100%.",
+        "Verified Google review · flooring &amp; connected repairs",
+        'href="/projects/pond-mills-home-repairs/"',
+    ):
+        if required_review_detail not in homepage:
+            errors.append(f"Homepage is missing verified project feedback: {required_review_detail}")
     discovery_text = (ROOT / "llms.txt").read_text(encoding="utf-8")
     for service_area in ("Sunningdale", "Old North", "Stoneybrook", "St. Thomas"):
         if service_area not in homepage:
