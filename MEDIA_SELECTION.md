@@ -56,10 +56,9 @@ The story must connect the moved bathroom, new utility room and exercise-room fi
 - `hyde-park-pantry-and-appliance-layout.jpg` — pantry and reworked appliance arrangement
 - `hyde-park-sink-and-dishwasher.jpg` — sink, counter and added dishwasher
 - `hyde-park-kitchen-preparation.jpg` — selected room-protection proof
-- `project-122.jpg` — cabinet and layout stage before the counters and final surfaces
 - `hyde-park-backsplash-installation.jpg` — selected tile-progress proof
 
-The owner confirmed that the matching Hyde Park views belong to this project. Cabinetry, wall geometry, window placement and the peninsula align across the preparation, cabinet/layout and completed stages. The documented under-$20,000 result belongs only to this project. It is not a package price or guarantee. Other near-duplicate appliance and floor-protection photographs remain in the source set and were intentionally not published.
+Owner correction on August 24, 2026: `project-122.jpg` is a different kitchen and must not appear in the Hyde Park story or public gallery. The verified public sequence uses selected—not matching-angle—views from `hyde-park-kitchen-preparation.jpg` through `hyde-park-backsplash-installation.jpg` to `hyde-park-kitchen-after.jpg`. The completed overview and detail photographs remain visually cohesive. The documented under-$20,000 result belongs only to this project. It is not a package price or guarantee. Other near-duplicate appliance and floor-protection photographs remain in the source set and were intentionally not published.
 
 ### Blackfriars investigation and restoration
 

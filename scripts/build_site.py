@@ -18,7 +18,7 @@ from site_discovery import llms_text
 from site_misc_pages import contact_page, not_found_page, redirect_stub
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://www.hekmanhomeservices.ca"
-ASSET_VERSION = "20260818-6"
+ASSET_VERSION = "20260824-1"
 PHONE_DISPLAY = "519-808-3312"
 PHONE_LINK = "+15198083312"
 EMAIL = "hekmanhomeservices@gmail.com"
@@ -613,7 +613,7 @@ def project_spotlight(slug: str) -> str:
             "Multi-unit exterior proof",
             "A connected deck renewal, documented from weathered wood to finished row",
             "The repeated rear decks were treated as one coordinated exterior scope. The story follows the existing condition, open construction work and the completed deck and guard surfaces.",
-            "project-104.jpg",
+            "project-103.jpg",
             "Completed row of renewed rear decks at an anonymous multi-unit property",
             "/projects/multi-unit-deck-renewal/",
             "See the multi-unit deck renewal",
@@ -948,15 +948,15 @@ def hyde_park_kitchen_project_page() -> str:
     <main id="main">
       {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Focused kitchen renewal · completed</p><h2>Keep the useful parts and invest where the room needs change</h2><p>The existing cabinets were refaced rather than discarded. A purpose-built pantry added storage, and the appliance arrangement was reworked to make room for a dishwasher and a more practical daily flow.</p><p>Hekman Home Services also helped source the counters and sink, then connected the new elements with backsplash tile and finish work. The homeowners told the team they were thrilled with the result.</p></div><ul class="scope-list reveal"><li>Existing cabinetry refaced</li><li>New pantry storage</li><li>Appliances reconfigured</li><li>Dishwasher added</li><li>Backsplash installed</li><li>Counters and sink sourced</li></ul></div></section>
-      <section class="section section-charcoal"><div class="wrap">{section_heading("The transformation", "The same kitchen, clearly visible at three stages", "Matching views make the progress easy to read: protected preparation, cabinetry taking shape and the completed counters, appliances, sink and backsplash.")}<div class="story-mosaic story-mosaic-hyde-sequence">
+      <section class="section section-charcoal"><div class="wrap">{section_heading("The transformation", "One verified kitchen, shown at selected stages", "These verified project photos document the protected preparation, backsplash installation and completed room from different viewpoints.")}<div class="story-mosaic story-mosaic-hyde-sequence">
         <figure><img src="/hyde-park-kitchen-preparation.jpg" alt="Hyde Park kitchen protected during preparation before counters, appliances and backsplash were completed" loading="lazy"><figcaption>1 · Preparation and protection</figcaption></figure>
-        <figure><img src="/project-122.jpg" alt="Hyde Park kitchen during cabinet and layout work before the counters and final surfaces" loading="lazy"><figcaption>2 · Cabinetry and layout taking shape</figcaption></figure>
-        <figure><img src="/hyde-park-kitchen-after.jpg" alt="Completed Hyde Park kitchen from the matching range-wall perspective" loading="lazy"><figcaption>3 · Completed kitchen</figcaption></figure>
+        <figure><img src="/hyde-park-backsplash-installation.jpg" alt="Backsplash tile being installed in the verified Hyde Park kitchen" loading="lazy"><figcaption>2 · Backsplash installation</figcaption></figure>
+        <figure><img src="/hyde-park-kitchen-after.jpg" alt="Completed Hyde Park kitchen with refaced cabinetry, new counters and backsplash" loading="lazy"><figcaption>3 · Completed kitchen</figcaption></figure>
       </div></div></section>
-      <section class="section section-paper"><div class="wrap">{section_heading("The details", "Storage, function and finish brought together", "The wider transformation is supported by the practical changes the homeowners use every day.")}<div class="story-mosaic story-mosaic-hyde-details">
+      <section class="section section-paper"><div class="wrap">{section_heading("The details", "The completed room, from three useful angles", "These finished views show how the pantry, appliance wall, peninsula, sink and dishwasher work together in the same kitchen.")}<div class="story-mosaic story-mosaic-hyde-details">
+        <figure><img src="/project-119.jpg" alt="Completed Hyde Park kitchen viewed across the peninsula toward the pantry and dining area" loading="lazy"><figcaption>Completed kitchen overview</figcaption></figure>
         <figure><img src="/hyde-park-pantry-and-appliance-layout.jpg" alt="New pantry and reconfigured appliance wall in the Hyde Park kitchen" loading="lazy"><figcaption>Pantry and appliance layout</figcaption></figure>
         <figure><img src="/hyde-park-sink-and-dishwasher.jpg" alt="New sink, counter and dishwasher in the Hyde Park kitchen" loading="lazy"><figcaption>Sink, counter and dishwasher</figcaption></figure>
-        <figure><img src="/hyde-park-backsplash-installation.jpg" alt="Backsplash tile being installed in the Hyde Park kitchen" loading="lazy"><figcaption>Backsplash installation</figcaption></figure>
       </div></div></section>
       <section class="section section-stone"><div class="wrap"><div class="project-budget-panel reveal"><p class="eyebrow">A project-specific budget result</p><h2>Thoughtful choices kept this update under $20,000</h2><p>This particular kitchen was completed for less than $20,000 by retaining and refacing serviceable cabinetry, focusing the layout changes and sourcing carefully. It is a result from this home—not a fixed package or a guarantee for another kitchen, where size, materials and existing conditions will differ.</p><a class="text-link dark-link" href="/services/kitchens/">Explore kitchen renovations <span aria-hidden="true">↗</span></a></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "A kitchen update is a set of linked decisions", "Cabinetry, plumbing fixtures, tile and finish work have to meet cleanly for the room to feel resolved.")}<div class="service-grid related-grid">{service_card("kitchens", compact=True, variant=2)}{service_card("handyman-repairs", compact=True, variant=3)}{service_card("flooring", compact=True, variant=2)}</div></div></section>
@@ -1128,7 +1128,7 @@ def pond_mills_project_page() -> str:
 def multi_unit_deck_project_page() -> str:
     project_name = "London Multi-Unit Deck Renewal"
     body = f"""
-    {project_story_hero("project-103.jpg", "Completed elevated rear deck at an anonymous multi-unit property", "Exterior project · London area", "One exterior rhythm, renewed across the row.", "A coordinated deck-and-guard renewal documented from the weathered existing wood through open construction work and the completed rear elevations.")}
+    {project_story_hero("project-104.jpg", "Completed elevated rear deck at an anonymous multi-unit property", "Exterior project · London area", "One exterior rhythm, renewed across the row.", "A coordinated deck-and-guard renewal documented from the weathered existing wood through open construction work and the completed rear elevations.")}
     <main id="main">
       {breadcrumbs(project_name)}
       <section class="section section-paper"><div class="wrap service-intro story-summary"><div class="reveal"><p class="eyebrow">Anonymous multi-unit property · completed</p><h2>Repeated decks called for one consistent finish</h2><p>The existing wood showed its age across connected rear elevations. Treating the deck and guard work as a coordinated exterior scope helped the completed row read as one property again.</p><p>Open construction and board fitting moved into renewed deck and guard surfaces across the repeated elevations. The finished work belongs to the building’s original rhythm, while the property itself remains unnamed.</p></div><ul class="scope-list reveal"><li>Existing deck and guard condition documented</li><li>Open construction and framing work</li><li>Board fitting and exterior finish work</li><li>Repeated rear elevations coordinated</li><li>Completed deck and guard surfaces</li><li>Anonymous multi-unit property</li></ul></div></section>
@@ -1136,13 +1136,13 @@ def multi_unit_deck_project_page() -> str:
         <figure class="story-feature"><img src="/multi-unit-decks-before.jpg" alt="Weathered connected rear decks before the renewal work" loading="lazy"><figcaption>Before: weathered deck and guards</figcaption></figure>
         <figure><img src="/project-101.jpg" alt="Rear deck opened during construction work at the same multi-unit property" loading="lazy"><figcaption>During: open construction</figcaption></figure>
         <figure><img src="/project-100.jpg" alt="Completed renewed rear deck and guard at the multi-unit property" loading="lazy"><figcaption>Completed deck and guard</figcaption></figure>
-        <figure class="story-wide"><img src="/project-104.jpg" alt="Completed row of renewed rear decks behind the brick multi-unit property" loading="lazy"><figcaption>Completed row</figcaption></figure>
+        <figure class="story-panorama"><img src="/project-103.jpg" alt="Completed row of renewed rear decks behind the brick multi-unit property" loading="lazy"><figcaption>Completed row of renewed decks</figcaption></figure>
       </div></div></section>
-      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Open framing, fitted boards and the completed row", "This silent sequence moves from open framing and board fitting to the renewed rear elevations.")}<div class="video-grid video-grid-single"><figure class="work-video reveal"><video controls playsinline preload="none" poster="/multi-unit-deck-tour-poster.jpg" aria-label="Short sequence showing work and completed rear decks at an anonymous multi-unit property"><source src="/multi-unit-deck-repair-sequence.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Deck renewal sequence</strong><span>Open framing, custom-fit boards and the completed row of rear decks</span></figcaption></figure></div></div></section>
+      <section class="section section-stone"><div class="wrap">{section_heading("Work in motion", "Open framing to the completed row", "This short, silent sequence moves cleanly from the open structure to the renewed rear elevations.")}<div class="video-grid video-grid-single video-grid-portrait"><figure class="work-video work-video-portrait reveal"><video controls playsinline preload="none" poster="/multi-unit-deck-tour-poster.jpg" aria-label="Short sequence showing open framing and completed rear decks at an anonymous multi-unit property"><source src="/multi-unit-deck-repair-sequence.mp4" type="video/mp4">Your browser does not support embedded video.</video><figcaption><strong>Deck renewal sequence</strong><span>Open framing and the completed row of rear decks</span></figcaption></figure></div></div></section>
       <section class="section section-charcoal"><div class="wrap">{section_heading("Connected services", "Exterior work meets structure, access and finish details", "Deck, repair and layout decisions have to make sense together at the property.")}<div class="service-grid related-grid">{service_card("decks-exterior", compact=True, variant=2)}{service_card("handyman-repairs", compact=True, variant=2)}{service_card("structural-layout", compact=True, variant=4)}</div></div></section>
       <section class="cta-section"><div class="wrap cta-panel reveal"><div><p class="eyebrow">Have an exterior that needs a closer look?</p><h2>Show us the full run, not only the worst board.</h2><p>Wide photos and a few close details help us understand how the repair or renewal should connect.</p></div><div><a class="button button-primary" href="/contact/#quote">Request a Quote</a><a class="cta-phone" href="tel:{PHONE_LINK}">Call or text {PHONE_DISPLAY}</a></div></div></section>
     </main>"""
-    return page("Multi-Unit Deck Renewal | Hekman Home Services", PROJECT_DETAILS["/projects/multi-unit-deck-renewal/"]["description"], "/projects/multi-unit-deck-renewal/", "project-103.jpg", "projects", body, "project-story-page")
+    return page("Multi-Unit Deck Renewal | Hekman Home Services", PROJECT_DETAILS["/projects/multi-unit-deck-renewal/"]["description"], "/projects/multi-unit-deck-renewal/", "project-104.jpg", "projects", body, "project-story-page")
 def kitchen_renewal_project_page() -> str:
     project_name = "London Office Kitchen: A Compact Staff Space Rebuilt"
     body = f"""
