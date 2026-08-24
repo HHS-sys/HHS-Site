@@ -539,7 +539,7 @@ button.button { cursor: pointer; }
 .story-mosaic-bathroom, .story-mosaic-medway, .story-mosaic-pond-mills { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .story-mosaic-decks { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .story-mosaic-decks > .story-panorama { grid-column: 1 / -1; }
-.story-mosaic-decks > .story-panorama img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 43%; }
+.story-mosaic-decks > .story-panorama img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 41%; }
 .story-mosaic-bathroom figure, .story-mosaic-bathroom figure.story-feature, .story-mosaic-bathroom figure.story-wide, .story-mosaic-medway figure, .story-mosaic-medway figure.story-feature, .story-mosaic-medway figure.story-wide { grid-column: span 1; }
 .story-photo-note { max-width: 850px; margin: 26px 0 0; color: var(--muted-light); font-size: 0.95rem; }
 .project-budget-panel, .story-copy-panel { max-width: 920px; padding: 42px; border: 1px solid var(--line-dark); border-radius: var(--radius); background: rgba(255, 255, 255, 0.48); box-shadow: var(--shadow); }

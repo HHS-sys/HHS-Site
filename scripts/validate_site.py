@@ -617,6 +617,7 @@ def check() -> list[str]:
         "project-101.jpg",
         "project-100.jpg",
         "project-104.jpg",
+        "multi-unit-deck-completed-row.jpg",
         "multi-unit-deck-repair-sequence.mp4",
         "anonymous multi-unit property",
     ):

@@ -119,7 +119,7 @@ The homeowner also confirmed wet window-well, window-trim and surrounding frame-
 
 `multi-unit-decks-before.jpg` documents the weathered connected rear decks. Existing project assets `project-101.jpg`, `project-100.jpg`, `project-103.jpg` and `project-104.jpg` document open construction and completed deck-and-guard surfaces at the same brick row. The building geometry, bay projections and deck spacing support continuity.
 
-Use the silent `multi-unit-deck-repair-sequence.mp4` only with the project-specific `multi-unit-deck-tour-poster.jpg` derived from that video. Keep the property anonymous and do not add permit, engineering, code-compliance or full-replacement claims that the media does not prove.
+Use the silent `multi-unit-deck-repair-sequence.mp4` only with the project-specific `multi-unit-deck-tour-poster.jpg` derived from that video. `multi-unit-deck-completed-row.jpg` is a second genuine frame from the completed-row portion of the same footage and may be used as the gallery's full-row view. Keep the property anonymous and do not add permit, engineering, code-compliance or full-replacement claims that the media does not prove.
 
 ### Fence-post installation in progress
 
