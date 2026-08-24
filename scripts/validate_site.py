@@ -470,6 +470,11 @@ def check() -> list[str]:
     kitchens_page = (ROOT / "services/kitchens/index.html").read_text(encoding="utf-8")
     basements_page = (ROOT / "services/basements/index.html").read_text(encoding="utf-8")
     flooring_page = (ROOT / "services/flooring/index.html").read_text(encoding="utf-8")
+    drywall_page = (ROOT / "services/drywall-ceiling-repair/index.html").read_text(encoding="utf-8")
+
+    for required in ("drywall-potlight-progress.mp4", "work in progress", "Ceiling finishing in progress"):
+        if required.lower() not in drywall_page.lower():
+            errors.append(f"Drywall service page is missing required progress-video detail: {required}")
 
     for required in (
         "Carpet was removed from three rooms",
@@ -530,6 +535,8 @@ def check() -> list[str]:
         "Anonymous Westmount homeowner",
         "Love! Thank you so much!",
         "You guys deserve it!",
+        "bathroom-glass-block-transformation.mp4",
+        "Tub-to-shower transformation",
     ):
         if required.lower() not in bathroom_page.lower():
             errors.append(f"Westmount bathroom page is missing required detail: {required}")

@@ -97,15 +97,18 @@ if ("IntersectionObserver" in window && revealElements.length) {
 const mobileActions = document.querySelector(".mobile-actions");
 const siteFooter = document.querySelector(".site-footer");
 const quoteForm = document.querySelector("#quote-form");
+const workVideos = document.querySelectorAll(".work-video");
 
 if (mobileActions && "IntersectionObserver" in window) {
   const mobileActionsMedia = window.matchMedia("(max-width: 620px)");
   let footerIsNearViewport = false;
   let quoteFormIsVisible = false;
+  const visibleWorkVideos = new Set();
 
   const updateMobileActionsVisibility = () => {
     const shouldHide =
-      mobileActionsMedia.matches && (footerIsNearViewport || quoteFormIsVisible);
+      mobileActionsMedia.matches &&
+      (footerIsNearViewport || quoteFormIsVisible || visibleWorkVideos.size > 0);
     mobileActions.classList.toggle("is-context-hidden", shouldHide);
     mobileActions.toggleAttribute("inert", shouldHide);
     if (shouldHide) {
@@ -135,6 +138,22 @@ if (mobileActions && "IntersectionObserver" in window) {
       { rootMargin: "0px 0px -12% 0px", threshold: 0 },
     );
     quoteFormObserver.observe(quoteForm);
+  }
+  if (workVideos.length) {
+    const workVideoObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            visibleWorkVideos.add(entry.target);
+          } else {
+            visibleWorkVideos.delete(entry.target);
+          }
+        });
+        updateMobileActionsVisibility();
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 },
+    );
+    workVideos.forEach((video) => workVideoObserver.observe(video));
   }
   if (typeof mobileActionsMedia.addEventListener === "function") {
     mobileActionsMedia.addEventListener("change", updateMobileActionsVisibility);
