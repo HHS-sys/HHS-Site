@@ -1025,3 +1025,46 @@ button.button { cursor: pointer; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .reveal, .reveal-ready .reveal { opacity: 1; transform: none; }
 }
+
+/* October enquiry and navigation improvements. */
+.home > .hero { min-height: 620px; max-height: none; }
+.home > .hero .hero-content { padding-top: 110px; padding-bottom: 74px; }
+.home > .hero h1 { max-width: 850px; font-size: clamp(3.2rem, 6.4vw, 5.9rem); line-height: 1.05; letter-spacing: -0.04em; }
+.home > .hero .hero-lead { max-width: 700px; color: #f3f5f7; }
+.service-shortcuts { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--line-dark); }
+.service-shortcuts .wrap { display: flex; gap: 10px 22px; align-items: center; flex-wrap: wrap; padding-block: 20px; }
+.service-shortcuts span { font-weight: 800; margin-right: auto; }
+.service-shortcuts a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: 1px solid var(--line-dark); border-radius: 8px; font-size: 0.88rem; font-weight: 700; text-decoration: none; }
+.service-shortcuts a:hover { background: var(--ink); color: white; }
+.direct-actions { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.direct-actions a { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-heading { padding-top: 72px; padding-bottom: 40px; }
+.contact-heading h1 { max-width: 900px; font-family: var(--display); font-weight: 400; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; letter-spacing: -0.025em; margin: 16px 0; }
+.contact-heading > p:last-child { max-width: 700px; color: #dbe5ee; font-size: 1.1rem; }
+.contact-page #quote { padding-block: 58px; }
+.contact-owners { margin: 28px 0; max-width: 290px; }
+.contact-owners img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 38%; border-radius: 14px; }
+.contact-owners figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--muted-dark); }
+.contact-direct a { min-height: 48px; }
+.quote-form label, .quote-form legend, .quote-form fieldset > p { font-size: 0.9rem; }
+.quote-form input, .quote-form select, .quote-form textarea { font-size: 1rem; }
+.faq-list summary { min-height: 48px; }
+@media (max-width: 860px) {
+  .home > .hero { min-height: 600px; }
+  .service-shortcuts .wrap { gap: 10px; }
+  .service-shortcuts span { flex-basis: 100%; }
+  .contact-layout { display: flex; flex-direction: column; gap: 36px; }
+  .contact-layout > .contact-intro { order: 2; width: 100%; }
+  .contact-layout > .quote-form { order: 1; width: 100%; }
+}
+@media (max-width: 620px) {
+  .home > .hero { min-height: 580px; }
+  .home > .hero .hero-content { padding-top: 64px; padding-bottom: 56px; }
+  .home > .hero h1 { font-size: clamp(2.8rem, 11.7vw, 3.8rem); }
+  .home > .hero .hero-lead { font-size: 1rem; line-height: 1.6; }
+  .service-shortcuts a { flex: 1 1 calc(50% - 10px); justify-content: center; }
+  .contact-heading { padding-top: 42px; padding-bottom: 24px; }
+  .contact-page #quote { padding-block: 28px; }
+  .mobile-actions { grid-template-columns: 0.7fr 0.7fr 1.6fr; }
+  .mobile-actions a { font-size: 0.84rem; }
+}

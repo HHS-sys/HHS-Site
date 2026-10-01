@@ -15,10 +15,10 @@ document.documentElement.classList.add("js");
     .trim();
 
   if (!coreStylesLoaded) {
-    addStylesheet("/styles.css?v=20260818-5", "core-style-fallback");
+    addStylesheet("/styles.css?v=20261001-1", "core-style-fallback");
   }
 
-  addStylesheet("/mobile-fixes.css?v=20260818-5", "mobile-layout-fixes");
+  addStylesheet("/mobile-fixes.css?v=20261001-1", "mobile-layout-fixes");
 })();
 
 document.querySelectorAll("[data-year]").forEach((element) => {
@@ -53,7 +53,10 @@ primaryNav?.querySelectorAll("a").forEach((link) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setNavigation(false);
+  if (event.key === "Escape" && navToggle?.getAttribute("aria-expanded") === "true") {
+    setNavigation(false);
+    navToggle.focus();
+  }
 });
 
 document.addEventListener("click", (event) => {
@@ -98,6 +101,17 @@ const mobileActions = document.querySelector(".mobile-actions");
 const siteFooter = document.querySelector(".site-footer");
 const quoteForm = document.querySelector("#quote-form");
 const workVideos = document.querySelectorAll(".work-video");
+
+// Service links carry only a public service slug, never personal form details.
+if (quoteForm) {
+  const requestedService = new URLSearchParams(window.location.search).get("service");
+  const serviceSelect = quoteForm.querySelector('select[name="service"]');
+  const match = Array.from(serviceSelect?.options || []).find(
+    option => option.dataset.serviceSlug === requestedService
+  );
+  if (match) serviceSelect.value = match.value;
+}
+
 
 if (mobileActions && "IntersectionObserver" in window) {
   const mobileActionsMedia = window.matchMedia("(max-width: 620px)");
