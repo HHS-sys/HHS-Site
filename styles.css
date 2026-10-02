@@ -1025,3 +1025,16 @@ button.button { cursor: pointer; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .reveal, .reveal-ready .reveal { opacity: 1; transform: none; }
 }
+
+/* Keep mobile pages easy to scan without making every section feel like a screen of its own. */
+@media (max-width: 620px) {
+  .home > .hero { min-height: 520px; }
+  .section { padding-block: 44px; }
+  .project-story-page .section { padding-block: 40px; }
+  .service-card, .service-card.compact { min-height: 250px; }
+  .editorial-grid, .area-layout, .contact-layout, .service-intro, .faq-layout { gap: 32px; }
+  .photo-stack { padding: 0 0 16px 14px; }
+  .photo-stack img { aspect-ratio: auto; object-fit: cover; }
+  .mobile-actions { gap: 5px; padding: 4px; }
+  .mobile-actions a { min-height: 44px; }
+}
